@@ -180,5 +180,5 @@ class SkillsGenerator:
         else:
             lines.append("_Graph has no distinct central hubs._\n")
 
-        lines.append("---\n*Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [GitHub](https://github.com/arastuthakur) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*")
+        lines.append("---\n*Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [PyPI](https://pypi.org/project/skilly-ai/) • [GitHub](https://github.com/arastuthakur/skilly) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*")
         return "\n".join(lines)

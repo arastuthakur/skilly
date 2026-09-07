@@ -454,7 +454,9 @@ class HTMLVisualizer:
       <div class="hud-author-badge">
         <span>By <a href="https://arastuthakur.com.np/" target="_blank">Arastu Thakur</a></span>
         <span>•</span>
-        <a href="https://github.com/arastuthakur" target="_blank">GitHub</a>
+        <a href="https://pypi.org/project/skilly-ai/" target="_blank">PyPI</a>
+        <span>•</span>
+        <a href="https://github.com/arastuthakur/skilly" target="_blank">GitHub</a>
         <span>•</span>
         <a href="https://www.linkedin.com/in/arastuthakur/" target="_blank">LinkedIn</a>
       </div>
@@ -505,7 +507,8 @@ class HTMLVisualizer:
       <div>Engineered by <strong>Arastu Thakur</strong></div>
       <div class="dev-links">
         <a class="dev-link" href="https://arastuthakur.com.np/" target="_blank">Website</a>
-        <a class="dev-link" href="https://github.com/arastuthakur" target="_blank">GitHub</a>
+        <a class="dev-link" href="https://pypi.org/project/skilly-ai/" target="_blank">PyPI</a>
+        <a class="dev-link" href="https://github.com/arastuthakur/skilly" target="_blank">GitHub</a>
         <a class="dev-link" href="https://www.linkedin.com/in/arastuthakur/" target="_blank">LinkedIn</a>
       </div>
     </div>

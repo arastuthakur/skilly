@@ -20,7 +20,9 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://arastuthakur.com.np/"
-GitHub = "https://github.com/arastuthakur"
+PyPI = "https://pypi.org/project/skilly-ai/"
+Repository = "https://github.com/arastuthakur/skilly"
+Documentation = "https://github.com/arastuthakur/skilly#readme"
 LinkedIn = "https://www.linkedin.com/in/arastuthakur/"
 
 [project.optional-dependencies]

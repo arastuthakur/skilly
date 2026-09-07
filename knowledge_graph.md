@@ -11,20 +11,20 @@
 ### ⚠️ Circular Dependencies Detected
 The following circular reference cycles were identified in the codebase:
 
-- `file:tests/fixtures/sample_circular_app/a.py` ➔ `file:tests/fixtures/sample_circular_app/b.py` ➔ `file:tests/fixtures/sample_circular_app/a.py`
+- `file:tests/fixtures/sample_circular_app/b.py` ➔ `file:tests/fixtures/sample_circular_app/a.py` ➔ `file:tests/fixtures/sample_circular_app/b.py`
 
 ## Architectural Clusters & Subdomains
 
 ### Skilly_core Domain (`351` components)
-- **Key Components**: `compile`, `_detect_route_in_surroundings`, `range`, `test_graph_engine_metrics_and_clusters`, `ManifestExtractor._parse_cargo_toml`, `ManifestExtractor._parse_docker`, `ManifestExtractor._parse_build_gradle`, `ManifestExtractor._parse_package_swift`, `skilly_core/extractors/javascript_extractor.py`, `test_graph_engine_cycle_detection`
+- **Key Components**: `ManifestExtractor._parse_pubspec`, `ManifestExtractor._parse_cargo_toml`, `count`, `visit`, `ProjectAnalysisResult`, `JavaScriptExtractor._extract_imports`, `strip`, `_analyze_file_ast`, `GraphEdge`, `_extract_calls`
 - _...and 341 more components_
 
 ### Tests Domain (`138` components)
-- **Key Components**: `is_file`, `json`, `tests/test_universal_engine.py`, `tests/test_python_extractor.py`, `tests/test_production.py`, `analyze`, `skilly_core/cli.py`, `skilly_core/injectors/__init__.py`, `test_json_summary_flag`, `load`
+- **Key Components**: `test_end_to_end_analysis`, `test_manifest_extractor_package_json`, `write_artifacts`, `tempfile`, `analyze_project`, `test_ai_injector_idempotency`, `skilly_core`, `test_ai_injector_selective_targets`, `test_analysis_cache`, `sys`
 - _...and 128 more components_
 
 ### Root Domain (`6` components)
-- **Key Components**: `setuptools`, `setup.py`, `start`, `test`, `skilly`, `install.sh`
+- **Key Components**: `setup.py`, `setuptools`, `start`, `test`, `skilly`, `install.sh`
 
 ## High-Level Module Architecture Diagram
 

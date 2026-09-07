@@ -811,4 +811,4 @@ The following components exhibit the highest architectural centrality (PageRank 
 | #15 | **`resolve`** | `module` | `0.004405785587040516` | `7` | `0` | Core system component |
 
 ---
-*Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [GitHub](https://github.com/arastuthakur) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*
+*Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [PyPI](https://pypi.org/project/skilly-ai/) • [GitHub](https://github.com/arastuthakur/skilly) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*

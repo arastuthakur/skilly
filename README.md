@@ -283,6 +283,7 @@ python -m pytest tests/ -v
       <strong>Website</strong>: <a href="https://arastuthakur.com.np/">arastuthakur.com.np</a><br/>
       <strong>GitHub</strong>: <a href="https://github.com/arastuthakur">@arastuthakur</a><br/>
       <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/arastuthakur/">in/arastuthakur</a><br/>
+      <strong>PyPI Package</strong>: <a href="https://pypi.org/project/skilly-ai/">skilly-ai</a><br/>
       <strong>Email</strong>: <a href="mailto:arustuthakur@gmail.com">arustuthakur@gmail.com</a>
     </td>
   </tr>

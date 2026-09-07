@@ -34,10 +34,10 @@ class GraphMarkdownGenerator:
                 lines.append(f"- {cycle_str}")
             lines.append("")
         else:
-            lines.append("✅ **No circular dependency cycles detected.** Codebase dependency graph is acyclic.\n")
+            lines.append("**No circular dependency cycles detected.** Codebase dependency graph is acyclic.\n")
 
         # Architectural Clusters / Subdomains
-        lines.append("## 🏛️ Architectural Clusters & Subdomains\n")
+        lines.append("## Architectural Clusters & Subdomains\n")
         for cluster_name, member_ids in result.clusters.items():
             lines.append(f"### {cluster_name} (`{len(member_ids)}` components)")
             # Sample up to 10 nodes
@@ -48,7 +48,7 @@ class GraphMarkdownGenerator:
             lines.append("")
 
         # Mermaid High-Level Architecture Diagram
-        lines.append("## 🗺️ High-Level Module Architecture Diagram\n")
+        lines.append("## High-Level Module Architecture Diagram\n")
         lines.append("```mermaid")
         lines.append("graph TD")
         # Build mermaid nodes for top hubs and file/module nodes
@@ -75,7 +75,7 @@ class GraphMarkdownGenerator:
         lines.append("```\n")
 
         # Top Central Architectural Hubs
-        lines.append("## 🌟 Central Architectural Hubs (PageRank)\n")
+        lines.append("## Central Architectural Hubs (PageRank)\n")
         lines.append("| Rank | Symbol / Module | Type | PageRank | In-Degree | Out-Degree | Impact / Blast Radius |")
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for idx, hub in enumerate(result.hubs, 1):
@@ -85,7 +85,7 @@ class GraphMarkdownGenerator:
         lines.append("")
 
         # Detailed Relationships Breakdown
-        lines.append("## 🔗 Relationship Types Distribution\n")
+        lines.append("## Relationship Types Distribution\n")
         edge_types_count = {}
         for e in result.edges:
             t = e.type.value if hasattr(e.type, "value") else str(e.type)

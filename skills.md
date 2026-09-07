@@ -794,8 +794,8 @@ The following components exhibit the highest architectural centrality (PageRank 
 
 | Rank | Component / Symbol | Type | Centrality Score | Inbound Deps | Outbound Calls | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | **`append`** | `module` | `0.009902734742027939` | `42` | `0` | Core system component |
-| #2 | **`str`** | `module` | `0.008000265047100977` | `18` | `0` | Core system component |
+| #1 | **`append`** | `module` | `0.009902734742027937` | `42` | `0` | Core system component |
+| #2 | **`str`** | `module` | `0.008000265047100979` | `18` | `0` | Core system component |
 | #3 | **`GraphNode`** | `module` | `0.007696338621061196` | `34` | `0` | Core system component |
 | #4 | **`isinstance`** | `module` | `0.007003489291072726` | `13` | `0` | Core system component |
 | #5 | **`Skill`** | `module` | `0.006787725264070577` | `28` | `0` | Core system component |
@@ -803,7 +803,7 @@ The following components exhibit the highest architectural centrality (PageRank 
 | #7 | **`len`** | `module` | `0.006379109693073134` | `22` | `0` | Core system component |
 | #8 | **`_rel`** | `module` | `0.006115901075974002` | `22` | `0` | Core system component |
 | #9 | **`replace`** | `module` | `0.0055442048362015885` | `11` | `0` | Core system component |
-| #10 | **`lower`** | `module` | `0.0053942997527417335` | `22` | `0` | Core system component |
+| #10 | **`lower`** | `module` | `0.005394299752741733` | `22` | `0` | Core system component |
 | #11 | **`read_text`** | `module` | `0.005012021126085019` | `20` | `0` | Core system component |
 | #12 | **`GraphEdge`** | `module` | `0.004904483327230995` | `23` | `0` | Core system component |
 | #13 | **`round`** | `module` | `0.0047508024362884595` | `2` | `0` | Core system component |

@@ -264,7 +264,7 @@ def main(args: Optional[list] = None):
                 for tool_name, path in ai_artifacts.items():
                     console.print(f"  * [bold white]{tool_name}[/bold white] -> [dim]{path}[/dim]")
 
-            console.print("\n[dim]Synthesized by Skilly • Architected by [bold white]Arastu Thakur[/bold white] (https://arastuthakur.com.np/)[/dim]")
+            console.print("\n[dim]Synthesized by Skilly • [bold white]Arastu Thakur[/bold white] (https://arastuthakur.com.np/)[/dim]")
         else:
             print("\nAnalysis Summary:")
             print(f"- Files Scanned: {summary.total_files}")
@@ -277,7 +277,7 @@ def main(args: Optional[list] = None):
                 print("\nInjected AI Assistant Instructions:")
                 for tool_name, path in ai_artifacts.items():
                     print(f"  * {tool_name} -> {path}")
-            print("\nSynthesized by Skilly • Architected by Arastu Thakur (https://arastuthakur.com.np/)")
+            print("\nSynthesized by Skilly • Arastu Thakur (https://arastuthakur.com.np/)")
 
     # Output JSON summary if requested (e.g. for CI pipelines or scripts)
     if parsed_args.json_summary:

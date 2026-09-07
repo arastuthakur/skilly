@@ -41,7 +41,6 @@ def test_ai_injector_fresh_files(tmp_path: Path):
         assert END_MARKER in content
         assert "skills.md" in content
         assert "knowledge_graph.md" in content
-        assert "Arastu Thakur" in content
 
 
 def test_ai_injector_preserves_existing_user_content(tmp_path: Path):

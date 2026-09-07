@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://arastuthakur.com.np/"><img src="https://img.shields.io/badge/Architect-Arastu%20Thakur-38bdf8?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Architect Arastu Thakur"/></a>
+  <a href="https://arastuthakur.com.np/"><img src="https://img.shields.io/badge/Author-Arastu%20Thakur-38bdf8?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Author Arastu Thakur"/></a>
   <a href="https://github.com/arastuthakur"><img src="https://img.shields.io/badge/GitHub-arastuthakur-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub arastuthakur"/></a>
   <a href="https://www.linkedin.com/in/arastuthakur/"><img src="https://img.shields.io/badge/LinkedIn-Arastu%20Thakur-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn arastuthakur"/></a>
 </p>
@@ -264,7 +264,7 @@ python -m pytest tests/ -v
 
 ---
 
-## Author & Lead Architect
+## Author
 
 **Skilly** was conceptualized, designed, and engineered from the ground up by **Arastu Thakur**.
 

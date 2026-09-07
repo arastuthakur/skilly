@@ -11,22 +11,22 @@
 ### ⚠️ Circular Dependencies Detected
 The following circular reference cycles were identified in the codebase:
 
-- `file:tests/fixtures/sample_circular_app/b.py` ➔ `file:tests/fixtures/sample_circular_app/a.py` ➔ `file:tests/fixtures/sample_circular_app/b.py`
+- `file:tests/fixtures/sample_circular_app/a.py` ➔ `file:tests/fixtures/sample_circular_app/b.py` ➔ `file:tests/fixtures/sample_circular_app/a.py`
 
-## 🏛️ Architectural Clusters & Subdomains
+## Architectural Clusters & Subdomains
 
 ### Skilly_core Domain (`351` components)
-- **Key Components**: `ManifestExtractor._parse_cargo_toml`, `Skill`, `ManifestExtractor._simple_toml_parse`, `ManifestExtractor._parse_mix_exs`, `_analyze_file_ast`, `_detect_cli_command`, `ManifestExtractor._parse_package_swift`, `_rel`, `read_text`, `PolyglotExtractor`
+- **Key Components**: `compile`, `_detect_route_in_surroundings`, `range`, `test_graph_engine_metrics_and_clusters`, `ManifestExtractor._parse_cargo_toml`, `ManifestExtractor._parse_docker`, `ManifestExtractor._parse_build_gradle`, `ManifestExtractor._parse_package_swift`, `skilly_core/extractors/javascript_extractor.py`, `test_graph_engine_cycle_detection`
 - _...and 341 more components_
 
 ### Tests Domain (`138` components)
-- **Key Components**: `ProjectAnalyzer`, `main`, `skilly_core/injectors/__init__.py`, `test_end_to_end_analysis`, `sys`, `skilly_core`, `scan_files`, `test_javascript_extractor`, `test_skilly_config_defaults_and_overrides`, `skilly_core/extractors/__init__.py`
+- **Key Components**: `is_file`, `json`, `tests/test_universal_engine.py`, `tests/test_python_extractor.py`, `tests/test_production.py`, `analyze`, `skilly_core/cli.py`, `skilly_core/injectors/__init__.py`, `test_json_summary_flag`, `load`
 - _...and 128 more components_
 
 ### Root Domain (`6` components)
 - **Key Components**: `setuptools`, `setup.py`, `start`, `test`, `skilly`, `install.sh`
 
-## 🗺️ High-Level Module Architecture Diagram
+## High-Level Module Architecture Diagram
 
 ```mermaid
 graph TD
@@ -57,7 +57,7 @@ graph TD
     _rel["_rel (module)"]
 ```
 
-## 🌟 Central Architectural Hubs (PageRank)
+## Central Architectural Hubs (PageRank)
 
 | Rank | Symbol / Module | Type | PageRank | In-Degree | Out-Degree | Impact / Blast Radius |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -77,7 +77,7 @@ graph TD
 | #14 | `BaseModel` | `module` | `0.0047` | `2` | `0` | High Importance |
 | #15 | `resolve` | `module` | `0.0044` | `7` | `0` | Critical Choke Point |
 
-## 🔗 Relationship Types Distribution
+## Relationship Types Distribution
 
 | Relationship Type | Count | Description |
 | :--- | :--- | :--- |

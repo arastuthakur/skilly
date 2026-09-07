@@ -1,0 +1,8 @@
+- id: skilly
+  name: skilly
+  description: Generate skills.md and knowledge graph for repository
+  entry: skilly
+  language: python
+  types: [text]
+  pass_filenames: false
+  always_run: true

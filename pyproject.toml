@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skilly"
+version = "1.0.0"
+description = "Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Arastu Thakur", email = "arustuthakur@gmail.com" }]
+maintainers = [{ name = "Arastu Thakur", email = "arustuthakur@gmail.com" }]
+keywords = ["ast", "knowledge-graph", "static-analysis", "skills", "capabilities", "documentation", "cli"]
+
+dependencies = [
+    "networkx>=2.8",
+    "rich>=12.0.0",
+]
+
+[project.urls]
+Homepage = "https://arastuthakur.com.np/"
+GitHub = "https://github.com/arastuthakur"
+LinkedIn = "https://www.linkedin.com/in/arastuthakur/"
+
+[project.optional-dependencies]
+treesitter = [
+    "tree-sitter>=0.20.0",
+    "tree-sitter-languages",
+]
+test = [
+    "pytest>=7.0.0",
+]
+
+[project.scripts]
+skilly = "skilly_core.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["skilly_core*"]

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Skilly: Autonomous Codebase to skills.md & Knowledge Graph Synthesizer
+# Usage: skilly [projectname_or_path] [options]
+
+set -e
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+if [ -d "$SCRIPT_DIR/skilly_core" ]; then
+  PKG_ROOT="$SCRIPT_DIR"
+elif [ -d "$SCRIPT_DIR/../skilly_core" ]; then
+  PKG_ROOT="$SCRIPT_DIR/.."
+else
+  PKG_ROOT="$SCRIPT_DIR"
+fi
+
+if command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+  PYTHON_BIN="python"
+else
+  echo "Error: Python 3 was not found in your PATH." >&2
+  exit 1
+fi
+
+PYTHONPATH="$PKG_ROOT:$PYTHONPATH" exec "$PYTHON_BIN" -m skilly_core.cli "$@"

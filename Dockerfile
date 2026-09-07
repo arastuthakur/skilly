@@ -1,10 +1,10 @@
 # Skilly Universal Docker Container
 # Run anywhere with zero dependencies:
-#   docker run --rm -v $(pwd):/project ghcr.io/skilly/skilly /project
+#   docker run --rm -v $(pwd):/project ghcr.io/arastuthakur/skilly /project
 
 FROM python:3.11-slim
 
-LABEL maintainer="Skilly Team"
+LABEL maintainer="Arastu Thakur <arustuthakur@gmail.com>"
 LABEL description="Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer."
 
 WORKDIR /app

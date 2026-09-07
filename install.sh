@@ -23,7 +23,7 @@ fi
 ln -sf "$SKILLY_BIN" "$TARGET_DIR/skilly"
 
 echo "============================================="
-echo "  ⚡ Skilly installed successfully!"
+echo "  Skilly installed successfully."
 echo "  Linked: $TARGET_DIR/skilly -> $SKILLY_BIN"
 echo "============================================="
 echo ""

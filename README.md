@@ -178,6 +178,9 @@ Skilly is engineered to run seamlessly across development environments:
 # Install from source:
 pip install -e .
 
+# Or install directly via Git:
+pip install git+https://github.com/arastuthakur/skilly.git
+
 # Or install pre-built wheel:
 pip install dist/skilly-1.0.0-py3-none-any.whl
 ```
@@ -199,7 +202,7 @@ skilly .
 
 ### 4. Docker Container (Zero-Install)
 ```bash
-docker run --rm -v $(pwd):/project skilly .
+docker run --rm -v $(pwd):/project ghcr.io/arastuthakur/skilly /project
 ```
 
 ### 5. GitHub Actions CI/CD Workflow

@@ -5,7 +5,7 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $BinDir = "$ScriptDir\bin"
 
 Write-Host "=============================================" -ForegroundColor Cyan
-Write-Host "  ⚡ Installing Skilly for Windows PowerShell..." -ForegroundColor Green
+Write-Host "  Installing Skilly for Windows PowerShell..." -ForegroundColor Green
 Write-Host "=============================================" -ForegroundColor Cyan
 
 # Check if BinDir is already in User PATH

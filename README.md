@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/v/skilly-ai?style=for-the-badge&color=0284c7&label=PyPI%20skilly-ai" alt="PyPI Package"/></a>
   <a href="https://arastuthakur.com.np/"><img src="https://img.shields.io/badge/Author-Arastu%20Thakur-38bdf8?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Author Arastu Thakur"/></a>
   <a href="https://github.com/arastuthakur"><img src="https://img.shields.io/badge/GitHub-arastuthakur-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub arastuthakur"/></a>
   <a href="https://www.linkedin.com/in/arastuthakur/"><img src="https://img.shields.io/badge/LinkedIn-Arastu%20Thakur-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn arastuthakur"/></a>
@@ -173,16 +174,16 @@ skilly . --no-inject-ai
 
 Skilly is engineered to run seamlessly across development environments:
 
-### 1. Python Package / Wheel (Python 3.8 - 3.14+)
+### 1. Python Package (PyPI)
 ```bash
-# Install from source:
+# Install directly from PyPI (recommended):
+pip install skilly-ai
+
+# Or install from source:
 pip install -e .
 
 # Or install directly via Git:
 pip install git+https://github.com/arastuthakur/skilly.git
-
-# Or install pre-built wheel:
-pip install dist/skilly-1.0.0-py3-none-any.whl
 ```
 
 ### 2. Node.js / NPX Runner (JavaScript / TypeScript Environments)

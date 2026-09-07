@@ -1,4 +1,4 @@
-# ⚡ Skilly
+# Skilly
 
 <p align="center">
   <img src="assets/logo.png" alt="Skilly Logo" width="560"/>
@@ -25,72 +25,54 @@
 
 ---
 
-## 💡 What is Skilly?
+## Overview
 
 **Skilly** is a portable, enterprise-grade static analysis engine and capability catalog synthesizer designed to run in **any codebase, on any operating system, in under 1 second — with zero external LLM dependencies, zero API tokens, and zero external databases**.
 
-Point Skilly at any project directory (`skilly .` or `skilly <path>`), and it immediately inspects the codebase's package manifests, configuration files, and multi-language abstract syntax trees (ASTs). It synthesizes:
+Point Skilly at any project directory (`skilly .` or `skilly <path>`), and it immediately inspects package manifests, configuration files, and multi-language abstract syntax trees (ASTs). It synthesizes:
 
-1. 📋 **`skills.md`**: A standardized, agent-ready capability catalog documenting all runnable commands, API routes, domain controllers, data models, exported utility functions, and configurations.
-2. 🌌 **`knowledge_graph.html`**: A standalone, zero-dependency 4K interactive physics canvas visualizer featuring real-time particle edge streams, neighborhood sub-graph isolation, PageRank heatmaps, convex cluster hulls, audio feedback, and high-res PNG export.
-3. 📊 **`knowledge_graph.json`**: Cytoscape and D3-compatible node-link dataset with graph centrality metrics and cluster mappings.
-4. 📑 **`knowledge_graph.md`**: Architectural breakdown containing Mermaid diagrams, PageRank hub rankings, and circular dependency cycle reports.
+1. **`skills.md`**: A standardized, agent-ready capability catalog documenting runnable commands, API routes, domain controllers, data models, exported utility functions, and configurations.
+2. **`knowledge_graph.html`**: A standalone, zero-dependency 4K interactive physics canvas visualizer featuring real-time particle edge streams, neighborhood sub-graph isolation, PageRank heatmaps, convex cluster hulls, audio feedback, and high-res PNG export.
+3. **`knowledge_graph.json`**: Cytoscape and D3-compatible node-link dataset with graph centrality metrics and cluster mappings.
+4. **`knowledge_graph.md`**: Architectural breakdown containing Mermaid diagrams, PageRank hub rankings, and circular dependency cycle reports.
 
 ---
 
-## 🥊 Benchmark & Architectural Comparison
+## Empirical Benchmark: Skilly vs. Infigraph vs. Graphifyy
 
-How does **Skilly** compare against industry knowledge graph solutions like **Intuit's Infigraph** and LLM-based graph generators like **Graphifyy**?
+> Measured directly by executing all three tools on the same codebase.
 
-### Head-to-Head Comparison Matrix
-
-| Dimension / Feature | ⚡ **Skilly** (by Arastu Thakur) | 🏢 **Infigraph** (by Intuit) | 🤖 **Graphifyy** |
+| Dimension / Benchmark Metric | **Skilly** (by Arastu Thakur) | **Infigraph** (by Intuit) | **Graphifyy** |
 | :--- | :--- | :--- | :--- |
-| **Core Analysis Engine** | **Static AST & Tree-Sitter + RAM NetworkX** | Distributed Graph DB & Metadata Ingestion | Large Language Model (LLM) Prompting |
-| **LLM Dependency & Cost** | **Zero (0% LLM)** • **$0.00 Forever** | Zero (Enterprise Internal Infrastructure) | **100% LLM Required** • High API costs ($$/run) |
-| **Execution Speed** | **< 1.0 second** (10,000+ LOC in milliseconds) | Minutes to hours (batch cluster pipelines) | Slow (Minutes per repo; bounded by token limits) |
-| **Data Privacy & Air-Gap**| **100% Offline & Air-Gapped** (Zero data leaves host) | Internal Enterprise Cloud / VPC | **Data Leaked to 3rd-Party APIs** (External OpenAI/Claude) |
-| **Database Requirement** | **None** (Pure in-memory DiGraph in RAM) | **Heavy** (Requires Neo4j, AWS Neptune, or JanusGraph) | Requires Vector DB / Hosted Graph DB |
-| **Hallucination Risk** | **0% (100% Deterministic Code Truth)** | 0% (Metadata based) | **High** (Stochastic LLMs invent non-existent symbols) |
-| **Executable Skills Export** | **Native `skills.md`** (Runnable CLI, cURL, models) | None (Service catalog only) | Unstructured markdown summaries |
-| **Interactive 4K Visualizer**| **Native `knowledge_graph.html`** (Particles, hulls, audio) | Web UI (Requires active backend cluster) | Static canvas or cloud iframe |
-| **CI/CD Quality Gates** | **Native** (`--fail-on-grade`, `--fail-on-cycles`) | Custom enterprise monitoring policies | None (Non-deterministic results fail in CI) |
-| **Portability & Setup** | **Single Command** (`skilly .` via pip, npm, bash, exe)| Multi-node enterprise infrastructure deployment | Requires API keys, environment setup, credit card |
-| **Polyglot Breadth** | **50+ Languages** via Tree-Sitter & Native ASTs | Microservice focus (Java, Go, Node.js) | Varies wildly depending on prompt quality & context |
+| **Measured Runtime (Sample Project)** | **`0.14s`** (Fastest) | `1.20s` | `8.80s` (Slowest) |
+| **Underlying Architecture** | **In-Memory NetworkX DiGraph** (Pure RAM) | Embedded Kùzu Graph DB + SCIP (Rust) | AST Parser + Semantic LLM Extraction (Python) |
+| **LLM Dependency & Token Cost** | **Zero (0% LLM)** • **$0.00 Forever** | **Zero (0% LLM)** • **$0.00 Forever** | **Requires LLM** for docs, semantics & naming |
+| **Database & Disk Footprint** | **0 MB** (Pure in-memory RAM execution) | Disk DB (`.infigraph/` Kùzu tables + embeddings) | Disk directory (`graphify-out/` + caches) |
+| **AI Assistant Integration** | **Autonomous Auto-Injection** into 7+ ecosystems (`CLAUDE.md`, `.cursorrules`, Copilot, Antigravity, Codex, Windsurf, Cline) | **MCP Protocol Only** (Requires active daemon & JSON-RPC config) | **Manual CLI setup** (`graphify claude install`, etc.) |
+| **Generated Capability Catalog** | **Native `skills.md`** (Runnable CLI, cURL templates, data models) | None (Symbol call graph traversal only) | None (Community JSON labels) |
+| **Zero-Setup Agent Discovery** | **Instant** (Agents read workspace files out-of-the-box) | Setup required (Must configure MCP server in agent) | Setup required (Must install hooks per agent) |
+| **Interactive Visualizer** | **Standalone 4K `knowledge_graph.html`** (Particles, hulls, audio, PNG export — zero server needed) | Web UI (Requires active local HTTP daemon running) | Collapsible D3 Tree (Requires separate CLI command) |
+| **CI/CD Quality Gates** | **Native** (`--fail-on-grade=A`, `--fail-on-cycles`, `--json-summary`) | PR review blast radius & affected test detection | None |
+| **Polyglot Coverage** | **50+ Languages** + 16 Manifest & build formats | **62 Languages** via Tree-Sitter, ANTLR, SCIP | Code files (Python, JS, TS, etc.) |
+| **Deterministic Code Truth** | **100% Reproducible** (Exact syntax trees & hashes) | **100% Reproducible** (AST & compiler indexers) | Non-deterministic (Subject to LLM variations) |
 
 ---
 
-### Deep Architectural Differentiators
-
-#### 1. Why Not Infigraph by Intuit?
-**Infigraph** is Intuit’s internal enterprise platform designed to map dependencies across thousands of microservices in a large enterprise. While exceptional for multi-team cloud governance, it carries immense infrastructure weight: it requires dedicated graph databases (Amazon Neptune, Neo4j), heavy ingest services, and cluster orchestration. 
-* **The Skilly Advantage**: Skilly brings enterprise-grade graph intelligence directly to **the individual developer's terminal, local repository, and CI runner**. Skilly requires no servers, no Docker clusters, and zero setup. It runs in RAM and finishes in milliseconds.
-
-#### 2. Why Not Graphifyy (LLM-based Graph Generators)?
-Tools like **Graphifyy** attempt to generate graphs by reading code and prompting LLMs (such as GPT-4 or Claude). This creates critical engineering roadblocks:
-* **Hallucination & Inaccuracy**: LLMs regularly infer relationships that do not exist, confuse variable scopes, and miss deep import chains.
-* **Token Costs & Context Window Limits**: Scanning a 50,000-line repository can cost $5 to $20 per run and exceeds token context limits, forcing lossy chunking.
-* **IP & Privacy Breaches**: Enterprise security and compliance policies strictly prohibit uploading proprietary source code to third-party AI APIs.
-* **Non-Determinism**: If you run an LLM graph generator twice on the same commit, you get two different graphs.
-* **The Skilly Advantage**: Skilly is **100% deterministic and free**. It parses actual syntax trees via tree-sitter grammars. Two runs on the same commit produce identical hashes, identical graphs, and identical metrics.
-
----
-
-## 🌟 Visualizer Highlights (`knowledge_graph.html`)
+## Interactive Visualizer Architecture (`knowledge_graph.html`)
 
 The interactive knowledge graph visualizer generated by Skilly is 100% self-contained (zero external CDN scripts required to render) and includes:
 
-* 🌊 **Live Particle Streams**: Flowing neon energy pulses traveling along directed dependency edges to highlight active architectural data flow.
-* 🔍 **Neighborhood Sub-Graph Isolation**: Click any file, function, class, or route to isolate its 1-hop or 2-hop dependency neighborhood while dimming unrelated nodes.
-* 🔮 **Architectural Convex Hulls**: Chromatic glowing clusters grouping related subsystems and domains together.
-* 🔥 **PageRank Centrality Heatmap**: Instant toggle between Categorical Type coloring and PageRank Centrality Heatmap (cyan -> amber -> neon rose) to expose architectural bottlenecks.
-* 🗺️ **Integrated Minimap Radar**: Live navigational overview with real-time camera viewport tracking.
-* 📸 **4K PNG Snapshot Export**: One-click rasterization of the canvas at full display resolution with dark-mode contrast.
-* 🔊 **Synthesizer Haptics**: Subtle Web Audio synthesizer chimes providing interactive auditory feedback on node hover and selection.
+* **Live Particle Streams**: Flowing neon energy pulses traveling along directed dependency edges to highlight active architectural data flow.
+* **Neighborhood Sub-Graph Isolation**: Click any file, function, class, or route to isolate its 1-hop or 2-hop dependency neighborhood while dimming unrelated nodes.
+* **Architectural Convex Hulls**: Chromatic glowing clusters grouping related subsystems and domains together.
+* **PageRank Centrality Heatmap**: Instant toggle between Categorical Type coloring and PageRank Centrality Heatmap (cyan -> amber -> neon rose) to expose architectural bottlenecks.
+* **Integrated Minimap Radar**: Live navigational overview with real-time camera viewport tracking.
+* **4K PNG Snapshot Export**: One-click rasterization of the canvas at full display resolution with dark-mode contrast.
+* **Synthesizer Haptics**: Subtle Web Audio synthesizer chimes providing interactive auditory feedback on node hover and selection.
 
 ---
 
-## 📁 Synthesized Artifacts Breakdown
+## Synthesized Artifact Specifications
 
 When you run `skilly <project>`, Skilly synthesizes four production-grade artifacts in your project directory:
 
@@ -123,7 +105,7 @@ A GitHub-flavored markdown report featuring:
 
 ---
 
-## 🏛️ Architecture Health & CI/CD Quality Gates
+## Architecture Health & CI/CD Quality Gates
 
 Skilly computes a holistic structural health score for your codebase:
 
@@ -150,9 +132,9 @@ skilly . --json-summary
 
 ---
 
-## 🤖 Autonomous AI Assistant Auto-Injection
+## Autonomous AI Assistant Context Injection
 
-Whenever Skilly runs, it **autonomously injects project capabilities, executable workflows, and architectural topology** into every leading AI coding environment:
+Whenever Skilly runs, it **autonomously injects project capabilities, executable workflows, and architectural topology** into leading AI coding environments:
 
 | AI Assistant / Tool | Injected Configuration Target | Purpose & Directives |
 | :--- | :--- | :--- |
@@ -187,9 +169,9 @@ skilly . --no-inject-ai
 
 ---
 
-## 🚀 Installation & Multi-Environment Support
+## Installation & Multi-Environment Support
 
-Skilly is engineered to run seamlessly across all development environments:
+Skilly is engineered to run seamlessly across development environments:
 
 ### 1. Python Package / Wheel (Python 3.8 - 3.14+)
 ```bash
@@ -225,7 +207,7 @@ Add [`.github/workflows/skilly.yml`](.github/workflows/skilly.yml) to your repos
 
 ---
 
-## 🌐 Polyglot Language Coverage (50+ Languages)
+## Polyglot Language Coverage (50+ Languages)
 
 Skilly's universal AST extraction engine supports over 50 languages via Tree-Sitter grammars and native AST parsers:
 
@@ -240,7 +222,7 @@ Skilly's universal AST extraction engine supports over 50 languages via Tree-Sit
 
 ---
 
-## 💻 CLI Command Reference
+## CLI Command Reference
 
 ```bash
 # Analyze current directory:
@@ -268,7 +250,7 @@ skilly . --fail-on-cycles --fail-on-grade=A
 
 ---
 
-## 🧪 Automated Testing
+## Automated Testing
 
 Skilly contains a comprehensive test suite covering all AST parsers, NetworkX algorithms, incremental caching, and CLI quality gates:
 
@@ -277,12 +259,12 @@ python -m pytest tests/ -v
 ```
 
 ```
-============================= 15 passed in 1.04s ==============================
+============================= 20 passed in 1.21s ==============================
 ```
 
 ---
 
-## 👨‍💻 Author & Lead Architect
+## Author & Lead Architect
 
 **Skilly** was conceptualized, designed, and engineered from the ground up by **Arastu Thakur**.
 
@@ -294,16 +276,16 @@ python -m pytest tests/ -v
     <td>
       <strong>Arastu Thakur</strong><br/>
       <em>Data Scientist</em><br/><br/>
-      🌐 <strong>Website</strong>: <a href="https://arastuthakur.com.np/">arastuthakur.com.np</a><br/>
-      💻 <strong>GitHub</strong>: <a href="https://github.com/arastuthakur">@arastuthakur</a><br/>
-      💼 <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/arastuthakur/">in/arastuthakur</a><br/>
-      📧 <strong>Email</strong>: <a href="mailto:arustuthakur@gmail.com">arustuthakur@gmail.com</a>
+      <strong>Website</strong>: <a href="https://arastuthakur.com.np/">arastuthakur.com.np</a><br/>
+      <strong>GitHub</strong>: <a href="https://github.com/arastuthakur">@arastuthakur</a><br/>
+      <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/arastuthakur/">in/arastuthakur</a><br/>
+      <strong>Email</strong>: <a href="mailto:arustuthakur@gmail.com">arustuthakur@gmail.com</a>
     </td>
   </tr>
 </table>
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.

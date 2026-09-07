@@ -37,7 +37,7 @@ class SkillsGenerator:
         health = getattr(result, "health", None)
         grade_badge = f"`{health.grade}` ({health.score}/100 - {health.summary_text})" if health else "`A`"
 
-        lines.append("## 📊 Repository Capabilities Overview\n")
+        lines.append("## Repository Capabilities Overview\n")
         lines.append("| Metric | Count / Detail |")
         lines.append("| :--- | :--- |")
         lines.append(f"| **Architecture Health Grade** | {grade_badge} |")
@@ -51,7 +51,7 @@ class SkillsGenerator:
         lines.append("")
 
         # Table of Contents
-        lines.append("## 📑 Table of Contents")
+        lines.append("## Table of Contents")
         lines.append("- [1. Runnable Commands & CLI Workflows](#1-runnable-commands--cli-workflows)")
         lines.append("- [2. API Endpoints & Routes](#2-api-endpoints--routes)")
         lines.append("- [3. Domain Services & Key Controllers](#3-domain-services--key-controllers)")

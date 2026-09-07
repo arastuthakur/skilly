@@ -10,12 +10,12 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 
 > Auto-generated capability catalog extracted via static AST and manifest context.
 
-## 📊 Repository Capabilities Overview
+## Repository Capabilities Overview
 
 | Metric | Count / Detail |
 | :--- | :--- |
 | **Architecture Health Grade** | `B` (85/100 - Grade B (85/100): 1 circular dependency cycles detected.) |
-| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (3 files), Python (35 files), JavaScript (1 files), Ruby (1 files), Java (1 files), C (1 files), Solidity (1 files) |
+| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (1 files), Python (35 files), JavaScript (1 files), Ruby (1 files), Java (1 files), C (1 files), Solidity (1 files) |
 | **Frameworks / Tooling** | Click CLI, Docker, Express.js, FastAPI, Jest, Make, Pydantic, Spring Boot |
 | **Total Skills Cataloged** | `148` |
 | **Knowledge Graph Entities** | `495 nodes, 1215 edges` |
@@ -23,7 +23,7 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | **API Endpoints** | `6` |
 | **Domain Services & Models** | `77` |
 
-## 📑 Table of Contents
+## Table of Contents
 - [1. Runnable Commands & CLI Workflows](#1-runnable-commands--cli-workflows)
 - [2. API Endpoints & Routes](#2-api-endpoints--routes)
 - [3. Domain Services & Key Controllers](#3-domain-services--key-controllers)

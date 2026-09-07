@@ -16,15 +16,15 @@ The following circular reference cycles were identified in the codebase:
 ## 🏛️ Architectural Clusters & Subdomains
 
 ### Skilly_core Domain (`351` components)
-- **Key Components**: `count`, `JavaScriptExtractor._detect_nextjs_routes`, `_extract_return_annotation`, `ManifestExtractor._parse_gemfile`, `_detect_api_route`, `extract`, `get_text`, `JavaScriptExtractor._detect_express_routes`, `upper`, `_extract_calls`
+- **Key Components**: `ManifestExtractor._parse_cargo_toml`, `Skill`, `ManifestExtractor._simple_toml_parse`, `ManifestExtractor._parse_mix_exs`, `_analyze_file_ast`, `_detect_cli_command`, `ManifestExtractor._parse_package_swift`, `_rel`, `read_text`, `PolyglotExtractor`
 - _...and 341 more components_
 
 ### Tests Domain (`138` components)
-- **Key Components**: `scan_files`, `analyze_project`, `tempfile`, `webbrowser`, `test_file_size_guard`, `ProjectAnalyzer`, `keys`, `readouterr`, `AnalysisCache._load`, `skilly_core/__init__.py`
+- **Key Components**: `ProjectAnalyzer`, `main`, `skilly_core/injectors/__init__.py`, `test_end_to_end_analysis`, `sys`, `skilly_core`, `scan_files`, `test_javascript_extractor`, `test_skilly_config_defaults_and_overrides`, `skilly_core/extractors/__init__.py`
 - _...and 128 more components_
 
 ### Root Domain (`6` components)
-- **Key Components**: `setup.py`, `setuptools`, `start`, `test`, `skilly`, `install.sh`
+- **Key Components**: `setuptools`, `setup.py`, `start`, `test`, `skilly`, `install.sh`
 
 ## 🗺️ High-Level Module Architecture Diagram
 
@@ -47,12 +47,12 @@ graph TD
     file_skilly_core_extractors_universal_engine_py["universal_engine.py (file)"]
     Path["Path (module)"]
     append["append (module)"]
-    lower["lower (module)"]
-    len["len (module)"]
     str["str (module)"]
+    len["len (module)"]
+    lower["lower (module)"]
     replace["replace (module)"]
-    GraphNode["GraphNode (module)"]
     Skill["Skill (module)"]
+    GraphNode["GraphNode (module)"]
     isinstance["isinstance (module)"]
     _rel["_rel (module)"]
 ```

@@ -504,9 +504,9 @@ class HTMLVisualizer:
     <div class="dev-signature">
       <div>Engineered by <strong>Arastu Thakur</strong></div>
       <div class="dev-links">
-        <a class="dev-link" href="https://arastuthakur.com.np/" target="_blank">🌐 Website</a>
-        <a class="dev-link" href="https://github.com/arastuthakur" target="_blank">💻 GitHub</a>
-        <a class="dev-link" href="https://www.linkedin.com/in/arastuthakur/" target="_blank">💼 LinkedIn</a>
+        <a class="dev-link" href="https://arastuthakur.com.np/" target="_blank">Website</a>
+        <a class="dev-link" href="https://github.com/arastuthakur" target="_blank">GitHub</a>
+        <a class="dev-link" href="https://www.linkedin.com/in/arastuthakur/" target="_blank">LinkedIn</a>
       </div>
     </div>
   </div>

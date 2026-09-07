@@ -129,6 +129,25 @@ def main(args: Optional[list] = None):
         help="Generate only knowledge graph artifacts",
     )
     parser.add_argument(
+        "--inject-ai",
+        dest="inject_ai",
+        action="store_true",
+        default=None,
+        help="Auto-inject Skilly context into Claude, Copilot, Cursor, Antigravity, etc. (enabled by default)",
+    )
+    parser.add_argument(
+        "--no-inject-ai",
+        dest="no_inject_ai",
+        action="store_true",
+        help="Disable auto-injection into AI assistants",
+    )
+    parser.add_argument(
+        "--ai-targets",
+        dest="ai_targets",
+        default=None,
+        help="Comma-separated list of AI assistants to target (e.g., 'claude,copilot,cursor,antigravity,codex')",
+    )
+    parser.add_argument(
         "-q",
         "--quiet",
         action="store_true",
@@ -163,6 +182,12 @@ def main(args: Optional[list] = None):
         config.fail_on_grade = parsed_args.fail_on_grade
     if parsed_args.fail_on_cycles:
         config.fail_on_cycles = True
+    if parsed_args.no_inject_ai:
+        config.inject_ai = False
+    elif parsed_args.inject_ai:
+        config.inject_ai = True
+    if parsed_args.ai_targets:
+        config.ai_targets = [t.strip() for t in parsed_args.ai_targets.split(",")]
 
     if not parsed_args.quiet and not parsed_args.json_summary:
         print_banner()
@@ -191,11 +216,10 @@ def main(args: Optional[list] = None):
 
     if parsed_args.skills_only:
         p = analyzer.write_artifacts(result, output_dir=out_dir)
-        # remove graph artifacts if requested skills-only
         for k in ["graph_html", "graph_json", "graph_md"]:
             if k in p and p[k].exists():
                 p[k].unlink()
-        written = {"skills_md": p["skills_md"]}
+        written = {k: v for k, v in p.items() if k == "skills_md" or k.startswith("ai:")}
     elif parsed_args.graph_only:
         p = analyzer.write_artifacts(result, output_dir=out_dir)
         if "skills_md" in p and p["skills_md"].exists():
@@ -203,6 +227,9 @@ def main(args: Optional[list] = None):
         written = {k: v for k, v in p.items() if k != "skills_md"}
     else:
         written = analyzer.write_artifacts(result, output_dir=out_dir)
+
+    core_artifacts = {k: v for k, v in written.items() if not k.startswith("ai:")}
+    ai_artifacts = {k[3:]: v for k, v in written.items() if k.startswith("ai:")}
 
     # Output Summary Table
     if not parsed_args.quiet:
@@ -228,9 +255,15 @@ def main(args: Optional[list] = None):
                 table.add_row("Circular References", "[green]None (Acyclic)[/green]")
 
             console.print(table)
-            console.print("\n[bold green][OK] Successfully Generated Artifacts:[/bold green]")
-            for key, path in written.items():
+            console.print("\n[bold green][OK] Successfully Generated Core Artifacts:[/bold green]")
+            for key, path in core_artifacts.items():
                 console.print(f"  * [bold cyan]{path.name}[/bold cyan] -> [dim]{path}[/dim]")
+
+            if ai_artifacts:
+                console.print("\n[bold magenta][AI] Autonomously Injected Context into AI Assistants:[/bold magenta]")
+                for tool_name, path in ai_artifacts.items():
+                    console.print(f"  * [bold white]{tool_name}[/bold white] -> [dim]{path}[/dim]")
+
             console.print("\n[dim]Synthesized by Skilly • Architected by [bold white]Arastu Thakur[/bold white] (https://arastuthakur.com.np/)[/dim]")
         else:
             print("\nAnalysis Summary:")
@@ -238,8 +271,12 @@ def main(args: Optional[list] = None):
             print(f"- Skills Cataloged: {len(result.skills)}")
             print(f"- Knowledge Graph: {summary.total_nodes} nodes, {summary.total_edges} edges")
             print("\nGenerated Artifacts:")
-            for key, path in written.items():
+            for key, path in core_artifacts.items():
                 print(f"  * {path.name} -> {path}")
+            if ai_artifacts:
+                print("\nInjected AI Assistant Instructions:")
+                for tool_name, path in ai_artifacts.items():
+                    print(f"  * {tool_name} -> {path}")
             print("\nSynthesized by Skilly • Architected by Arastu Thakur (https://arastuthakur.com.np/)")
 
     # Output JSON summary if requested (e.g. for CI pipelines or scripts)

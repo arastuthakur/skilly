@@ -265,6 +265,7 @@ class ProjectAnalyzer:
         graph_html_file: str = "knowledge_graph.html",
         graph_json_file: str = "knowledge_graph.json",
         graph_md_file: str = "knowledge_graph.md",
+        inject_ai: Optional[bool] = None,
     ) -> Dict[str, Path]:
         """Generates and writes all artifacts to the output directory (defaults to project dir)."""
         out_path = Path(output_dir).resolve() if output_dir else self.target_dir
@@ -305,6 +306,16 @@ class ProjectAnalyzer:
         p_md = out_path / graph_md_file
         p_md.write_text(graph_md_content, encoding="utf-8")
         paths["graph_md"] = p_md
+
+        # 5. AI Assistant Auto-Injection (Claude, Copilot, Cursor, Antigravity, Codex, Windsurf, Cline)
+        should_inject = inject_ai if inject_ai is not None else getattr(self.config, "inject_ai", True)
+        if should_inject:
+            from skilly_core.injectors.ai_injector import AIInjector
+            targets = getattr(self.config, "ai_targets", ["all"])
+            injector = AIInjector(targets=targets)
+            injected = injector.inject_all(self.target_dir, result)
+            for k, p in injected.items():
+                paths[f"ai:{k}"] = p
 
         return paths
 

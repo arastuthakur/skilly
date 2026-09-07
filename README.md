@@ -150,6 +150,43 @@ skilly . --json-summary
 
 ---
 
+## 🤖 Autonomous AI Assistant Auto-Injection
+
+Whenever Skilly runs, it **autonomously injects project capabilities, executable workflows, and architectural topology** into every leading AI coding environment:
+
+| AI Assistant / Tool | Injected Configuration Target | Purpose & Directives |
+| :--- | :--- | :--- |
+| **Claude & Claude Code** | `CLAUDE.md` | Primary instruction manual for Claude Code CLI and Anthropic projects |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | Contextual instruction file read by Copilot Chat & Agent mode |
+| **Cursor IDE** | `.cursorrules` & `.cursor/rules/skilly.mdc` | Universal rules + MDC glob rules instructing Cursor on repository skills |
+| **Google Antigravity** | `AGENTS.md`, `GEMINI.md`, & `.agents/rules/skilly.md` | Global agent directives and workspace rules for Antigravity coding agents |
+| **OpenAI Codex & ChatGPT** | `CODEX.md` | System context prompt and task capabilities for OpenAI Codex runners |
+| **Windsurf (Codeium)** | `.windsurfrules` | Cascade agent rules linking to runnable commands and data models |
+| **Cline & Roo Code** | `.clinerules` | Autonomous task rules guiding Cline through project APIs and hubs |
+
+### Non-Destructive & Idempotent
+Skilly encapsulates its injected guidance within safe marker comments:
+```markdown
+<!-- SKILLY_INJECTION_START -->
+... [Autonomous Context, Skills References, and Architectural Health] ...
+<!-- SKILLY_INJECTION_END -->
+```
+If you already have custom prompts in your `CLAUDE.md` or `.cursorrules`, Skilly **preserves all existing instructions** and non-destructively refreshes only the Skilly block. Multiple runs update in place without duplicating text.
+
+### CLI Auto-Injection Control
+```bash
+# Enabled by default:
+skilly .
+
+# Target only specific assistants:
+skilly . --ai-targets=claude,cursor,antigravity
+
+# Disable AI injection entirely:
+skilly . --no-inject-ai
+```
+
+---
+
 ## 🚀 Installation & Multi-Environment Support
 
 Skilly is engineered to run seamlessly across all development environments:

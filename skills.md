@@ -1,6 +1,6 @@
 ---
 project: "Model"
-total_skills: 142
+total_skills: 148
 languages: ['PowerShell', 'Shell', 'HTML', 'Python', 'JavaScript', 'Ruby', 'Java', 'C', 'Solidity']
 frameworks: ['Click CLI', 'Docker', 'Express.js', 'FastAPI', 'Jest', 'Make', 'Pydantic', 'Spring Boot']
 generator: "skilly (deterministic LLM-free AST analyzer)"
@@ -15,13 +15,13 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | Metric | Count / Detail |
 | :--- | :--- |
 | **Architecture Health Grade** | `B` (85/100 - Grade B (85/100): 1 circular dependency cycles detected.) |
-| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (4 files), Python (32 files), JavaScript (1 files), Ruby (1 files), Java (1 files), C (1 files), Solidity (1 files) |
+| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (3 files), Python (35 files), JavaScript (1 files), Ruby (1 files), Java (1 files), C (1 files), Solidity (1 files) |
 | **Frameworks / Tooling** | Click CLI, Docker, Express.js, FastAPI, Jest, Make, Pydantic, Spring Boot |
-| **Total Skills Cataloged** | `142` |
-| **Knowledge Graph Entities** | `475 nodes, 1129 edges` |
+| **Total Skills Cataloged** | `148` |
+| **Knowledge Graph Entities** | `495 nodes, 1215 edges` |
 | **Runnable Commands & Workflows** | `15` |
 | **API Endpoints** | `6` |
-| **Domain Services & Models** | `73` |
+| **Domain Services & Models** | `77` |
 
 ## 📑 Table of Contents
 - [1. Runnable Commands & CLI Workflows](#1-runnable-commands--cli-workflows)
@@ -144,7 +144,7 @@ result = analyze(...)
 ### `ProjectAnalyzer.write_artifacts`
 - **Role**: Generates and writes all artifacts to the output directory (defaults to project dir).
 - **Location**: [`skilly_core/analyzer.py:260`](skilly_core/analyzer.py:260)
-- **Signature**: `def write_artifacts(result: ProjectAnalysisResult, output_dir: Optional[Path | str], skills_file: str, graph_html_file: str, graph_json_file: str, graph_md_file: str) -> Dict[str, Path]`
+- **Signature**: `def write_artifacts(result: ProjectAnalysisResult, output_dir: Optional[Path | str], skills_file: str, graph_html_file: str, graph_json_file: str, graph_md_file: str, inject_ai: Optional[bool]) -> Dict[str, Path]`
 ```python
 from skilly_core.analyzer import write_artifacts
 result = write_artifacts(...)
@@ -188,7 +188,7 @@ result = store(...)
 
 ### `SkillyConfig.load`
 - **Role**: Loads configuration from project root or explicit path with sensible defaults.
-- **Location**: [`skilly_core/config.py:54`](skilly_core/config.py:54)
+- **Location**: [`skilly_core/config.py:58`](skilly_core/config.py:58)
 - **Signature**: `def load(project_root: Path | str, explicit_config_path: Optional[str]) -> SkillyConfig`
 ```python
 from skilly_core.config import load
@@ -411,6 +411,33 @@ from skilly_core.generators.skills_generator import generate
 result = generate(...)
 ```
 
+### `AIInjector`
+- **Role**: Manages injection of Skilly capabilities into AI assistant instruction files.
+- **Location**: [`skilly_core/injectors/ai_injector.py:29`](skilly_core/injectors/ai_injector.py:29)
+- **Signature**: `class AIInjector():`
+```python
+from skilly_core.injectors.ai_injector import AIInjector
+instance = AIInjector()
+```
+
+### `AIInjector.build_directive`
+- **Role**: Build the structured AI guidance block.
+- **Location**: [`skilly_core/injectors/ai_injector.py:38`](skilly_core/injectors/ai_injector.py:38)
+- **Signature**: `def build_directive(result: ProjectAnalysisResult) -> str`
+```python
+from skilly_core.injectors.ai_injector import build_directive
+result = build_directive(...)
+```
+
+### `AIInjector.inject_all`
+- **Role**: Inject Skilly context into all enabled AI coding assistants.
+- **Location**: [`skilly_core/injectors/ai_injector.py:104`](skilly_core/injectors/ai_injector.py:104)
+- **Signature**: `def inject_all(target_dir: Path, result: ProjectAnalysisResult) -> Dict[str, Path]`
+```python
+from skilly_core.injectors.ai_injector import inject_all
+result = inject_all(...)
+```
+
 ### `ItemController`
 - **Role**: Java class `ItemController`
 - **Location**: [`tests/fixtures/sample_polyglot_app/ItemController.java:7`](tests/fixtures/sample_polyglot_app/ItemController.java:7)
@@ -428,7 +455,7 @@ result = generate(...)
 
 ### `QuietHandler`
 - **Role**: Python class definition `QuietHandler`
-- **Location**: [`skilly_core/cli.py:283`](skilly_core/cli.py:283)
+- **Location**: [`skilly_core/cli.py:320`](skilly_core/cli.py:320)
 - **Signature**: `class_definition QuietHandler`
 
 ### `SkillyConfig`
@@ -531,6 +558,11 @@ result = generate(...)
 - **Location**: [`skilly_core/generators/skills_generator.py:12`](skilly_core/generators/skills_generator.py:12)
 - **Signature**: `class_definition SkillsGenerator`
 
+### `AIInjector`
+- **Role**: Python class definition `AIInjector`
+- **Location**: [`skilly_core/injectors/ai_injector.py:29`](skilly_core/injectors/ai_injector.py:29)
+- **Signature**: `class_definition AIInjector`
+
 ### `PriceCalculator`
 - **Role**: Ruby component `PriceCalculator`
 - **Location**: [`tests/fixtures/sample_polyglot_app/calc.rb:2`](tests/fixtures/sample_polyglot_app/calc.rb:2)
@@ -578,7 +610,7 @@ result = generate(...)
 
 ## 5. Core Exported Functions & Utilities
 
-Found **48** core callable functions:
+Found **50** core callable functions:
 
 #### `print_banner`
 - **Description**: Function `print_banner` in skilly_core/cli.py
@@ -662,22 +694,22 @@ const result = calculateTax(...);
 
 #### `log_message`
 - **Description**: Callable Python function `log_message` in cli.py
-- **Location**: `skilly_core/cli.py:286`
+- **Location**: `skilly_core/cli.py:323`
 - **Signature**: `fn log_message(...)`
 
 #### `load`
 - **Description**: Callable Python function `load` in config.py
-- **Location**: `skilly_core/config.py:54`
+- **Location**: `skilly_core/config.py:58`
 - **Signature**: `fn load(...)`
 
 #### `from_dict`
 - **Description**: Callable Python function `from_dict` in config.py
-- **Location**: `skilly_core/config.py:83`
+- **Location**: `skilly_core/config.py:87`
 - **Signature**: `fn from_dict(...)`
 
 #### `to_dict`
 - **Description**: Callable Python function `to_dict` in config.py
-- **Location**: `skilly_core/config.py:90`
+- **Location**: `skilly_core/config.py:94`
 - **Signature**: `fn to_dict(...)`
 
 #### `build_graph`
@@ -750,7 +782,7 @@ const result = calculateTax(...);
 - **Location**: `skilly_core/extractors/universal_engine.py:94`
 - **Signature**: `fn extract(...)`
 
-_...and 18 more exported functions available in source code._
+_...and 20 more exported functions available in source code._
 
 ## 6. Environment & Configuration
 
@@ -762,21 +794,21 @@ The following components exhibit the highest architectural centrality (PageRank 
 
 | Rank | Component / Symbol | Type | Centrality Score | Inbound Deps | Outbound Calls | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | **`append`** | `module` | `0.010408729329376512` | `42` | `0` | Core system component |
-| #2 | **`str`** | `module` | `0.008412156258547241` | `18` | `0` | Core system component |
-| #3 | **`GraphNode`** | `module` | `0.008089601243103576` | `34` | `0` | Core system component |
-| #4 | **`isinstance`** | `module` | `0.007361420889386141` | `13` | `0` | Core system component |
-| #5 | **`Skill`** | `module` | `0.007134537163653264` | `28` | `0` | Core system component |
-| #6 | **`Path`** | `module` | `0.007009094398399577` | `19` | `0` | Core system component |
-| #7 | **`_rel`** | `module` | `0.006428376814961423` | `22` | `0` | Core system component |
-| #8 | **`len`** | `module` | `0.006276287060858758` | `21` | `0` | Core system component |
-| #9 | **`replace`** | `module` | `0.005827481320128218` | `11` | `0` | Core system component |
-| #10 | **`GraphEdge`** | `module` | `0.005155083820660267` | `23` | `0` | Core system component |
-| #11 | **`round`** | `module` | `0.004993665613961466` | `2` | `0` | Core system component |
-| #12 | **`BaseModel`** | `module` | `0.00493629153848411` | `2` | `0` | Core system component |
-| #13 | **`lower`** | `module` | `0.004806335916094709` | `21` | `0` | Core system component |
-| #14 | **`resolve`** | `module` | `0.004678558210953443` | `7` | `0` | Core system component |
-| #15 | **`get`** | `module` | `0.004514363818361902` | `10` | `0` | Core system component |
+| #1 | **`append`** | `module` | `0.009902734742027939` | `42` | `0` | Core system component |
+| #2 | **`str`** | `module` | `0.008000265047100977` | `18` | `0` | Core system component |
+| #3 | **`GraphNode`** | `module` | `0.007696338621061196` | `34` | `0` | Core system component |
+| #4 | **`isinstance`** | `module` | `0.007003489291072726` | `13` | `0` | Core system component |
+| #5 | **`Skill`** | `module` | `0.006787725264070577` | `28` | `0` | Core system component |
+| #6 | **`Path`** | `module` | `0.006622989711624956` | `19` | `0` | Core system component |
+| #7 | **`len`** | `module` | `0.006379109693073134` | `22` | `0` | Core system component |
+| #8 | **`_rel`** | `module` | `0.006115901075974002` | `22` | `0` | Core system component |
+| #9 | **`replace`** | `module` | `0.0055442048362015885` | `11` | `0` | Core system component |
+| #10 | **`lower`** | `module` | `0.0053942997527417335` | `22` | `0` | Core system component |
+| #11 | **`read_text`** | `module` | `0.005012021126085019` | `20` | `0` | Core system component |
+| #12 | **`GraphEdge`** | `module` | `0.004904483327230995` | `23` | `0` | Core system component |
+| #13 | **`round`** | `module` | `0.0047508024362884595` | `2` | `0` | Core system component |
+| #14 | **`BaseModel`** | `module` | `0.0046964233150014086` | `2` | `0` | Core system component |
+| #15 | **`resolve`** | `module` | `0.004405785587040516` | `7` | `0` | Core system component |
 
 ---
 *Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [GitHub](https://github.com/arastuthakur) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*

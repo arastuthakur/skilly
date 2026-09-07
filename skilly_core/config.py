@@ -43,6 +43,10 @@ class SkillyConfig:
     # Custom Cluster Mappings (folder prefix -> cluster name)
     custom_clusters: Dict[str, str] = field(default_factory=dict)
 
+    # AI Assistant Auto-Injection
+    inject_ai: bool = True
+    ai_targets: List[str] = field(default_factory=lambda: ["all"])
+
     # Output defaults
     output_dir: Optional[str] = None
     skills_filename: str = "skills.md"

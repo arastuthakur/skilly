@@ -3,25 +3,25 @@
 > Structural and semantic topology extracted deterministically via AST and import graphs.
 
 ## 📈 Graph Metrics
-- **Total Entities (Nodes)**: `475`
-- **Total Relationships (Edges)**: `1129`
+- **Total Entities (Nodes)**: `495`
+- **Total Relationships (Edges)**: `1215`
 - **Architectural Clusters**: `3`
 - **Circular Dependency Cycles**: `1`
 
 ### ⚠️ Circular Dependencies Detected
 The following circular reference cycles were identified in the codebase:
 
-- `file:tests/fixtures/sample_circular_app/a.py` ➔ `file:tests/fixtures/sample_circular_app/b.py` ➔ `file:tests/fixtures/sample_circular_app/a.py`
+- `file:tests/fixtures/sample_circular_app/b.py` ➔ `file:tests/fixtures/sample_circular_app/a.py` ➔ `file:tests/fixtures/sample_circular_app/b.py`
 
 ## 🏛️ Architectural Clusters & Subdomains
 
-### Skilly_core Domain (`406` components)
-- **Key Components**: `exit`, `analyze`, `update`, `JavaScriptExtractor`, `skilly_core`, `HTMLVisualizer.generate`, `parse_args`, `skilly_core/cache.py`, `ArgumentParser`, `load`
-- _...and 396 more components_
+### Skilly_core Domain (`351` components)
+- **Key Components**: `count`, `JavaScriptExtractor._detect_nextjs_routes`, `_extract_return_annotation`, `ManifestExtractor._parse_gemfile`, `_detect_api_route`, `extract`, `get_text`, `JavaScriptExtractor._detect_express_routes`, `upper`, `_extract_calls`
+- _...and 341 more components_
 
-### Tests Domain (`63` components)
-- **Key Components**: `tests/fixtures/sample_python_app/requirements.txt`, `AuthService.authenticate_user`, `print_banner`, `AuthToken`, `click`, `BaseModel`, `AuthService`, `pydantic`, `tests/fixtures/sample_python_app/services.py`, `command`
-- _...and 53 more components_
+### Tests Domain (`138` components)
+- **Key Components**: `scan_files`, `analyze_project`, `tempfile`, `webbrowser`, `test_file_size_guard`, `ProjectAnalyzer`, `keys`, `readouterr`, `AnalysisCache._load`, `skilly_core/__init__.py`
+- _...and 128 more components_
 
 ### Root Domain (`6` components)
 - **Key Components**: `setup.py`, `setuptools`, `start`, `test`, `skilly`, `install.sh`
@@ -47,12 +47,12 @@ graph TD
     file_skilly_core_extractors_universal_engine_py["universal_engine.py (file)"]
     Path["Path (module)"]
     append["append (module)"]
+    lower["lower (module)"]
     len["len (module)"]
     str["str (module)"]
     replace["replace (module)"]
-    GraphEdge["GraphEdge (module)"]
-    Skill["Skill (module)"]
     GraphNode["GraphNode (module)"]
+    Skill["Skill (module)"]
     isinstance["isinstance (module)"]
     _rel["_rel (module)"]
 ```
@@ -61,29 +61,29 @@ graph TD
 
 | Rank | Symbol / Module | Type | PageRank | In-Degree | Out-Degree | Impact / Blast Radius |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | `append` | `module` | `0.0104` | `42` | `0` | Critical Choke Point |
-| #2 | `str` | `module` | `0.0084` | `18` | `0` | Critical Choke Point |
-| #3 | `GraphNode` | `module` | `0.0081` | `34` | `0` | Critical Choke Point |
-| #4 | `isinstance` | `module` | `0.0074` | `13` | `0` | Critical Choke Point |
-| #5 | `Skill` | `module` | `0.0071` | `28` | `0` | Critical Choke Point |
-| #6 | `Path` | `module` | `0.0070` | `19` | `0` | Critical Choke Point |
-| #7 | `_rel` | `module` | `0.0064` | `22` | `0` | Critical Choke Point |
-| #8 | `len` | `module` | `0.0063` | `21` | `0` | Critical Choke Point |
-| #9 | `replace` | `module` | `0.0058` | `11` | `0` | Critical Choke Point |
-| #10 | `GraphEdge` | `module` | `0.0052` | `23` | `0` | Critical Choke Point |
-| #11 | `round` | `module` | `0.0050` | `2` | `0` | High Importance |
-| #12 | `BaseModel` | `module` | `0.0049` | `2` | `0` | High Importance |
-| #13 | `lower` | `module` | `0.0048` | `21` | `0` | Critical Choke Point |
-| #14 | `resolve` | `module` | `0.0047` | `7` | `0` | Critical Choke Point |
-| #15 | `get` | `module` | `0.0045` | `10` | `0` | Critical Choke Point |
+| #1 | `append` | `module` | `0.0099` | `42` | `0` | Critical Choke Point |
+| #2 | `str` | `module` | `0.0080` | `18` | `0` | Critical Choke Point |
+| #3 | `GraphNode` | `module` | `0.0077` | `34` | `0` | Critical Choke Point |
+| #4 | `isinstance` | `module` | `0.0070` | `13` | `0` | Critical Choke Point |
+| #5 | `Skill` | `module` | `0.0068` | `28` | `0` | Critical Choke Point |
+| #6 | `Path` | `module` | `0.0066` | `19` | `0` | Critical Choke Point |
+| #7 | `len` | `module` | `0.0064` | `22` | `0` | Critical Choke Point |
+| #8 | `_rel` | `module` | `0.0061` | `22` | `0` | Critical Choke Point |
+| #9 | `replace` | `module` | `0.0055` | `11` | `0` | Critical Choke Point |
+| #10 | `lower` | `module` | `0.0054` | `22` | `0` | Critical Choke Point |
+| #11 | `read_text` | `module` | `0.0050` | `20` | `0` | Critical Choke Point |
+| #12 | `GraphEdge` | `module` | `0.0049` | `23` | `0` | Critical Choke Point |
+| #13 | `round` | `module` | `0.0048` | `2` | `0` | High Importance |
+| #14 | `BaseModel` | `module` | `0.0047` | `2` | `0` | High Importance |
+| #15 | `resolve` | `module` | `0.0044` | `7` | `0` | Critical Choke Point |
 
 ## 🔗 Relationship Types Distribution
 
 | Relationship Type | Count | Description |
 | :--- | :--- | :--- |
-| `calls` | `743` | Inter-component connection |
-| `exposes` | `260` | Inter-component connection |
-| `imports` | `103` | Inter-component connection |
+| `calls` | `805` | Inter-component connection |
+| `exposes` | `276` | Inter-component connection |
+| `imports` | `111` | Inter-component connection |
 | `inherits` | `14` | Inter-component connection |
 | `depends_on` | `9` | Inter-component connection |
 

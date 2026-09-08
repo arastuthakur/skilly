@@ -47,7 +47,7 @@ license: Apache-2.0
 # Pentest Audit
 
 ```bash
-strix -t https://example.com --max-budget 10
+secops-scan -t https://example.com --max-budget 10
 ```
 """, encoding="utf-8")
 
@@ -59,6 +59,6 @@ strix -t https://example.com --max-budget 10
     assert skill.id == "agent_skill:pentest-audit"
     assert skill.name == "Agent Skill: pentest-audit"
     assert "Autonomous penetration testing" in skill.description
-    assert "strix -t" in skill.example_usage
+    assert "secops-scan -t" in skill.example_usage
+    assert "agent-skill" in skill.tags
     assert any(n.label == "pentest-audit" for n in nodes)
-

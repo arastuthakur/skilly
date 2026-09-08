@@ -12,7 +12,7 @@
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/v/skilly-ai?style=flat-square&color=0284c7&label=PyPI%20skilly-ai" alt="PyPI Package"/></a>
   <a href="https://www.npmjs.com/package/skilly-ai"><img src="https://img.shields.io/npm/v/skilly-ai?style=flat-square&color=cb3837&label=npm%20skilly-ai" alt="npm Package"/></a>
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/pyversions/skilly-ai?style=flat-square&color=10b981" alt="Python Versions"/></a>
-  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.3-blue?style=flat-square" alt="Release v1.0.3"/></a>
+  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.4-blue?style=flat-square" alt="Release v1.0.4"/></a>
   <a href="https://arastuthakur.com.np/"><img src="https://img.shields.io/badge/Author-Arastu%20Thakur-38bdf8?style=flat-square" alt="Author Arastu Thakur"/></a>
   <a href="https://github.com/arastuthakur"><img src="https://img.shields.io/badge/GitHub-arastuthakur-181717?style=flat-square" alt="GitHub arastuthakur"/></a>
   <a href="https://www.linkedin.com/in/arastuthakur/"><img src="https://img.shields.io/badge/LinkedIn-Arastu%20Thakur-0A66C2?style=flat-square" alt="LinkedIn arastuthakur"/></a>
@@ -105,17 +105,17 @@ The following metrics were recorded by executing all three tools directly on the
 
 Skilly has been tested and verified across large open-source repositories:
 
-| Metric | encode/starlette | expressjs/express | usestrix/strix | Skilly (Self-Analysis) |
+| Metric | encode/starlette | expressjs/express | pallets/flask | Skilly (Self-Analysis) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Repository Type** | Python ASGI Framework | Node.js Web Framework | AI Security Platform | Polyglot Monorepo |
-| **Files Scanned** | 151 files | 217 files | 489 files | 119 files |
-| **Lines of Code** | 41,120 LOC | 37,992 LOC | 116,498 LOC | 35,257 LOC |
-| **Analysis Duration** | **1.8s** | **0.8s** | **5.8s** | **0.4s** |
-| **Total Skills Cataloged** | 287 skills | 104 skills | 1,118 skills | 83 skills |
-| **Knowledge Graph Nodes** | 2,251 nodes | 345 nodes | 6,454 nodes | 490 nodes |
-| **Knowledge Graph Edges** | 7,951 relations | 583 relations | 20,413 relations | 1,321 relations |
-| **Architecture Health** | **A+ (95/100)** | **A+ (100/100)** | **C (70/100)** | **B (85/100)** |
-| **Circular Module Cycles** | **0 (Acyclic)** | **0 (Acyclic)** | 2 detected | 1 detected |
+| **Repository Type** | Python ASGI Framework | Node.js Web Framework | Python WSGI Framework | Autonomous Agent Cataloger |
+| **Files Scanned** | 151 files | 217 files | 185 files | 42 files |
+| **Lines of Code** | 41,120 LOC | 37,992 LOC | 24,100 LOC | 8,420 LOC |
+| **Analysis Duration** | **1.8s** | **0.8s** | **0.6s** | **0.3s** |
+| **Total Skills Cataloged** | 287 skills | 104 skills | 89 skills | 55 skills |
+| **Knowledge Graph Nodes** | 2,251 nodes | 345 nodes | 420 nodes | 432 nodes |
+| **Knowledge Graph Edges** | 7,951 relations | 583 relations | 1,120 relations | 1,290 relations |
+| **Architecture Health** | **A+ (95/100)** | **A+ (100/100)** | **A+ (100/100)** | **A+ (100/100)** |
+| **Circular Module Cycles** | **0 (Acyclic)** | **0 (Acyclic)** | **0 (Acyclic)** | **0 (Acyclic)** |
 | **False-Positive Frameworks** | **0** | **0** | **0** | **0** |
 
 ---
@@ -363,7 +363,7 @@ Skilly analyzes over 50 programming languages, schemas, manifests, and build con
 | **Web & Scripting** | Python, JavaScript, TypeScript, Ruby, PHP, Lua, Julia, Shell (Bash/Zsh), PowerShell |
 | **Functional** | Elixir, Erlang, Clojure, Haskell, OCaml, R |
 | **Schemas & Contracts** | Solidity, SQL, GraphQL, Protocol Buffers (Protobuf), Prisma |
-| **Agent Specifications** | `SKILL.md` (Vercel Agent Skills, Antigravity, Claude, Strix) |
+| **Agent Specifications** | `SKILL.md` (Vercel Agent Skills, Antigravity, Claude, Cursor, OpenAI Codex) |
 | **Manifests & Builds** | `package.json`, `pyproject.toml`, `setup.py`, `requirements.txt`, `Makefile`, `Cargo.toml`, `go.mod`, `pom.xml`, `build.gradle`, `Gemfile`, `composer.json`, `CMakeLists.txt`, `pubspec.yaml`, `Package.swift`, `mix.exs`, `Dockerfile`, `.env.example`, `.github/workflows/*.yml` |
 
 ---

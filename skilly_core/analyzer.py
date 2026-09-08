@@ -52,6 +52,7 @@ DEFAULT_IGNORE_DIRS = {
     "coverage",
     ".turbo",
     ".cache",
+    "fixtures",
 }
 
 LANGUAGE_EXTENSIONS = {
@@ -231,9 +232,31 @@ class ProjectAnalyzer:
         nodes, edges, clusters, hubs, cycles = engine.build_graph(all_nodes, all_edges)
         health = engine.compute_health_report(all_skills, clusters, cycles)
 
+        # Determine clean project name without exposing host directory names
+        proj_name = self.target_dir.name or "Project"
+        pyproject_file = self.target_dir / "pyproject.toml"
+        package_json = self.target_dir / "package.json"
+        if pyproject_file.exists():
+            try:
+                import tomllib
+                pyproj_data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+                found_name = pyproj_data.get("project", {}).get("name")
+                if found_name:
+                    proj_name = found_name
+            except Exception:
+                pass
+        elif package_json.exists():
+            try:
+                pkg_data = json.loads(package_json.read_text(encoding="utf-8"))
+                found_name = pkg_data.get("name")
+                if found_name:
+                    proj_name = found_name
+            except Exception:
+                pass
+
         summary = ProjectSummary(
-            name=self.target_dir.name or "Project",
-            root_path=str(self.target_dir),
+            name=proj_name,
+            root_path=".",
             languages=dict(languages),
             frameworks=frameworks,
             total_files=len(files),
@@ -312,7 +335,8 @@ class ProjectAnalyzer:
             from skilly_core.injectors.ai_injector import AIInjector
             targets = getattr(self.config, "ai_targets", ["all"])
             injector = AIInjector(targets=targets)
-            injected = injector.inject_all(self.target_dir, result)
+            target_injection_dir = out_path if output_dir else self.target_dir
+            injected = injector.inject_all(target_injection_dir, result)
             for k, p in injected.items():
                 paths[f"ai:{k}"] = p
 

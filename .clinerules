@@ -10,11 +10,11 @@
 - **Visual Graph**: See [`knowledge_graph.html`](knowledge_graph.html) for an interactive 4K force-directed map of all codebase entities.
 
 ### Codebase Overview
-- **Architecture Health**: `B` (85/100 - Grade B (85/100): 1 circular dependency cycles detected.)
-- **Total Cataloged Skills**: `84`
-- **Languages**: PowerShell (1), Shell (1), HTML (3), Python (36), JavaScript (1), Ruby (1), Java (1), C (1), Solidity (1)
-- **Frameworks / Tooling**: Click CLI, Docker, Express.js, FastAPI, Jest, Make, Pydantic, Spring Boot, Uvicorn
-- **Knowledge Graph Entities**: `500 nodes, 1348 relations`
+- **Architecture Health**: `A+` (100/100 - Grade A+ (100/100): Acyclic architecture with high integrity.)
+- **Total Cataloged Skills**: `55`
+- **Languages**: PowerShell (1), Shell (1), HTML (1), Python (31)
+- **Frameworks / Tooling**: Docker
+- **Knowledge Graph Entities**: `432 nodes, 1293 relations`
 
 ### Execution Guidelines for AI Agents
 1. When asked how to build, test, or run this project, use the exact commands documented in `skills.md`.

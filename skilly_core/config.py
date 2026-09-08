@@ -24,7 +24,7 @@ class SkillyConfig:
     ignore_patterns: List[str] = field(default_factory=lambda: [
         ".git", ".svn", ".hg", "node_modules", "venv", ".venv", "env",
         "__pycache__", ".pytest_cache", "dist", "build", "target", "bin",
-        ".next", ".nuxt", "coverage", ".turbo", ".cache", "vendor"
+        ".next", ".nuxt", "coverage", ".turbo", ".cache", "vendor", "fixtures"
     ])
     max_file_size_kb: int = 1500  # Skip files larger than 1.5MB to avoid memory spikes
     respect_gitignore: bool = True

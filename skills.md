@@ -1,12 +1,12 @@
 ---
-project: "Model"
-total_skills: 84
-languages: ['PowerShell', 'Shell', 'HTML', 'Python', 'JavaScript', 'Ruby', 'Java', 'C', 'Solidity']
-frameworks: ['Click CLI', 'Docker', 'Express.js', 'FastAPI', 'Jest', 'Make', 'Pydantic', 'Spring Boot', 'Uvicorn']
+project: "skilly-ai"
+total_skills: 55
+languages: ['PowerShell', 'Shell', 'HTML', 'Python']
+frameworks: ['Docker']
 generator: "skilly (deterministic LLM-free AST analyzer)"
 ---
 
-# Project Skills & Capabilities: Model
+# Project Skills & Capabilities: skilly-ai
 
 > Auto-generated capability catalog extracted via static AST and manifest context.
 
@@ -14,14 +14,14 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 
 | Metric | Count / Detail |
 | :--- | :--- |
-| **Architecture Health Grade** | `B` (85/100 - Grade B (85/100): 1 circular dependency cycles detected.) |
-| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (3 files), Python (36 files), JavaScript (1 files), Ruby (1 files), Java (1 files), C (1 files), Solidity (1 files) |
-| **Frameworks / Tooling** | Click CLI, Docker, Express.js, FastAPI, Jest, Make, Pydantic, Spring Boot, Uvicorn |
-| **Total Skills Cataloged** | `84` |
-| **Knowledge Graph Entities** | `500 nodes, 1348 edges` |
-| **Runnable Commands & Workflows** | `23` |
-| **API Endpoints** | `6` |
-| **Domain Services & Models** | `47` |
+| **Architecture Health Grade** | `A+` (100/100 - Grade A+ (100/100): Acyclic architecture with high integrity.) |
+| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (1 files), Python (31 files) |
+| **Frameworks / Tooling** | Docker |
+| **Total Skills Cataloged** | `55` |
+| **Knowledge Graph Entities** | `432 nodes, 1293 edges` |
+| **Runnable Commands & Workflows** | `9` |
+| **API Endpoints** | `0` |
+| **Domain Services & Models** | `43` |
 
 ## Table of Contents
 - [1. Runnable Commands & CLI Workflows](#1-runnable-commands--cli-workflows)
@@ -38,27 +38,13 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | :--- | :--- | :--- | :--- | :--- |
 | **npm run start** | `CLI Command` | Run npm script 'start': `node ./bin/skilly-node.js` | `package.json:scripts.start` | `npm start` |
 | **cli: skilly** | `CLI Command` | Executable binary 'skilly' -> ./bin/skilly-node.js | `package.json:bin.skilly` | `npx skilly` |
+| **cli: skilly-ai** | `CLI Command` | Executable binary 'skilly-ai' -> ./bin/skilly-node.js | `package.json:bin.skilly-ai` | `npx skilly-ai` |
 | **CLI: skilly** | `CLI Command` | Console script entry point: skilly_core.cli:main | `pyproject.toml:scripts.skilly` | `skilly --help` |
 | **Script: stress_test.py** | `CLI Command` | Executable project script at scripts/stress_test.py | `scripts/stress_test.py` | `python scripts/stress_test.py` |
-| **npm run dev** | `CLI Command` | Run npm script 'dev': `nodemon server.js` | `tests/fixtures/sample_node_app/package.json:scripts.dev` | `npm run dev` |
-| **make run** | `CLI Command` | Run development server | `tests/fixtures/sample_python_app/Makefile:4` | `make run` |
-| **CLI: run-server** | `CLI Command` | Launch production server instance. | `tests/fixtures/sample_python_app/main.py:25` | `run-server --help` |
 | **docker compose up** | `Workflow` | Start containerized services defined in docker-compose | `docker-compose.yml` | `docker compose up -d` |
 | **docker build** | `Workflow` | Build Docker container image from Dockerfile | `Dockerfile` | `docker build -t app .` |
 | **npm run test** | `Workflow` | Run npm script 'test': `python -m pytest tests/ -v` | `package.json:scripts.test` | `npm test` |
-| **Agent Skill: api-security-testing** | `Workflow` | Security-test a REST, GraphQL, or gRPC API with Strix — autonomous agents that enumerate endpoints from an OpenAPI/GraphQL schema (or by crawling), then actually exploit the API-specific vulnerability classes in the OWASP API Security Top 10 (2023) — broken object-level authorization (BOLA/IDOR), broken object property level authorization (excessive data exposure and mass assignment), broken function-level authorization, unrestricted resource consumption, SSRF, injection, and auth/token flaws. Every finding comes with a working proof-of-concept request. Use when the user asks to pentest, security-test, audit, or find vulnerabilities in an API, endpoint, or backend service. | `.agents/skills/api-security-testing/SKILL.md` | `strix -n -t ./openapi.yaml -t https://api.staging.example.com --max-budget 20 \` |
-| **Agent Skill: application-security-testing** | `Workflow` | Application security testing (AppSec) across a whole product with Strix — decide which asset needs which test (source code, running web app, API, CI pipeline), run it, and turn the results into a ranked remediation plan. Autonomous agents exploit and prove each issue instead of emitting static-analysis alerts, so the plan is ordered by what is actually reachable. Use when the user asks for an application security review or audit, an appsec assessment, vulnerability scanning across their stack, a security review before a launch or a customer security questionnaire, or does not yet know which kind of security test they need. | `.agents/skills/application-security-testing/SKILL.md` | `skills use application-security-testing` |
-| **Agent Skill: ci-security-scanning-with-strix** | `Workflow` | Add security scanning to CI/CD with Strix — GitHub Actions, GitLab CI, or any pipeline — so every pull request gets a diff-scoped AI pentest that blocks vulnerable code before it merges, with results as PR comments and SARIF uploaded to code scanning. Covers both the self-hosted open-source CLI (runs in your runner) and the managed app.strix.ai platform (GitHub/GitLab app or API, no runner infra). Use when the user asks to add security scanning, SAST/DAST, pentesting, vulnerability checks, or automated security review to their CI pipeline, pre-merge gate, or PR workflow. | `.agents/skills/ci-security-scanning-with-strix/SKILL.md` | `skills use ci-security-scanning-with-strix` |
-| **Agent Skill: find-security-vulnerabilities-in-code** | `Workflow` | Find security vulnerabilities in a codebase or repository with Strix — a white-box AI security review that reads your source, reasons about the actual data flow and authorization model, then exploits what it finds in a live sandbox so every reported issue has a working proof-of-concept instead of a noisy static-analysis alert. Covers injection, XSS, SSRF, broken access control and IDOR, insecure deserialization, secrets in code, unsafe dependencies, and business-logic flaws. Use when the user asks to security-scan, security-review, or audit their code, repo, or pull request for vulnerabilities. | `.agents/skills/find-security-vulnerabilities-in-code/SKILL.md` | `skills use find-security-vulnerabilities-in-code` |
-| **Agent Skill: fix-security-vulnerabilities-with-strix** | `Workflow` | Fix security vulnerabilities found by a Strix pentest (open-source CLI or app.strix.ai cloud) — triage by severity, patch the root cause rather than the symptom, and re-run Strix to prove each fix actually closes the exploit. Handles injection, XSS, SSRF, broken access control, IDOR, and other validated findings. Use after a Strix scan reports findings, or when the user asks to remediate, patch, or fix security issues from a strix_runs report, vulnerabilities.json, findings.sarif, or a cloud scan. | `.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md` | `skills use fix-security-vulnerabilities-with-strix` |
-| **Agent Skill: managed-pentesting-with-strix** | `Workflow` | Run a managed pentest of a web app, API, repository, or local workspace on the app.strix.ai platform with the `strix cloud` CLI or REST API — no local Docker or LLM key needed. Safely review and upload local source, register assets, launch and poll scans, triage vulnerabilities, export SARIF, download compliance reports, start PR reviews, buy credits, and set up schedules or webhooks. Use for managed, continuous, scheduled, team-tracked, or sandboxed-agent security testing. | `.agents/skills/managed-pentesting-with-strix/SKILL.md` | `source <(strix completions zsh)       # current zsh session` |
-| **Agent Skill: owasp-top-10-testing** | `Workflow` | Test an application against the OWASP Top 10 with Strix — autonomous AI agents that attempt real exploits for each category of the current OWASP Top 10:2025 (broken access control including SSRF, security misconfiguration, software supply chain failures, cryptographic failures, injection, insecure design, authentication failures, integrity failures, logging and alerting failures, mishandling of exceptional conditions) and report only what they could actually prove, mapped back to the category with a proof-of-concept. Also covers the OWASP API Security Top 10 (2023). Use when the user asks for an OWASP Top 10 assessment, OWASP compliance testing, or a security review mapped to OWASP categories. | `.agents/skills/owasp-top-10-testing/SKILL.md` | `strix -n \` |
-| **Agent Skill: penetration-testing-with-strix** | `Workflow` | Pentest a web app, API, codebase, repository, URL, domain, or IP with Strix — autonomous AI penetration testing that exploits and proves vulnerabilities (OWASP Top 10 and beyond — injection, XSS, SSRF, auth/access-control flaws, IDOR, business logic) instead of just flagging them. Runs self-hosted with the open-source CLI or via the managed app.strix.ai cloud, and returns validated findings with proof-of-concept exploits (Markdown, JSON, CSV, SARIF). Use when the user asks to pentest, hack, security-scan, security-audit, or find vulnerabilities in an app, API, website, or repo. | `.agents/skills/penetration-testing-with-strix/SKILL.md` | `curl -sSL https://strix.ai/install | bash   # or: pipx install strix-agent` |
-| **Agent Skill: web-app-penetration-testing** | `Workflow` | Pentest a web app or website end to end — black-box testing of a live URL, staging environment, or local dev server that finds and exploits real vulnerabilities (auth bypass, broken access control, IDOR, injection, XSS, SSRF, business logic) and proves each one with a working proof-of-concept instead of a signature match. Runs with Strix, either the self-hosted open-source CLI or the managed app.strix.ai cloud. Use when the user asks to pentest, hack, security-test, or audit their web app, website, web application, or staging site. | `.agents/skills/web-app-penetration-testing/SKILL.md` | `strix -n -t https://staging.example.com --max-budget 20 \` |
 | **CI Workflow: Generate Project Skills & Knowledge Graph** | `Workflow` | GitHub Actions CI workflow defined in .github/workflows/skilly.yml | `.github/workflows/skilly.yml` | `gh workflow run skilly.yml` |
-| **npm run build** | `Workflow` | Run npm script 'build': `tsc` | `tests/fixtures/sample_node_app/package.json:scripts.build` | `npm run build` |
-| **make test** | `Workflow` | Execute test suite | `tests/fixtures/sample_python_app/Makefile:8` | `make test` |
-| **make lint** | `Workflow` | Run linter | `tests/fixtures/sample_python_app/Makefile:12` | `make lint` |
 
 ### Command Execution Cheat-Sheet
 ```bash
@@ -68,20 +54,14 @@ npm start
 # Executable binary 'skilly' -> ./bin/skilly-node.js
 npx skilly
 
+# Executable binary 'skilly-ai' -> ./bin/skilly-node.js
+npx skilly-ai
+
 # Console script entry point: skilly_core.cli:main
 skilly --help
 
 # Executable project script at scripts/stress_test.py
 python scripts/stress_test.py
-
-# Run npm script 'dev': `nodemon server.js`
-npm run dev
-
-# Run development server
-make run
-
-# Launch production server instance.
-run-server --help
 
 # Start containerized services defined in docker-compose
 docker compose up -d
@@ -92,63 +72,20 @@ docker build -t app .
 # Run npm script 'test': `python -m pytest tests/ -v`
 npm test
 
-# Security-test a REST, GraphQL, or gRPC API with Strix — autonomous agents that enumerate endpoints from an OpenAPI/GraphQL schema (or by crawling), then actually exploit the API-specific vulnerability classes in the OWASP API Security Top 10 (2023) — broken object-level authorization (BOLA/IDOR), broken object property level authorization (excessive data exposure and mass assignment), broken function-level authorization, unrestricted resource consumption, SSRF, injection, and auth/token flaws. Every finding comes with a working proof-of-concept request. Use when the user asks to pentest, security-test, audit, or find vulnerabilities in an API, endpoint, or backend service.
-strix -n -t ./openapi.yaml -t https://api.staging.example.com --max-budget 20 \
-
-# Application security testing (AppSec) across a whole product with Strix — decide which asset needs which test (source code, running web app, API, CI pipeline), run it, and turn the results into a ranked remediation plan. Autonomous agents exploit and prove each issue instead of emitting static-analysis alerts, so the plan is ordered by what is actually reachable. Use when the user asks for an application security review or audit, an appsec assessment, vulnerability scanning across their stack, a security review before a launch or a customer security questionnaire, or does not yet know which kind of security test they need.
-skills use application-security-testing
-
-# Add security scanning to CI/CD with Strix — GitHub Actions, GitLab CI, or any pipeline — so every pull request gets a diff-scoped AI pentest that blocks vulnerable code before it merges, with results as PR comments and SARIF uploaded to code scanning. Covers both the self-hosted open-source CLI (runs in your runner) and the managed app.strix.ai platform (GitHub/GitLab app or API, no runner infra). Use when the user asks to add security scanning, SAST/DAST, pentesting, vulnerability checks, or automated security review to their CI pipeline, pre-merge gate, or PR workflow.
-skills use ci-security-scanning-with-strix
-
-# Find security vulnerabilities in a codebase or repository with Strix — a white-box AI security review that reads your source, reasons about the actual data flow and authorization model, then exploits what it finds in a live sandbox so every reported issue has a working proof-of-concept instead of a noisy static-analysis alert. Covers injection, XSS, SSRF, broken access control and IDOR, insecure deserialization, secrets in code, unsafe dependencies, and business-logic flaws. Use when the user asks to security-scan, security-review, or audit their code, repo, or pull request for vulnerabilities.
-skills use find-security-vulnerabilities-in-code
-
-# Fix security vulnerabilities found by a Strix pentest (open-source CLI or app.strix.ai cloud) — triage by severity, patch the root cause rather than the symptom, and re-run Strix to prove each fix actually closes the exploit. Handles injection, XSS, SSRF, broken access control, IDOR, and other validated findings. Use after a Strix scan reports findings, or when the user asks to remediate, patch, or fix security issues from a strix_runs report, vulnerabilities.json, findings.sarif, or a cloud scan.
-skills use fix-security-vulnerabilities-with-strix
-
-# Run a managed pentest of a web app, API, repository, or local workspace on the app.strix.ai platform with the `strix cloud` CLI or REST API — no local Docker or LLM key needed. Safely review and upload local source, register assets, launch and poll scans, triage vulnerabilities, export SARIF, download compliance reports, start PR reviews, buy credits, and set up schedules or webhooks. Use for managed, continuous, scheduled, team-tracked, or sandboxed-agent security testing.
-source <(strix completions zsh)       # current zsh session
-
-# Test an application against the OWASP Top 10 with Strix — autonomous AI agents that attempt real exploits for each category of the current OWASP Top 10:2025 (broken access control including SSRF, security misconfiguration, software supply chain failures, cryptographic failures, injection, insecure design, authentication failures, integrity failures, logging and alerting failures, mishandling of exceptional conditions) and report only what they could actually prove, mapped back to the category with a proof-of-concept. Also covers the OWASP API Security Top 10 (2023). Use when the user asks for an OWASP Top 10 assessment, OWASP compliance testing, or a security review mapped to OWASP categories.
-strix -n \
-
-# Pentest a web app, API, codebase, repository, URL, domain, or IP with Strix — autonomous AI penetration testing that exploits and proves vulnerabilities (OWASP Top 10 and beyond — injection, XSS, SSRF, auth/access-control flaws, IDOR, business logic) instead of just flagging them. Runs self-hosted with the open-source CLI or via the managed app.strix.ai cloud, and returns validated findings with proof-of-concept exploits (Markdown, JSON, CSV, SARIF). Use when the user asks to pentest, hack, security-scan, security-audit, or find vulnerabilities in an app, API, website, or repo.
-curl -sSL https://strix.ai/install | bash   # or: pipx install strix-agent
-
-# Pentest a web app or website end to end — black-box testing of a live URL, staging environment, or local dev server that finds and exploits real vulnerabilities (auth bypass, broken access control, IDOR, injection, XSS, SSRF, business logic) and proves each one with a working proof-of-concept instead of a signature match. Runs with Strix, either the self-hosted open-source CLI or the managed app.strix.ai cloud. Use when the user asks to pentest, hack, security-test, or audit their web app, website, web application, or staging site.
-strix -n -t https://staging.example.com --max-budget 20 \
-
 # GitHub Actions CI workflow defined in .github/workflows/skilly.yml
 gh workflow run skilly.yml
-
-# Run npm script 'build': `tsc`
-npm run build
-
-# Execute test suite
-make test
-
-# Run linter
-make lint
 
 ```
 
 ## 2. API Endpoints & Routes
 
-| HTTP Method & Route | Description | Handler / Location | Quick Curl Invocation |
-| :--- | :--- | :--- | :--- |
-| **API: POST /api/v1/auth/login** | Authenticate user and return JWT access token. | `tests/fixtures/sample_python_app/main.py:13` | `curl -X POST http://localhost:8000/api/v1/auth/login` |
-| **API: GET /api/v1/health** | Service health inspection endpoint. | `tests/fixtures/sample_python_app/main.py:19` | `curl -X GET http://localhost:8000/api/v1/health` |
-| **API: GET /api/users** | Express/Node route handler for GET /api/users | `tests/fixtures/sample_node_app/server.js:4` | `curl -X GET http://localhost:3000/api/users` |
-| **API: POST /api/users** | Express/Node route handler for POST /api/users | `tests/fixtures/sample_node_app/server.js:8` | `curl -X POST http://localhost:3000/api/users` |
-| **API: GET /api/v1/catalog/items** | Spring REST controller mapping GET /api/v1/catalog/items | `tests/fixtures/sample_polyglot_app/ItemController.java:9` | `curl -X GET http://localhost:8080/api/v1/catalog/items` |
-| **API: GET /api/v1/catalog/items** | GET /api/v1/catalog/items endpoint handler | `tests/fixtures/sample_polyglot_app/ItemController.java:9` | `curl -X GET http://localhost:8080/api/v1/catalog/items` |
+_No REST, GraphQL, or HTTP endpoint handlers detected._
 
 ## 3. Domain Services & Key Controllers
 
 ### `ProjectAnalyzer`
 - **Role**: Orchestrates whole-project capability extraction and knowledge graph synthesis.
-- **Location**: [`skilly_core/analyzer.py:118`](skilly_core/analyzer.py:118)
+- **Location**: [`skilly_core/analyzer.py:119`](skilly_core/analyzer.py:119)
 - **Signature**: `class ProjectAnalyzer():`
 ```python
 from skilly_core.analyzer import ProjectAnalyzer
@@ -157,7 +94,7 @@ instance = ProjectAnalyzer()
 
 ### `ProjectAnalyzer.scan_files`
 - **Role**: Walks the directory and collects all relevant source and manifest files.
-- **Location**: [`skilly_core/analyzer.py:128`](skilly_core/analyzer.py:128)
+- **Location**: [`skilly_core/analyzer.py:129`](skilly_core/analyzer.py:129)
 - **Signature**: `def scan_files() -> List[Path]`
 ```python
 from skilly_core.analyzer import scan_files
@@ -166,7 +103,7 @@ result = scan_files(...)
 
 ### `ProjectAnalyzer.analyze`
 - **Role**: Runs all extractors and graph algorithms to produce ProjectAnalysisResult.
-- **Location**: [`skilly_core/analyzer.py:162`](skilly_core/analyzer.py:162)
+- **Location**: [`skilly_core/analyzer.py:163`](skilly_core/analyzer.py:163)
 - **Signature**: `def analyze() -> ProjectAnalysisResult`
 ```python
 from skilly_core.analyzer import analyze
@@ -175,7 +112,7 @@ result = analyze(...)
 
 ### `ProjectAnalyzer.write_artifacts`
 - **Role**: Generates and writes artifacts selectively to the output directory.
-- **Location**: [`skilly_core/analyzer.py:257`](skilly_core/analyzer.py:257)
+- **Location**: [`skilly_core/analyzer.py:280`](skilly_core/analyzer.py:280)
 - **Signature**: `def write_artifacts(result: ProjectAnalysisResult, output_dir: Optional[Path | str], skills_file: str, graph_html_file: str, graph_json_file: str, graph_md_file: str, include_skills: bool, include_graph: bool, inject_ai: Optional[bool]) -> Dict[str, Path]`
 ```python
 from skilly_core.analyzer import write_artifacts
@@ -470,21 +407,6 @@ from skilly_core.injectors.ai_injector import inject_all
 result = inject_all(...)
 ```
 
-### `ItemController`
-- **Role**: Java class declaration `ItemController`
-- **Location**: [`tests/fixtures/sample_polyglot_app/ItemController.java:6`](tests/fixtures/sample_polyglot_app/ItemController.java:6)
-- **Signature**: `class_declaration ItemController`
-
-### `PriceCalculator`
-- **Role**: Ruby component `PriceCalculator`
-- **Location**: [`tests/fixtures/sample_polyglot_app/calc.rb:2`](tests/fixtures/sample_polyglot_app/calc.rb:2)
-- **Signature**: `class/struct PriceCalculator`
-
-### `TokenVault`
-- **Role**: Decentralized treasury vault for liquidity tokens
-- **Location**: [`tests/fixtures/sample_polyglot_app/Vault.sol:5`](tests/fixtures/sample_polyglot_app/Vault.sol:5)
-- **Signature**: `contract_declaration TokenVault`
-
 ## 4. Data Models & Schemas
 
 | Model / Schema | Description | Location | Details |
@@ -496,11 +418,10 @@ result = inject_all(...)
 | **`ProjectSummary`** | Data model / schema 'ProjectSummary' | `skilly_core/models.py:123` | `class ProjectSummary():` |
 | **`HealthReport`** | Data model / schema 'HealthReport' | `skilly_core/models.py:149` | `class HealthReport():` |
 | **`ProjectAnalysisResult`** | Data model / schema 'ProjectAnalysisResult' | `skilly_core/models.py:169` | `class ProjectAnalysisResult():` |
-| **`Point3D`** | Calculates Euclidean distance between two 3D points. | `tests/fixtures/sample_polyglot_app/main.c:12` | `struct_specifier Point3D` |
 
 ## 5. Core Exported Functions & Utilities
 
-Found **8** core callable functions:
+Found **3** core callable functions:
 
 #### `print_banner`
 - **Description**: Function `print_banner` in skilly_core/cli.py
@@ -532,36 +453,6 @@ from skilly_core.__init__ import analyze_project
 result = analyze_project(...)
 ```
 
-#### `calculateTax`
-- **Description**: Calculates sum with tax applied. @param amount Base price @param rate Tax rate decimal
-- **Location**: `tests/fixtures/sample_node_app/server.js:12`
-- **Signature**: `export function calculateTax(amount, rate)`
-- **Parameters**: `amount` (any), `rate` (any)
-```python
-import { calculateTax } from './server';
-const result = calculateTax(...);
-```
-
-#### `calculate_discount`
-- **Description**: Ruby function `calculate_discount` in calc.rb
-- **Location**: `tests/fixtures/sample_polyglot_app/calc.rb:4`
-- **Signature**: `calculate_discount(tier, amount)`
-
-#### `calculate_distance`
-- **Description**: Calculates Euclidean distance between two 3D points.
-- **Location**: `tests/fixtures/sample_polyglot_app/main.c:12`
-- **Signature**: `fn calculate_distance(...)`
-
-#### `deposit`
-- **Description**: Deposits funds into vault
-- **Location**: `tests/fixtures/sample_polyglot_app/Vault.sol:7`
-- **Signature**: `fn deposit(...)`
-
-#### `withdraw`
-- **Description**: Withdraws allocated funds
-- **Location**: `tests/fixtures/sample_polyglot_app/Vault.sol:12`
-- **Signature**: `fn withdraw(...)`
-
 ## 6. Environment & Configuration
 
 _No environment templates (.env.example) found._
@@ -572,21 +463,21 @@ The following components exhibit the highest architectural centrality (PageRank 
 
 | Rank | Component / Symbol | Type | Centrality Score | Inbound Deps | Outbound Calls | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | **`append`** | `module` | `0.00963506747371171` | `45` | `0` | Core system component |
-| #2 | **`str`** | `module` | `0.00803447950052554` | `18` | `0` | Core system component |
-| #3 | **`GraphNode`** | `module` | `0.007782845913395049` | `37` | `0` | Core system component |
-| #4 | **`Path`** | `module` | `0.007226210793366737` | `24` | `0` | Core system component |
-| #5 | **`isinstance`** | `module` | `0.007035038772616561` | `13` | `0` | Core system component |
-| #6 | **`Skill`** | `module` | `0.006934870274874223` | `31` | `0` | Core system component |
-| #7 | **`_rel`** | `module` | `0.0065380362108529684` | `27` | `0` | Core system component |
-| #8 | **`len`** | `module` | `0.006428086103795002` | `27` | `0` | Core system component |
-| #9 | **`replace`** | `module` | `0.006124675474790066` | `12` | `0` | Core system component |
-| #10 | **`models.py`** | `file` | `0.005797881087969144` | `19` | `18` | Python source file models.py |
-| #11 | **`lower`** | `module` | `0.005470329909376007` | `24` | `0` | Core system component |
-| #12 | **`write_text`** | `module` | `0.00514250056797048` | `17` | `0` | Core system component |
-| #13 | **`read_text`** | `module` | `0.005035806402750375` | `22` | `0` | Core system component |
-| #14 | **`round`** | `module` | `0.005001631004636795` | `2` | `0` | Core system component |
-| #15 | **`ProjectAnalyzer`** | `module` | `0.004893923095984243` | `15` | `0` | Core system component |
+| #1 | **`append`** | `module` | `0.011058450682381288` | `45` | `0` | Core system component |
+| #2 | **`str`** | `module` | `0.009165362040271543` | `17` | `0` | Core system component |
+| #3 | **`GraphNode`** | `module` | `0.008932726557061836` | `37` | `0` | Core system component |
+| #4 | **`Path`** | `module` | `0.008293873756697162` | `24` | `0` | Core system component |
+| #5 | **`isinstance`** | `module` | `0.008073833828348585` | `13` | `0` | Core system component |
+| #6 | **`Skill`** | `module` | `0.007959506441723269` | `31` | `0` | Core system component |
+| #7 | **`_rel`** | `module` | `0.007504067881836769` | `27` | `0` | Core system component |
+| #8 | **`len`** | `module` | `0.0073725324611232474` | `27` | `0` | Core system component |
+| #9 | **`replace`** | `module` | `0.007029417877267969` | `12` | `0` | Core system component |
+| #10 | **`models.py`** | `file` | `0.006654514801840083` | `19` | `18` | Python source file models.py |
+| #11 | **`lower`** | `module` | `0.006273492941243077` | `24` | `0` | Core system component |
+| #12 | **`write_text`** | `module` | `0.005902366657838352` | `17` | `0` | Core system component |
+| #13 | **`read_text`** | `module` | `0.0058302846869310344` | `23` | `0` | Core system component |
+| #14 | **`round`** | `module` | `0.005739694329807803` | `2` | `0` | Core system component |
+| #15 | **`ProjectAnalyzer`** | `module` | `0.005617045881117735` | `15` | `0` | Core system component |
 
 ---
 *Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [PyPI](https://pypi.org/project/skilly-ai/) • [GitHub](https://github.com/arastuthakur/skilly) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*

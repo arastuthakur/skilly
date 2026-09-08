@@ -1,33 +1,27 @@
-# Knowledge Graph Architecture: Model
+# Knowledge Graph Architecture: skilly-ai
 
 > Structural and semantic topology extracted deterministically via AST and import graphs.
 
 ## 📈 Graph Metrics
-- **Total Entities (Nodes)**: `500`
-- **Total Relationships (Edges)**: `1348`
-- **Architectural Clusters**: `6`
-- **Circular Dependency Cycles**: `1`
+- **Total Entities (Nodes)**: `432`
+- **Total Relationships (Edges)**: `1293`
+- **Architectural Clusters**: `5`
+- **Circular Dependency Cycles**: `0`
 
-### ⚠️ Circular Dependencies Detected
-The following circular reference cycles were identified in the codebase:
-
-- `file:tests/fixtures/sample_circular_app/a.py` ➔ `file:tests/fixtures/sample_circular_app/b.py` ➔ `file:tests/fixtures/sample_circular_app/a.py`
+**No circular dependency cycles detected.** Codebase dependency graph is acyclic.
 
 ## Architectural Clusters & Subdomains
 
-### Skilly_core Domain (`347` components)
-- **Key Components**: `ManifestExtractor._parse_composer_json`, `compute_health_report`, `JavaScriptExtractor._extract_imports`, `ManifestExtractor._parse_pubspec`, `lower`, `ManifestExtractor._parse_skill_md`, `ProjectAnalyzer._load_gitignore`, `startswith`, `rstrip`, `ManifestExtractor._parse_setup_py`
-- _...and 337 more components_
+### Skilly_core Domain (`349` components)
+- **Key Components**: `get_text`, `split`, `_extract_calls`, `tests/test_graph_engine.py`, `UniversalPolyglotExtractor._regex_fallback_extract`, `result`, `upper`, `any`, `compute_health_report`, `visit`
+- _...and 339 more components_
 
-### Tests Domain (`136` components)
-- **Key Components**: `test_javascript_extractor`, `test_ci_fail_on_cycles_cli`, `test_manifest_extractor_makefile_and_env`, `exists`, `get_traced_memory`, `generate`, `raises`, `ProjectAnalyzer.__init__`, `PythonASTExtractor`, `test_github_workflows_and_scripts_skills`
-- _...and 126 more components_
+### Tests Domain (`75` components)
+- **Key Components**: `write_artifacts`, `AnalysisCache`, `Panel`, `test_javascript_relative_import_edges`, `test_framework_detection_no_false_positives`, `test_github_workflows_and_scripts_skills`, `AnalysisCache.save`, `keys`, `test_manifest_extractor_makefile_and_env`, `mkdir`
+- _...and 65 more components_
 
 ### Root Domain (`6` components)
 - **Key Components**: `setup.py`, `setuptools`, `start`, `test`, `skilly`, `install.sh`
-
-### .agents Domain (`9` components)
-- **Key Components**: `api-security-testing`, `application-security-testing`, `ci-security-scanning-with-strix`, `find-security-vulnerabilities-in-code`, `fix-security-vulnerabilities-with-strix`, `managed-pentesting-with-strix`, `owasp-top-10-testing`, `penetration-testing-with-strix`, `web-app-penetration-testing`
 
 ### .github Domain (`1` components)
 - **Key Components**: `generate_project_skills___knowledge_graph`
@@ -54,8 +48,8 @@ graph TD
     file_skilly_core_extractors_manifest_extractor_py["manifest_extractor.py (file)"]
     file_skilly_core_extractors_polyglot_extractor_py["polyglot_extractor.py (file)"]
     file_skilly_core_extractors_python_extractor_py["python_extractor.py (file)"]
-    len["len (module)"]
     Path["Path (module)"]
+    len["len (module)"]
     append["append (module)"]
     str["str (module)"]
     replace["replace (module)"]
@@ -94,31 +88,31 @@ graph TD
 
 | Rank | Symbol / Module | Type | PageRank | In-Degree | Out-Degree | Impact / Blast Radius |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | `append` | `module` | `0.0096` | `45` | `0` | Critical Choke Point |
-| #2 | `str` | `module` | `0.0080` | `18` | `0` | Critical Choke Point |
-| #3 | `GraphNode` | `module` | `0.0078` | `37` | `0` | Critical Choke Point |
-| #4 | `Path` | `module` | `0.0072` | `24` | `0` | Critical Choke Point |
-| #5 | `isinstance` | `module` | `0.0070` | `13` | `0` | Critical Choke Point |
-| #6 | `Skill` | `module` | `0.0069` | `31` | `0` | Critical Choke Point |
-| #7 | `_rel` | `module` | `0.0065` | `27` | `0` | Critical Choke Point |
-| #8 | `len` | `module` | `0.0064` | `27` | `0` | Critical Choke Point |
-| #9 | `replace` | `module` | `0.0061` | `12` | `0` | Critical Choke Point |
-| #10 | `models.py` | `file` | `0.0058` | `19` | `18` | Critical Choke Point |
-| #11 | `lower` | `module` | `0.0055` | `24` | `0` | Critical Choke Point |
-| #12 | `write_text` | `module` | `0.0051` | `17` | `0` | Critical Choke Point |
-| #13 | `read_text` | `module` | `0.0050` | `22` | `0` | Critical Choke Point |
-| #14 | `round` | `module` | `0.0050` | `2` | `0` | High Importance |
-| #15 | `ProjectAnalyzer` | `module` | `0.0049` | `15` | `0` | Critical Choke Point |
+| #1 | `append` | `module` | `0.0111` | `45` | `0` | Critical Choke Point |
+| #2 | `str` | `module` | `0.0092` | `17` | `0` | Critical Choke Point |
+| #3 | `GraphNode` | `module` | `0.0089` | `37` | `0` | Critical Choke Point |
+| #4 | `Path` | `module` | `0.0083` | `24` | `0` | Critical Choke Point |
+| #5 | `isinstance` | `module` | `0.0081` | `13` | `0` | Critical Choke Point |
+| #6 | `Skill` | `module` | `0.0080` | `31` | `0` | Critical Choke Point |
+| #7 | `_rel` | `module` | `0.0075` | `27` | `0` | Critical Choke Point |
+| #8 | `len` | `module` | `0.0074` | `27` | `0` | Critical Choke Point |
+| #9 | `replace` | `module` | `0.0070` | `12` | `0` | Critical Choke Point |
+| #10 | `models.py` | `file` | `0.0067` | `19` | `18` | Critical Choke Point |
+| #11 | `lower` | `module` | `0.0063` | `24` | `0` | Critical Choke Point |
+| #12 | `write_text` | `module` | `0.0059` | `17` | `0` | Critical Choke Point |
+| #13 | `read_text` | `module` | `0.0058` | `23` | `0` | Critical Choke Point |
+| #14 | `round` | `module` | `0.0057` | `2` | `0` | High Importance |
+| #15 | `ProjectAnalyzer` | `module` | `0.0056` | `15` | `0` | Critical Choke Point |
 
 ## Relationship Types Distribution
 
 | Relationship Type | Count | Description |
 | :--- | :--- | :--- |
-| `calls` | `910` | Inter-component connection |
-| `exposes` | `260` | Inter-component connection |
-| `imports` | `155` | Inter-component connection |
-| `inherits` | `14` | Inter-component connection |
-| `depends_on` | `9` | Inter-component connection |
+| `calls` | `903` | Inter-component connection |
+| `exposes` | `233` | Inter-component connection |
+| `imports` | `143` | Inter-component connection |
+| `inherits` | `12` | Inter-component connection |
+| `depends_on` | `2` | Inter-component connection |
 
 ---
 *Interactive visual graph available in `knowledge_graph.html`*

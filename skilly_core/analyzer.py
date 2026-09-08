@@ -113,22 +113,6 @@ LANGUAGE_EXTENSIONS = {
 from concurrent.futures import ThreadPoolExecutor
 from skilly_core.config import SkillyConfig
 from skilly_core.cache import AnalysisCache
-from skilly_core.extractors.manifest_extractor import ManifestExtractor
-from skilly_core.extractors.python_extractor import PythonASTExtractor
-from skilly_core.extractors.javascript_extractor import JavaScriptExtractor
-from skilly_core.extractors.polyglot_extractor import PolyglotExtractor
-from skilly_core.extractors.universal_engine import UniversalPolyglotExtractor
-from skilly_core.graph_engine import KnowledgeGraphEngine
-from skilly_core.generators.skills_generator import SkillsGenerator
-from skilly_core.generators.graph_markdown_generator import GraphMarkdownGenerator
-from skilly_core.generators.html_visualizer import HTMLVisualizer
-from skilly_core.models import (
-    GraphEdge,
-    GraphNode,
-    ProjectAnalysisResult,
-    ProjectSummary,
-    Skill,
-)
 
 
 class ProjectAnalyzer:
@@ -147,11 +131,13 @@ class ProjectAnalyzer:
         gitignore_patterns = self._load_gitignore() if self.config.respect_gitignore else []
         custom_ignores = set(self.config.ignore_patterns)
 
+        ALLOWED_DOT_DIRS = {".github", ".circleci", ".gitlab"}
+
         for root, dirs, files in os.walk(self.target_dir):
-            # Prune ignored directories in-place
+            # Prune ignored directories in-place (preserve CI dirs like .github)
             dirs[:] = [
                 d for d in dirs
-                if d not in custom_ignores and d not in DEFAULT_IGNORE_DIRS and not d.startswith(".")
+                if d not in custom_ignores and d not in DEFAULT_IGNORE_DIRS and (not d.startswith(".") or d in ALLOWED_DOT_DIRS)
             ]
 
             for file in files:
@@ -226,6 +212,17 @@ class ProjectAnalyzer:
         if self.cache:
             self.cache.save()
 
+        # Deduplicate skills deterministically (merge richest descriptions/metadata)
+        unique_skills: Dict[str, Skill] = {}
+        for s in all_skills:
+            if s.id not in unique_skills:
+                unique_skills[s.id] = s
+            else:
+                existing = unique_skills[s.id]
+                if len(s.description or "") > len(existing.description or ""):
+                    unique_skills[s.id] = s
+        all_skills = list(unique_skills.values())
+
         # Detect Frameworks from skills and dependencies
         frameworks = self._detect_frameworks(all_skills, all_nodes)
 
@@ -265,51 +262,53 @@ class ProjectAnalyzer:
         graph_html_file: str = "knowledge_graph.html",
         graph_json_file: str = "knowledge_graph.json",
         graph_md_file: str = "knowledge_graph.md",
+        include_skills: bool = True,
+        include_graph: bool = True,
         inject_ai: Optional[bool] = None,
     ) -> Dict[str, Path]:
-        """Generates and writes all artifacts to the output directory (defaults to project dir)."""
+        """Generates and writes artifacts selectively to the output directory."""
         out_path = Path(output_dir).resolve() if output_dir else self.target_dir
         out_path.mkdir(parents=True, exist_ok=True)
 
         paths: Dict[str, Path] = {}
 
         # 1. skills.md
-        skills_gen = SkillsGenerator()
-        skills_content = skills_gen.generate(result)
-        p_skills = out_path / skills_file
-        p_skills.write_text(skills_content, encoding="utf-8")
-        paths["skills_md"] = p_skills
+        if include_skills:
+            skills_gen = SkillsGenerator()
+            skills_content = skills_gen.generate(result)
+            p_skills = out_path / skills_file
+            p_skills.write_text(skills_content, encoding="utf-8")
+            paths["skills_md"] = p_skills
 
-        # 2. knowledge_graph.html
-        html_gen = HTMLVisualizer()
-        html_content = html_gen.generate(result)
-        p_html = out_path / graph_html_file
-        p_html.write_text(html_content, encoding="utf-8")
-        paths["graph_html"] = p_html
+        # 2-4. Knowledge Graph Artifacts
+        if include_graph:
+            html_gen = HTMLVisualizer()
+            html_content = html_gen.generate(result)
+            p_html = out_path / graph_html_file
+            p_html.write_text(html_content, encoding="utf-8")
+            paths["graph_html"] = p_html
 
-        # 3. knowledge_graph.json
-        graph_data = {
-            "summary": result.summary.to_dict(),
-            "nodes": [n.to_dict() for n in result.nodes],
-            "edges": [e.to_dict() for e in result.edges],
-            "clusters": result.clusters,
-            "hubs": [h.to_dict() for h in result.hubs],
-            "circular_dependencies": result.circular_dependencies,
-        }
-        p_json = out_path / graph_json_file
-        p_json.write_text(json.dumps(graph_data, indent=2), encoding="utf-8")
-        paths["graph_json"] = p_json
+            graph_data = {
+                "summary": result.summary.to_dict(),
+                "nodes": [n.to_dict() for n in result.nodes],
+                "edges": [e.to_dict() for e in result.edges],
+                "clusters": result.clusters,
+                "hubs": [h.to_dict() for h in result.hubs],
+                "circular_dependencies": result.circular_dependencies,
+            }
+            p_json = out_path / graph_json_file
+            p_json.write_text(json.dumps(graph_data, indent=2), encoding="utf-8")
+            paths["graph_json"] = p_json
 
-        # 4. knowledge_graph.md
-        md_gen = GraphMarkdownGenerator()
-        graph_md_content = md_gen.generate(result)
-        p_md = out_path / graph_md_file
-        p_md.write_text(graph_md_content, encoding="utf-8")
-        paths["graph_md"] = p_md
+            md_gen = GraphMarkdownGenerator()
+            graph_md_content = md_gen.generate(result)
+            p_md = out_path / graph_md_file
+            p_md.write_text(graph_md_content, encoding="utf-8")
+            paths["graph_md"] = p_md
 
         # 5. AI Assistant Auto-Injection (Claude, Copilot, Cursor, Antigravity, Codex, Windsurf, Cline)
         should_inject = inject_ai if inject_ai is not None else getattr(self.config, "inject_ai", True)
-        if should_inject:
+        if should_inject and include_skills:
             from skilly_core.injectors.ai_injector import AIInjector
             targets = getattr(self.config, "ai_targets", ["all"])
             injector = AIInjector(targets=targets)
@@ -341,33 +340,24 @@ class ProjectAnalyzer:
 
     def _detect_frameworks(self, skills: List[Skill], nodes: List[GraphNode]) -> List[str]:
         detected = set()
-        labels_lower = {n.label.lower() for n in nodes}
+        from skilly_core.models import NodeType
+        dep_labels = {n.label.lower() for n in nodes if getattr(n, "type", None) == NodeType.DEPENDENCY}
+        dep_ids = {n.id.lower() for n in nodes if getattr(n, "type", None) == NodeType.DEPENDENCY}
         skill_tags = {t.lower() for s in skills for t in s.tags}
 
-        framework_signatures = {
+        # Tag-based framework triggers (explicitly labeled by AST extractors)
+        tag_frameworks = {
             "fastapi": "FastAPI",
             "flask": "Flask",
             "django": "Django",
             "express": "Express.js",
+            "nextjs": "Next.js",
             "next": "Next.js",
             "react": "React",
             "vue": "Vue",
             "svelte": "Svelte",
             "gin": "Gin (Go)",
-            "echo": "Echo (Go)",
-            "fiber": "Fiber (Go)",
-            "actix": "Actix (Rust)",
-            "axum": "Axum (Rust)",
-            "rocket": "Rocket (Rust)",
             "spring": "Spring Boot",
-            "rails": "Ruby on Rails",
-            "laravel": "Laravel (PHP)",
-            "symfony": "Symfony (PHP)",
-            "aspnet": "ASP.NET Core",
-            "flutter": "Flutter",
-            "phoenix": "Phoenix (Elixir)",
-            "pytest": "Pytest",
-            "jest": "Jest",
             "click": "Click CLI",
             "typer": "Typer CLI",
             "pydantic": "Pydantic",
@@ -376,12 +366,62 @@ class ProjectAnalyzer:
             "docker": "Docker",
             "make": "Make",
             "cmake": "CMake",
-            "maven": "Maven",
-            "gradle": "Gradle",
+            "pytest": "Pytest",
+            "jest": "Jest",
+            "vitest": "Vitest",
+            "mocha": "Mocha",
         }
+        for tag, name in tag_frameworks.items():
+            if tag in skill_tags:
+                detected.add(name)
 
-        for key, name in framework_signatures.items():
-            if key in labels_lower or key in skill_tags:
+        # Manifest dependency triggers (exact package names)
+        dep_frameworks = {
+            "fastapi": "FastAPI",
+            "starlette": "Starlette",
+            "uvicorn": "Uvicorn",
+            "flask": "Flask",
+            "django": "Django",
+            "tornado": "Tornado",
+            "sanic": "Sanic",
+            "litestar": "Litestar",
+            "express": "Express.js",
+            "fastify": "Fastify",
+            "koa": "Koa",
+            "@nestjs/core": "NestJS",
+            "nestjs": "NestJS",
+            "next": "Next.js",
+            "react": "React",
+            "vue": "Vue",
+            "svelte": "Svelte",
+            "@angular/core": "Angular",
+            "angular": "Angular",
+            "gin": "Gin (Go)",
+            "gin-gonic/gin": "Gin (Go)",
+            "github.com/gin-gonic/gin": "Gin (Go)",
+            "labstack/echo": "Echo (Go)",
+            "github.com/labstack/echo": "Echo (Go)",
+            "fiber": "Fiber (Go)",
+            "gofiber/fiber": "Fiber (Go)",
+            "github.com/gofiber/fiber": "Fiber (Go)",
+            "actix": "Actix (Rust)",
+            "actix-web": "Actix (Rust)",
+            "axum": "Axum (Rust)",
+            "rocket": "Rocket (Rust)",
+            "spring-boot": "Spring Boot",
+            "rails": "Ruby on Rails",
+            "laravel": "Laravel (PHP)",
+            "symfony": "Symfony (PHP)",
+            "pytest": "Pytest",
+            "jest": "Jest",
+            "click": "Click CLI",
+            "typer": "Typer CLI",
+            "pydantic": "Pydantic",
+            "sqlalchemy": "SQLAlchemy",
+            "prisma": "Prisma ORM",
+        }
+        for dep_key, name in dep_frameworks.items():
+            if any(dep_key == d or dep_key in d or f"dep:{dep_key}" in dep_ids for d in dep_labels):
                 detected.add(name)
 
         return sorted(detected)

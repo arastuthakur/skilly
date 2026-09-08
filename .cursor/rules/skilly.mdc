@@ -17,10 +17,10 @@ alwaysApply: true
 
 ### Codebase Overview
 - **Architecture Health**: `B` (85/100 - Grade B (85/100): 1 circular dependency cycles detected.)
-- **Total Cataloged Skills**: `148`
-- **Languages**: PowerShell (1), Shell (1), HTML (1), Python (35), JavaScript (1), Ruby (1), Java (1), C (1), Solidity (1)
-- **Frameworks / Tooling**: Click CLI, Docker, Express.js, FastAPI, Jest, Make, Pydantic, Spring Boot
-- **Knowledge Graph Entities**: `495 nodes, 1215 relations`
+- **Total Cataloged Skills**: `74`
+- **Languages**: PowerShell (1), Shell (1), HTML (3), Python (35), JavaScript (1), Ruby (1), Java (1), C (1), Solidity (1)
+- **Frameworks / Tooling**: Click CLI, Docker, Express.js, FastAPI, Jest, Make, Pydantic, Spring Boot, Uvicorn
+- **Knowledge Graph Entities**: `478 nodes, 1298 relations`
 
 ### Execution Guidelines for AI Agents
 1. When asked how to build, test, or run this project, use the exact commands documented in `skills.md`.

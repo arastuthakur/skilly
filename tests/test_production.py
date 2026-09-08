@@ -83,3 +83,77 @@ def test_json_summary_flag(capsys):
 def test_pep561_py_typed_exists():
     py_typed = Path(__file__).parent.parent / "skilly_core" / "py.typed"
     assert py_typed.exists()
+
+def test_framework_detection_no_false_positives():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        # Create a file with a helper named 'echo' - should NOT detect Go Echo framework
+        helper = tmp_path / "helper.py"
+        helper.write_text("def echo(msg):\n    return msg\n", encoding="utf-8")
+        reqs = tmp_path / "requirements.txt"
+        reqs.write_text("starlette>=0.30.0\n", encoding="utf-8")
+
+        analyzer = ProjectAnalyzer(tmp_path)
+        report = analyzer.analyze()
+
+        frameworks = report.summary.frameworks
+        assert "Echo (Go)" not in frameworks
+        assert "Starlette" in frameworks
+
+def test_javascript_relative_import_edges():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        a_js = tmp_path / "src" / "index.js"
+        b_js = tmp_path / "src" / "utils.js"
+        a_js.parent.mkdir(parents=True, exist_ok=True)
+
+        b_js.write_text("export function format(s) { return s.trim(); }\n", encoding="utf-8")
+        a_js.write_text("import { format } from './utils';\nexport const run = () => format(' hello ');\n", encoding="utf-8")
+
+        analyzer = ProjectAnalyzer(tmp_path)
+        report = analyzer.analyze()
+
+        edge_targets = [e.target for e in report.edges if e.source == "file:src/index.js"]
+        assert "file:src/utils.js" in edge_targets
+
+def test_python_relative_and_package_imports():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        pkg = tmp_path / "mypkg"
+        pkg.mkdir(parents=True, exist_ok=True)
+        (pkg / "__init__.py").write_text("", encoding="utf-8")
+        (pkg / "sub.py").write_text("def compute(): return 42\n", encoding="utf-8")
+        (pkg / "main.py").write_text("from .sub import compute\n\ndef run():\n    return compute()\n", encoding="utf-8")
+
+        analyzer = ProjectAnalyzer(tmp_path)
+        report = analyzer.analyze()
+
+        edge_targets = [e.target for e in report.edges if e.source == "file:mypkg/main.py"]
+        assert "file:mypkg/sub.py" in edge_targets
+
+def test_github_workflows_and_scripts_skills():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        wf = tmp_path / ".github" / "workflows" / "build.yml"
+        wf.parent.mkdir(parents=True, exist_ok=True)
+        wf.write_text("""name: Build and Test
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Pytest
+        run: pytest tests/ -v
+""", encoding="utf-8")
+
+        script = tmp_path / "scripts" / "release.sh"
+        script.parent.mkdir(parents=True, exist_ok=True)
+        script.write_text("#!/bin/bash\necho 'releasing'\n", encoding="utf-8")
+
+        analyzer = ProjectAnalyzer(tmp_path)
+        report = analyzer.analyze()
+
+        skill_ids = [s.id for s in report.skills]
+        assert "workflow:build_and_test" in skill_ids
+        assert "script:release_sh" in skill_ids
+

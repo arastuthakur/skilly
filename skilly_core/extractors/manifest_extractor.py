@@ -34,8 +34,15 @@ class ManifestExtractor(BaseExtractor):
 
         for path in file_paths:
             name = path.name.lower()
+            rel = self._rel(path)
 
-            if name == "package.json":
+            if ".github/workflows" in rel and (name.endswith(".yml") or name.endswith(".yaml")):
+                s, n, e = self._parse_github_workflows(path)
+                skills.extend(s); nodes.extend(n); edges.extend(e)
+            elif (rel.startswith("scripts/") or rel.startswith("bin/") or "/scripts/" in rel or "/bin/" in rel) and (name.endswith(".sh") or name.endswith(".py") or name.endswith(".js") or name.endswith(".bash") or name.endswith(".ps1")):
+                s, n, e = self._parse_script_file(path)
+                skills.extend(s); nodes.extend(n); edges.extend(e)
+            elif name == "package.json":
                 s, n, e = self._parse_package_json(path)
                 skills.extend(s); nodes.extend(n); edges.extend(e)
             elif name == "pyproject.toml":
@@ -680,4 +687,86 @@ class ManifestExtractor(BaseExtractor):
         skills.append(Skill(id="mix:compile", name="mix compile", category=SkillCategory.WORKFLOW, description="Compile Elixir project with Mix", location=rel_path, example_usage="mix compile", tags=["elixir", "mix", "build"]))
         skills.append(Skill(id="mix:test", name="mix test", category=SkillCategory.WORKFLOW, description="Run Elixir unit test suite", location=rel_path, example_usage="mix test", tags=["elixir", "mix", "test"]))
         nodes.append(GraphNode(id="cmd:mix:compile", label="mix compile", type=NodeType.CLI, file_path=rel_path))
+        return skills, nodes, edges
+
+    def _parse_github_workflows(self, path: Path) -> Tuple[List[Skill], List[GraphNode], List[GraphEdge]]:
+        skills, nodes, edges = [], [], []
+        rel_path = self._rel(path)
+        try:
+            content = path.read_text(encoding="utf-8", errors="ignore")
+            m_name = re.search(r"^name:\s*['\"]?([^'\"\n]+)['\"]?", content, re.MULTILINE)
+            workflow_name = m_name.group(1).strip() if m_name else path.stem
+            clean_id = re.sub(r"[^a-zA-Z0-9_-]", "_", workflow_name.lower())
+
+            skill_id = f"workflow:{clean_id}"
+            skills.append(
+                Skill(
+                    id=skill_id,
+                    name=f"CI Workflow: {workflow_name}",
+                    category=SkillCategory.WORKFLOW,
+                    description=f"GitHub Actions CI workflow defined in {rel_path}",
+                    location=rel_path,
+                    example_usage=f"gh workflow run {path.name}",
+                    tags=["ci", "github-actions", "workflow"],
+                )
+            )
+            nodes.append(
+                GraphNode(
+                    id=f"cmd:{skill_id}",
+                    label=f"ci:{workflow_name}",
+                    type=NodeType.CLI,
+                    file_path=rel_path,
+                    description=f"CI Workflow: {workflow_name}",
+                )
+            )
+
+            run_commands = re.findall(r"^\s+run:\s*['\"]?([^\n|'\"]+)['\"]?", content, re.MULTILINE)
+            for raw_cmd in set(run_commands):
+                cmd = raw_cmd.strip()
+                if cmd and not cmd.startswith("$") and not cmd.startswith("#") and len(cmd) < 80:
+                    cmd_id = re.sub(r"[^a-zA-Z0-9_-]", "_", cmd.lower())[:40]
+                    skills.append(
+                        Skill(
+                            id=f"ci_step:{clean_id}:{cmd_id}",
+                            name=f"CI Step: {cmd}",
+                            category=SkillCategory.COMMAND,
+                            description=f"Command executed in CI workflow {workflow_name} ({rel_path})",
+                            location=rel_path,
+                            example_usage=cmd,
+                            tags=["ci", "command", "github-actions"],
+                        )
+                    )
+        except Exception:
+            pass
+        return skills, nodes, edges
+
+    def _parse_script_file(self, path: Path) -> Tuple[List[Skill], List[GraphNode], List[GraphEdge]]:
+        skills, nodes, edges = [], [], []
+        rel_path = self._rel(path)
+        script_name = path.name
+        clean_id = re.sub(r"[^a-zA-Z0-9_-]", "_", script_name.lower())
+        skill_id = f"script:{clean_id}"
+
+        usage = f"python {rel_path}" if path.suffix == ".py" else (f"node {rel_path}" if path.suffix in (".js", ".mjs") else f"./{rel_path}")
+
+        skills.append(
+            Skill(
+                id=skill_id,
+                name=f"Script: {script_name}",
+                category=SkillCategory.COMMAND,
+                description=f"Executable project script at {rel_path}",
+                location=rel_path,
+                example_usage=usage,
+                tags=["script", path.suffix.lstrip(".") or "sh"],
+            )
+        )
+        nodes.append(
+            GraphNode(
+                id=f"cmd:{skill_id}",
+                label=script_name,
+                type=NodeType.CLI,
+                file_path=rel_path,
+                description=f"Executable script: {rel_path}",
+            )
+        )
         return skills, nodes, edges

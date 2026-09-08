@@ -215,18 +215,11 @@ def main(args: Optional[list] = None):
     out_dir = Path(parsed_args.output_dir).resolve() if parsed_args.output_dir else target_path
 
     if parsed_args.skills_only:
-        p = analyzer.write_artifacts(result, output_dir=out_dir)
-        for k in ["graph_html", "graph_json", "graph_md"]:
-            if k in p and p[k].exists():
-                p[k].unlink()
-        written = {k: v for k, v in p.items() if k == "skills_md" or k.startswith("ai:")}
+        written = analyzer.write_artifacts(result, output_dir=out_dir, include_skills=True, include_graph=False)
     elif parsed_args.graph_only:
-        p = analyzer.write_artifacts(result, output_dir=out_dir)
-        if "skills_md" in p and p["skills_md"].exists():
-            p["skills_md"].unlink()
-        written = {k: v for k, v in p.items() if k != "skills_md"}
+        written = analyzer.write_artifacts(result, output_dir=out_dir, include_skills=False, include_graph=True)
     else:
-        written = analyzer.write_artifacts(result, output_dir=out_dir)
+        written = analyzer.write_artifacts(result, output_dir=out_dir, include_skills=True, include_graph=True)
 
     core_artifacts = {k: v for k, v in written.items() if not k.startswith("ai:")}
     ai_artifacts = {k[3:]: v for k, v in written.items() if k.startswith("ai:")}

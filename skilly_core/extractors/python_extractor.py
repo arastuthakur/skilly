@@ -58,6 +58,51 @@ class PythonASTExtractor(BaseExtractor):
         except ValueError:
             return str(path).replace("\\", "/")
 
+    def _resolve_python_import(self, current_file: Path, module_name: Optional[str], level: int = 0) -> Optional[str]:
+        """Resolves a Python module import (absolute or relative) to an internal file path."""
+        # 1. Relative import (level > 0)
+        if level > 0:
+            base_dir = current_file.parent
+            for _ in range(level - 1):
+                base_dir = base_dir.parent
+            if not module_name:
+                init_cand = base_dir / "__init__.py"
+                if init_cand.is_file():
+                    return self._rel(init_cand)
+                return None
+            rel_parts = module_name.split(".")
+            cand_py = base_dir.joinpath(*rel_parts).with_suffix(".py")
+            if cand_py.is_file():
+                return self._rel(cand_py)
+            cand_init = base_dir.joinpath(*rel_parts) / "__init__.py"
+            if cand_init.is_file():
+                return self._rel(cand_init)
+            return None
+
+        # 2. Absolute import (level == 0)
+        if not module_name:
+            return None
+
+        parts = module_name.split(".")
+        for search_root in (current_file.parent, self.root_dir, self.root_dir / "src"):
+            cand_py = search_root.joinpath(*parts).with_suffix(".py")
+            if cand_py.is_file():
+                return self._rel(cand_py)
+            cand_init = search_root.joinpath(*parts) / "__init__.py"
+            if cand_init.is_file():
+                return self._rel(cand_init)
+
+            for i in range(len(parts) - 1, 0, -1):
+                sub_parts = parts[:i]
+                cand_sub = search_root.joinpath(*sub_parts).with_suffix(".py")
+                if cand_sub.is_file():
+                    return self._rel(cand_sub)
+                cand_sub_init = search_root.joinpath(*sub_parts) / "__init__.py"
+                if cand_sub_init.is_file():
+                    return self._rel(cand_sub_init)
+
+        return None
+
     def _analyze_file_ast(
         self, tree: ast.AST, path: Path, rel_path: str, file_node_id: str
     ) -> Tuple[List[Skill], List[GraphNode], List[GraphEdge]]:
@@ -76,16 +121,8 @@ class PythonASTExtractor(BaseExtractor):
                 for alias in node.names:
                     dep_name = alias.name.split(".")[0]
                     imported_symbols[alias.asname or alias.name] = alias.name
-
-                    # Check if internal file in repo
-                    local_cand = path.parent / f"{dep_name}.py"
-                    root_cand = self.root_dir / f"{dep_name}.py"
-                    if local_cand.exists():
-                        target_id = f"file:{self._rel(local_cand)}"
-                    elif root_cand.exists():
-                        target_id = f"file:{self._rel(root_cand)}"
-                    else:
-                        target_id = f"dep:{dep_name}"
+                    internal_path = self._resolve_python_import(path, alias.name, level=0)
+                    target_id = f"file:{internal_path}" if internal_path else f"dep:{dep_name}"
 
                     edges.append(
                         GraphEdge(
@@ -97,26 +134,27 @@ class PythonASTExtractor(BaseExtractor):
                     )
             elif isinstance(node, ast.ImportFrom):
                 mod_name = node.module or ""
+                level = getattr(node, "level", 0)
                 dep_name = mod_name.split(".")[0] if mod_name else ""
                 for alias in node.names:
                     imported_symbols[alias.asname or alias.name] = f"{mod_name}.{alias.name}" if mod_name else alias.name
 
-                if dep_name:
-                    local_cand = path.parent / f"{dep_name}.py"
-                    root_cand = self.root_dir / f"{dep_name}.py"
-                    if local_cand.exists():
-                        target_id = f"file:{self._rel(local_cand)}"
-                    elif root_cand.exists():
-                        target_id = f"file:{self._rel(root_cand)}"
-                    else:
-                        target_id = f"dep:{dep_name}"
+                internal_path = self._resolve_python_import(path, mod_name, level=level)
+                if internal_path:
+                    target_id = f"file:{internal_path}"
+                elif dep_name:
+                    target_id = f"dep:{dep_name}"
+                else:
+                    target_id = None
 
+                if target_id:
+                    prefix = "." * level
                     edges.append(
                         GraphEdge(
                             source=file_node_id,
                             target=target_id,
                             type=EdgeType.IMPORTS,
-                            label=f"from {mod_name} import ...",
+                            label=f"from {prefix}{mod_name} import ...",
                         )
                     )
 

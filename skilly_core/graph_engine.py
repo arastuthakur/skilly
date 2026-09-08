@@ -145,13 +145,25 @@ class KnowledgeGraphEngine:
         return dict(clusters)
 
     def _detect_cycles(self) -> List[List[str]]:
-        """Find circular dependencies among files and modules."""
+        """Find circular dependencies among files and modules using Tarjan SCC partitioning."""
         cycles = []
         try:
-            # Look for simple cycles
-            for cycle in nx.simple_cycles(self.graph):
-                if len(cycle) >= 2:
-                    cycles.append(cycle)
+            # Build file/module level dependency subgraph to avoid false positives on intra-file calls
+            file_nodes = {
+                n for n, d in self.graph.nodes(data=True)
+                if n.startswith("file:") or d.get("type") in ("file", "module")
+            }
+            subgraph = self.graph.subgraph(file_nodes) if file_nodes else self.graph
+
+            # Find strongly connected components with > 1 node (Tarjan's algorithm O(V+E))
+            sccs = [scc for scc in nx.strongly_connected_components(subgraph) if len(scc) > 1]
+            for scc in sccs:
+                scc_sub = subgraph.subgraph(scc)
+                for cycle in nx.simple_cycles(scc_sub):
+                    if len(cycle) >= 2:
+                        cycles.append(cycle)
+                    if len(cycles) >= 10:
+                        break
                 if len(cycles) >= 10:
                     break
         except Exception:

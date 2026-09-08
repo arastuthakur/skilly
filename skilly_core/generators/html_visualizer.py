@@ -25,7 +25,7 @@ class HTMLVisualizer:
             "edges": edges_data,
             "clusters": clusters_data,
         }
-        json_payload = json.dumps(payload)
+        json_payload = json.dumps(payload).replace("</", "<\\/")
 
         html = f"""<!DOCTYPE html>
 <html lang="en">

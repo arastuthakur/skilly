@@ -98,6 +98,9 @@ class UniversalPolyglotExtractor(BaseExtractor):
 
         for path in file_paths:
             ext = path.suffix.lower()
+            # Skip python and JS/TS files as they are deeply analyzed by specialized AST extractors
+            if ext in (".py", ".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs"):
+                continue
             if ext not in EXT_TO_LANG:
                 continue
 

@@ -81,7 +81,7 @@ class JavaScriptExtractor(BaseExtractor):
         is_test = any(w in path.name.lower() for w in (".test.", ".spec.", "_test", "-test"))
 
         # 1. Extract Imports (ESM & CommonJS)
-        import_edges = self._extract_imports(content, file_node_id)
+        import_edges = self._extract_imports(content, path, file_node_id)
         edges.extend(import_edges)
 
         # 2. Extract Next.js App Router handlers (app/api/.../route.ts or page.tsx)
@@ -110,18 +110,74 @@ class JavaScriptExtractor(BaseExtractor):
 
         return skills, nodes, edges
 
-    def _extract_imports(self, content: str, file_node_id: str) -> List[GraphEdge]:
+    def _extract_imports(self, content: str, path: Path, file_node_id: str) -> List[GraphEdge]:
         edges = []
         # ESM: import ... from 'package'
         esm_matches = re.findall(r"import\s+(?:[\w\s{},*]+)\s+from\s+['\"]([^'\"]+)['\"]", content)
+        # Dynamic import: import('package')
+        dyn_matches = re.findall(r"import\(\s*['\"]([^'\"]+)['\"]\s*\)", content)
         # CommonJS: require('package')
         cjs_matches = re.findall(r"require\(\s*['\"]([^'\"]+)['\"]\s*\)", content)
 
-        all_imports = set(esm_matches + cjs_matches)
+        all_imports = set(esm_matches + dyn_matches + cjs_matches)
+        candidate_exts = ("", ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs")
+
         for imp in all_imports:
+            # 1. Internal relative import (./foo, ../bar)
             if imp.startswith("."):
-                # Internal relative import
+                cand = path.parent / imp
+                resolved_file: Optional[Path] = None
+                for ext in candidate_exts:
+                    t_file = cand if not ext else cand.with_suffix(ext)
+                    if t_file.is_file():
+                        resolved_file = t_file
+                        break
+                    idx_file = cand / f"index{ext}"
+                    if idx_file.is_file():
+                        resolved_file = idx_file
+                        break
+
+                if resolved_file:
+                    edges.append(
+                        GraphEdge(
+                            source=file_node_id,
+                            target=f"file:{self._rel(resolved_file)}",
+                            type=EdgeType.IMPORTS,
+                            label=f"imports {imp}",
+                        )
+                    )
                 continue
+
+            # 2. TypeScript / Webpack path aliases (@/..., ~/...)
+            if imp.startswith("@/") or imp.startswith("~/"):
+                sub = imp[2:]
+                resolved_alias: Optional[Path] = None
+                for base in (self.root_dir, self.root_dir / "src"):
+                    cand = base / sub
+                    for ext in candidate_exts:
+                        t_file = cand if not ext else cand.with_suffix(ext)
+                        if t_file.is_file():
+                            resolved_alias = t_file
+                            break
+                        idx_file = cand / f"index{ext}"
+                        if idx_file.is_file():
+                            resolved_alias = idx_file
+                            break
+                    if resolved_alias:
+                        break
+
+                if resolved_alias:
+                    edges.append(
+                        GraphEdge(
+                            source=file_node_id,
+                            target=f"file:{self._rel(resolved_alias)}",
+                            type=EdgeType.IMPORTS,
+                            label=f"imports {imp}",
+                        )
+                    )
+                    continue
+
+            # 3. External npm dependency
             pkg = imp.split("/")[0] if not imp.startswith("@") else "/".join(imp.split("/")[:2])
             edges.append(
                 GraphEdge(

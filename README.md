@@ -10,6 +10,7 @@
 
 <p align="center">
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/v/skilly-ai?style=flat-square&color=0284c7&label=PyPI%20skilly-ai" alt="PyPI Package"/></a>
+  <a href="https://www.npmjs.com/package/skilly-ai"><img src="https://img.shields.io/npm/v/skilly-ai?style=flat-square&color=cb3837&label=npm%20skilly-ai" alt="npm Package"/></a>
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/pyversions/skilly-ai?style=flat-square&color=10b981" alt="Python Versions"/></a>
   <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.3-blue?style=flat-square" alt="Release v1.0.3"/></a>
   <a href="https://arastuthakur.com.np/"><img src="https://img.shields.io/badge/Author-Arastu%20Thakur-38bdf8?style=flat-square" alt="Author Arastu Thakur"/></a>
@@ -401,6 +402,7 @@ python scripts/stress_test.py
       <strong>GitHub</strong>: <a href="https://github.com/arastuthakur">@arastuthakur</a><br/>
       <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/arastuthakur/">in/arastuthakur</a><br/>
       <strong>PyPI Package</strong>: <a href="https://pypi.org/project/skilly-ai/">skilly-ai</a><br/>
+      <strong>npm Package</strong>: <a href="https://www.npmjs.com/package/skilly-ai">skilly-ai</a><br/>
       <strong>Email</strong>: <a href="mailto:arustuthakur@gmail.com">arustuthakur@gmail.com</a>
     </td>
   </tr>

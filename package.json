@@ -1,11 +1,19 @@
 {
-  "name": "skilly",
+  "name": "skilly-ai",
   "version": "1.0.3",
   "description": "Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer.",
   "main": "bin/skilly-node.js",
   "bin": {
-    "skilly": "./bin/skilly-node.js"
+    "skilly": "./bin/skilly-node.js",
+    "skilly-ai": "./bin/skilly-node.js"
   },
+  "files": [
+    "bin/",
+    "skilly_core/",
+    "skilly.py",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "start": "node ./bin/skilly-node.js",
     "test": "python -m pytest tests/ -v"

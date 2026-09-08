@@ -1,7 +1,7 @@
 # Skilly
 
 <p align="center">
-  <img src="assets/logo.png" alt="Skilly Logo" width="560"/>
+  <img src="https://raw.githubusercontent.com/arastuthakur/skilly/main/assets/logo.png" alt="Skilly Logo" width="600"/>
 </p>
 
 <p align="center">

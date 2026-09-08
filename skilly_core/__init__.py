@@ -6,7 +6,7 @@ Converts any codebase into skills.md and interactive knowledge graphs.
 from skilly_core.analyzer import ProjectAnalyzer
 from skilly_core.models import ProjectAnalysisResult, Skill, SkillCategory, GraphNode, GraphEdge
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 def analyze_project(target_dir: str = ".") -> ProjectAnalysisResult:
     """Convenience function to analyze a project directory."""

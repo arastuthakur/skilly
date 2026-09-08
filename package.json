@@ -1,6 +1,6 @@
 {
   "name": "skilly",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer.",
   "main": "bin/skilly-node.js",
   "bin": {

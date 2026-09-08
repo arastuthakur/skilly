@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/v/skilly-ai?style=flat-square&color=0284c7&label=PyPI%20skilly-ai" alt="PyPI Package"/></a>
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/pyversions/skilly-ai?style=flat-square&color=10b981" alt="Python Versions"/></a>
-  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.2-blue?style=flat-square" alt="Release v1.0.2"/></a>
+  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.3-blue?style=flat-square" alt="Release v1.0.3"/></a>
   <a href="https://arastuthakur.com.np/"><img src="https://img.shields.io/badge/Author-Arastu%20Thakur-38bdf8?style=flat-square" alt="Author Arastu Thakur"/></a>
   <a href="https://github.com/arastuthakur"><img src="https://img.shields.io/badge/GitHub-arastuthakur-181717?style=flat-square" alt="GitHub arastuthakur"/></a>
   <a href="https://www.linkedin.com/in/arastuthakur/"><img src="https://img.shields.io/badge/LinkedIn-Arastu%20Thakur-0A66C2?style=flat-square" alt="LinkedIn arastuthakur"/></a>

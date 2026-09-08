@@ -1,6 +1,6 @@
 ---
 project: "Model"
-total_skills: 83
+total_skills: 84
 languages: ['PowerShell', 'Shell', 'HTML', 'Python', 'JavaScript', 'Ruby', 'Java', 'C', 'Solidity']
 frameworks: ['Click CLI', 'Docker', 'Express.js', 'FastAPI', 'Jest', 'Make', 'Pydantic', 'Spring Boot', 'Uvicorn']
 generator: "skilly (deterministic LLM-free AST analyzer)"
@@ -15,11 +15,11 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | Metric | Count / Detail |
 | :--- | :--- |
 | **Architecture Health Grade** | `B` (85/100 - Grade B (85/100): 1 circular dependency cycles detected.) |
-| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (3 files), Python (35 files), JavaScript (1 files), Ruby (1 files), Java (1 files), C (1 files), Solidity (1 files) |
+| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (3 files), Python (36 files), JavaScript (1 files), Ruby (1 files), Java (1 files), C (1 files), Solidity (1 files) |
 | **Frameworks / Tooling** | Click CLI, Docker, Express.js, FastAPI, Jest, Make, Pydantic, Spring Boot, Uvicorn |
-| **Total Skills Cataloged** | `83` |
-| **Knowledge Graph Entities** | `490 nodes, 1321 edges` |
-| **Runnable Commands & Workflows** | `22` |
+| **Total Skills Cataloged** | `84` |
+| **Knowledge Graph Entities** | `500 nodes, 1348 edges` |
+| **Runnable Commands & Workflows** | `23` |
 | **API Endpoints** | `6` |
 | **Domain Services & Models** | `47` |
 
@@ -39,6 +39,7 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | **npm run start** | `CLI Command` | Run npm script 'start': `node ./bin/skilly-node.js` | `package.json:scripts.start` | `npm start` |
 | **cli: skilly** | `CLI Command` | Executable binary 'skilly' -> ./bin/skilly-node.js | `package.json:bin.skilly` | `npx skilly` |
 | **CLI: skilly** | `CLI Command` | Console script entry point: skilly_core.cli:main | `pyproject.toml:scripts.skilly` | `skilly --help` |
+| **Script: stress_test.py** | `CLI Command` | Executable project script at scripts/stress_test.py | `scripts/stress_test.py` | `python scripts/stress_test.py` |
 | **npm run dev** | `CLI Command` | Run npm script 'dev': `nodemon server.js` | `tests/fixtures/sample_node_app/package.json:scripts.dev` | `npm run dev` |
 | **make run** | `CLI Command` | Run development server | `tests/fixtures/sample_python_app/Makefile:4` | `make run` |
 | **CLI: run-server** | `CLI Command` | Launch production server instance. | `tests/fixtures/sample_python_app/main.py:25` | `run-server --help` |
@@ -69,6 +70,9 @@ npx skilly
 
 # Console script entry point: skilly_core.cli:main
 skilly --help
+
+# Executable project script at scripts/stress_test.py
+python scripts/stress_test.py
 
 # Run npm script 'dev': `nodemon server.js`
 npm run dev
@@ -568,21 +572,21 @@ The following components exhibit the highest architectural centrality (PageRank 
 
 | Rank | Component / Symbol | Type | Centrality Score | Inbound Deps | Outbound Calls | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | **`append`** | `module` | `0.009813361945858703` | `45` | `0` | Core system component |
-| #2 | **`str`** | `module` | `0.008183268676146303` | `18` | `0` | Core system component |
-| #3 | **`GraphNode`** | `module` | `0.007928874295865473` | `37` | `0` | Core system component |
-| #4 | **`Path`** | `module` | `0.007256408398346551` | `23` | `0` | Core system component |
-| #5 | **`isinstance`** | `module` | `0.007166670433871678` | `13` | `0` | Core system component |
-| #6 | **`Skill`** | `module` | `0.0070649783796048506` | `31` | `0` | Core system component |
-| #7 | **`_rel`** | `module` | `0.006660764174230255` | `27` | `0` | Core system component |
-| #8 | **`len`** | `module` | `0.006444811072369674` | `26` | `0` | Core system component |
-| #9 | **`replace`** | `module` | `0.0062378001816154735` | `12` | `0` | Core system component |
-| #10 | **`models.py`** | `file` | `0.005898589379779783` | `19` | `18` | Python source file models.py |
-| #11 | **`lower`** | `module` | `0.005572330222386585` | `24` | `0` | Core system component |
-| #12 | **`read_text`** | `module` | `0.005128676030925652` | `22` | `0` | Core system component |
-| #13 | **`round`** | `module` | `0.005095050046772739` | `2` | `0` | Core system component |
-| #14 | **`write_text`** | `module` | `0.004903229473363954` | `16` | `0` | Core system component |
-| #15 | **`ProjectAnalyzer`** | `module` | `0.004882805657066929` | `14` | `0` | Core system component |
+| #1 | **`append`** | `module` | `0.00963506747371171` | `45` | `0` | Core system component |
+| #2 | **`str`** | `module` | `0.00803447950052554` | `18` | `0` | Core system component |
+| #3 | **`GraphNode`** | `module` | `0.007782845913395049` | `37` | `0` | Core system component |
+| #4 | **`Path`** | `module` | `0.007226210793366737` | `24` | `0` | Core system component |
+| #5 | **`isinstance`** | `module` | `0.007035038772616561` | `13` | `0` | Core system component |
+| #6 | **`Skill`** | `module` | `0.006934870274874223` | `31` | `0` | Core system component |
+| #7 | **`_rel`** | `module` | `0.0065380362108529684` | `27` | `0` | Core system component |
+| #8 | **`len`** | `module` | `0.006428086103795002` | `27` | `0` | Core system component |
+| #9 | **`replace`** | `module` | `0.006124675474790066` | `12` | `0` | Core system component |
+| #10 | **`models.py`** | `file` | `0.005797881087969144` | `19` | `18` | Python source file models.py |
+| #11 | **`lower`** | `module` | `0.005470329909376007` | `24` | `0` | Core system component |
+| #12 | **`write_text`** | `module` | `0.00514250056797048` | `17` | `0` | Core system component |
+| #13 | **`read_text`** | `module` | `0.005035806402750375` | `22` | `0` | Core system component |
+| #14 | **`round`** | `module` | `0.005001631004636795` | `2` | `0` | Core system component |
+| #15 | **`ProjectAnalyzer`** | `module` | `0.004893923095984243` | `15` | `0` | Core system component |
 
 ---
 *Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [PyPI](https://pypi.org/project/skilly-ai/) • [GitHub](https://github.com/arastuthakur/skilly) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*

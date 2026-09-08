@@ -4,11 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "skilly-ai"
-version = "1.0.2"
+version = "1.0.3"
 description = "Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer."
 readme = "README.md"
 requires-python = ">=3.8"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Arastu Thakur", email = "arustuthakur@gmail.com" }]
 maintainers = [{ name = "Arastu Thakur", email = "arustuthakur@gmail.com" }]
 keywords = ["ast", "knowledge-graph", "static-analysis", "skills", "capabilities", "documentation", "cli"]

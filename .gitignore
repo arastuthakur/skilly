@@ -29,6 +29,18 @@ MANIFEST
 .pytest_cache/
 .coverage
 htmlcov/
+tests/fixtures/**/.agents/
+tests/fixtures/**/.cursor/
+tests/fixtures/**/.cursorrules
+tests/fixtures/**/.github/
+tests/fixtures/**/.clinerules
+tests/fixtures/**/.windsurfrules
+tests/fixtures/**/CLAUDE.md
+tests/fixtures/**/CODEX.md
+tests/fixtures/**/AGENTS.md
+tests/fixtures/**/GEMINI.md
+tests/fixtures/**/skills.md
+tests/fixtures/**/knowledge_graph.*
 
 # Environments
 .env

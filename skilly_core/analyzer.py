@@ -131,7 +131,7 @@ class ProjectAnalyzer:
         gitignore_patterns = self._load_gitignore() if self.config.respect_gitignore else []
         custom_ignores = set(self.config.ignore_patterns)
 
-        ALLOWED_DOT_DIRS = {".github", ".circleci", ".gitlab"}
+        ALLOWED_DOT_DIRS = {".github", ".circleci", ".gitlab", ".agents", ".claude"}
 
         for root, dirs, files in os.walk(self.target_dir):
             # Prune ignored directories in-place (preserve CI dirs like .github)

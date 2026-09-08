@@ -3,9 +3,9 @@
 > Structural and semantic topology extracted deterministically via AST and import graphs.
 
 ## 📈 Graph Metrics
-- **Total Entities (Nodes)**: `478`
-- **Total Relationships (Edges)**: `1298`
-- **Architectural Clusters**: `4`
+- **Total Entities (Nodes)**: `490`
+- **Total Relationships (Edges)**: `1321`
+- **Architectural Clusters**: `5`
 - **Circular Dependency Cycles**: `1`
 
 ### ⚠️ Circular Dependencies Detected
@@ -15,16 +15,19 @@ The following circular reference cycles were identified in the codebase:
 
 ## Architectural Clusters & Subdomains
 
-### Skilly_core Domain (`334` components)
-- **Key Components**: `ManifestExtractor._parse_package_swift`, `PolyglotExtractor._analyze_go`, `test_graph_engine_metrics_and_clusters`, `JavaScriptExtractor._extract_imports`, `submit`, `JavaScriptExtractor`, `PolyglotExtractor._analyze_java_kotlin`, `count`, `_detect_route_in_surroundings`, `ProjectAnalyzer.analyze`
-- _...and 324 more components_
+### Skilly_core Domain (`336` components)
+- **Key Components**: `ManifestExtractor._parse_gemfile`, `ManifestExtractor._parse_github_workflows`, `PythonASTExtractor.extract`, `ManifestExtractor._parse_go_mod`, `ManifestExtractor._parse_package_json`, `removesuffix`, `JavaScriptExtractor`, `submit`, `setdefault`, `split`
+- _...and 326 more components_
 
-### Tests Domain (`137` components)
-- **Key Components**: `AnalysisCache`, `get_cached`, `test_json_summary_flag`, `test_python_ast_extractor`, `SkillyConfig`, `test_manifest_extractor_package_json`, `AIInjector`, `UniversalPolyglotExtractor`, `ProjectAnalyzer.write_artifacts`, `raises`
-- _...and 127 more components_
+### Tests Domain (`138` components)
+- **Key Components**: `dumps`, `test_pep561_py_typed_exists`, `loads`, `safe_load`, `readouterr`, `test_manifest_extractor_package_json`, `GraphMarkdownGenerator`, `to_dict`, `test_ci_fail_on_cycles_cli`, `from_dict`
+- _...and 128 more components_
 
 ### Root Domain (`6` components)
-- **Key Components**: `setuptools`, `setup.py`, `start`, `test`, `skilly`, `install.sh`
+- **Key Components**: `setup.py`, `setuptools`, `start`, `test`, `skilly`, `install.sh`
+
+### .agents Domain (`9` components)
+- **Key Components**: `api-security-testing`, `application-security-testing`, `ci-security-scanning-with-strix`, `find-security-vulnerabilities-in-code`, `fix-security-vulnerabilities-with-strix`, `managed-pentesting-with-strix`, `owasp-top-10-testing`, `penetration-testing-with-strix`, `web-app-penetration-testing`
 
 ### .github Domain (`1` components)
 - **Key Components**: `generate_project_skills___knowledge_graph`
@@ -50,8 +53,8 @@ graph TD
     file_skilly_core_extractors_universal_engine_py["universal_engine.py (file)"]
     Path["Path (module)"]
     append["append (module)"]
-    len["len (module)"]
     str["str (module)"]
+    len["len (module)"]
     replace["replace (module)"]
     GraphNode["GraphNode (module)"]
     Skill["Skill (module)"]
@@ -88,28 +91,28 @@ graph TD
 
 | Rank | Symbol / Module | Type | PageRank | In-Degree | Out-Degree | Impact / Blast Radius |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | `append` | `module` | `0.0099` | `44` | `0` | Critical Choke Point |
-| #2 | `str` | `module` | `0.0084` | `18` | `0` | Critical Choke Point |
-| #3 | `GraphNode` | `module` | `0.0080` | `36` | `0` | Critical Choke Point |
-| #4 | `Path` | `module` | `0.0074` | `23` | `0` | Critical Choke Point |
-| #5 | `isinstance` | `module` | `0.0073` | `13` | `0` | Critical Choke Point |
-| #6 | `Skill` | `module` | `0.0071` | `30` | `0` | Critical Choke Point |
-| #7 | `_rel` | `module` | `0.0067` | `26` | `0` | Critical Choke Point |
-| #8 | `replace` | `module` | `0.0064` | `12` | `0` | Critical Choke Point |
-| #9 | `len` | `module` | `0.0062` | `24` | `0` | Critical Choke Point |
-| #10 | `models.py` | `file` | `0.0061` | `19` | `18` | Critical Choke Point |
-| #11 | `lower` | `module` | `0.0057` | `24` | `0` | Critical Choke Point |
-| #12 | `round` | `module` | `0.0052` | `2` | `0` | High Importance |
-| #13 | `read_text` | `module` | `0.0051` | `21` | `0` | Critical Choke Point |
-| #14 | `ProjectAnalyzer` | `module` | `0.0050` | `14` | `0` | Critical Choke Point |
-| #15 | `GraphEdge` | `module` | `0.0048` | `23` | `0` | Critical Choke Point |
+| #1 | `append` | `module` | `0.0098` | `45` | `0` | Critical Choke Point |
+| #2 | `str` | `module` | `0.0082` | `18` | `0` | Critical Choke Point |
+| #3 | `GraphNode` | `module` | `0.0079` | `37` | `0` | Critical Choke Point |
+| #4 | `Path` | `module` | `0.0073` | `23` | `0` | Critical Choke Point |
+| #5 | `isinstance` | `module` | `0.0072` | `13` | `0` | Critical Choke Point |
+| #6 | `Skill` | `module` | `0.0071` | `31` | `0` | Critical Choke Point |
+| #7 | `_rel` | `module` | `0.0067` | `27` | `0` | Critical Choke Point |
+| #8 | `len` | `module` | `0.0064` | `26` | `0` | Critical Choke Point |
+| #9 | `replace` | `module` | `0.0062` | `12` | `0` | Critical Choke Point |
+| #10 | `models.py` | `file` | `0.0059` | `19` | `18` | Critical Choke Point |
+| #11 | `lower` | `module` | `0.0056` | `24` | `0` | Critical Choke Point |
+| #12 | `read_text` | `module` | `0.0051` | `22` | `0` | Critical Choke Point |
+| #13 | `round` | `module` | `0.0051` | `2` | `0` | High Importance |
+| #14 | `write_text` | `module` | `0.0049` | `16` | `0` | Critical Choke Point |
+| #15 | `ProjectAnalyzer` | `module` | `0.0049` | `14` | `0` | Critical Choke Point |
 
 ## Relationship Types Distribution
 
 | Relationship Type | Count | Description |
 | :--- | :--- | :--- |
-| `calls` | `873` | Inter-component connection |
-| `exposes` | `255` | Inter-component connection |
+| `calls` | `893` | Inter-component connection |
+| `exposes` | `258` | Inter-component connection |
 | `imports` | `147` | Inter-component connection |
 | `inherits` | `14` | Inter-component connection |
 | `depends_on` | `9` | Inter-component connection |

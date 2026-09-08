@@ -42,6 +42,9 @@ class ManifestExtractor(BaseExtractor):
             elif (rel.startswith("scripts/") or rel.startswith("bin/") or "/scripts/" in rel or "/bin/" in rel) and (name.endswith(".sh") or name.endswith(".py") or name.endswith(".js") or name.endswith(".bash") or name.endswith(".ps1")):
                 s, n, e = self._parse_script_file(path)
                 skills.extend(s); nodes.extend(n); edges.extend(e)
+            elif name == "skill.md" or name.endswith(".skill.md"):
+                s, n, e = self._parse_skill_md(path)
+                skills.extend(s); nodes.extend(n); edges.extend(e)
             elif name == "package.json":
                 s, n, e = self._parse_package_json(path)
                 skills.extend(s); nodes.extend(n); edges.extend(e)
@@ -769,4 +772,58 @@ class ManifestExtractor(BaseExtractor):
                 description=f"Executable script: {rel_path}",
             )
         )
+        return skills, nodes, edges
+
+    def _parse_skill_md(self, path: Path) -> Tuple[List[Skill], List[GraphNode], List[GraphEdge]]:
+        skills, nodes, edges = [], [], []
+        rel_path = self._rel(path)
+        try:
+            content = path.read_text(encoding="utf-8", errors="ignore")
+            # Parse YAML frontmatter: --- ... ---
+            m = re.search(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
+            name = path.parent.name
+            description = f"Agent skill defined in {rel_path}"
+            category = SkillCategory.WORKFLOW
+            tags = ["agent-skill", "skill.md"]
+
+            if m:
+                frontmatter = m.group(1)
+                m_name = re.search(r"^name:\s*['\"]?([^'\"\n]+)['\"]?", frontmatter, re.MULTILINE)
+                if m_name:
+                    name = m_name.group(1).strip()
+                m_desc = re.search(r"^description:\s*(.+?)(?=\n[a-zA-Z0-9_-]+:|\Z)", frontmatter, re.DOTALL | re.MULTILINE)
+                if m_desc:
+                    description = re.sub(r"\s+", " ", m_desc.group(1)).strip()
+
+            skill_id = f"agent_skill:{name}"
+            # Extract first command snippet if present in markdown code block
+            code_blocks = re.findall(r"```(?:bash|sh)?\s*\n(.*?)\n```", content, re.DOTALL)
+            example_usage = f"skills use {name}"
+            if code_blocks:
+                first_cmd = code_blocks[0].strip().splitlines()[0].strip()
+                if first_cmd and not first_cmd.startswith("#") and len(first_cmd) < 100:
+                    example_usage = first_cmd
+
+            skills.append(
+                Skill(
+                    id=skill_id,
+                    name=f"Agent Skill: {name}",
+                    category=category,
+                    description=description,
+                    location=rel_path,
+                    example_usage=example_usage,
+                    tags=tags + [name],
+                )
+            )
+            nodes.append(
+                GraphNode(
+                    id=f"cmd:{skill_id}",
+                    label=name,
+                    type=NodeType.CLI,
+                    file_path=rel_path,
+                    description=description,
+                )
+            )
+        except Exception:
+            pass
         return skills, nodes, edges

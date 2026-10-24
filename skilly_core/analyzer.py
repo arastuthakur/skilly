@@ -5,8 +5,10 @@ and generates skills.md, knowledge_graph.html, knowledge_graph.json, and knowled
 Purely deterministic, zero LLM dependencies.
 """
 
+import fnmatch
 import json
 import os
+import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
@@ -45,7 +47,6 @@ DEFAULT_IGNORE_DIRS = {
     ".next",
     ".nuxt",
     "target",
-    "bin",
     "obj",
     ".idea",
     ".vscode",
@@ -173,7 +174,8 @@ class ProjectAnalyzer:
             if ext in LANGUAGE_EXTENSIONS:
                 languages[LANGUAGE_EXTENSIONS[ext]] += 1
             try:
-                lines = sum(1 for _ in open(f, "rb"))
+                with open(f, "rb") as fp:
+                    lines = sum(1 for _ in fp)
                 total_lines += lines
             except Exception:
                 pass
@@ -238,13 +240,21 @@ class ProjectAnalyzer:
         package_json = self.target_dir / "package.json"
         if pyproject_file.exists():
             try:
-                import tomllib
+                try:
+                    import tomllib
+                except ImportError:
+                    import tomli as tomllib  # type: ignore
                 pyproj_data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
                 found_name = pyproj_data.get("project", {}).get("name")
                 if found_name:
                     proj_name = found_name
             except Exception:
-                pass
+                try:
+                    m = re.search(r'name\s*=\s*["\']([^"\']+)["\']', pyproject_file.read_text(encoding="utf-8"))
+                    if m:
+                        proj_name = m.group(1)
+                except Exception:
+                    pass
         elif package_json.exists():
             try:
                 pkg_data = json.loads(package_json.read_text(encoding="utf-8"))
@@ -357,9 +367,24 @@ class ProjectAnalyzer:
 
     def _is_ignored(self, rel_path: Path, patterns: List[str]) -> bool:
         rel_str = str(rel_path).replace("\\", "/")
+        parts = rel_path.parts
         for p in patterns:
-            if p in rel_str or rel_str.startswith(p):
-                return True
+            p_clean = p.rstrip("/")
+            if p.startswith("/"):
+                p_match = p.lstrip("/")
+                if fnmatch.fnmatch(rel_str, p_match) or fnmatch.fnmatch(rel_str, f"{p_match}/*"):
+                    return True
+            elif "/" in p:
+                if (fnmatch.fnmatch(rel_str, p_clean) or
+                    fnmatch.fnmatch(rel_str, f"{p_clean}/*") or
+                    fnmatch.fnmatch(rel_str, f"*/{p_clean}/*") or
+                    fnmatch.fnmatch(rel_str, f"*/{p_clean}")):
+                    return True
+            else:
+                if any(fnmatch.fnmatch(part, p_clean) for part in parts):
+                    return True
+                if fnmatch.fnmatch(rel_str, p_clean):
+                    return True
         return False
 
     def _detect_frameworks(self, skills: List[Skill], nodes: List[GraphNode]) -> List[str]:

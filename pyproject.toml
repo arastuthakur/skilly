@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "skilly-ai"
-version = "1.0.4"
+version = "1.0.5"
 description = "Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{ name = "Arastu Thakur", email = "arustuthakur@gmail.com" }]
-maintainers = [{ name = "Arastu Thakur", email = "arustuthakur@gmail.com" }]
+authors = [{ name = "Skilly Contributors" }]
+maintainers = [{ name = "Skilly Contributors" }]
 keywords = ["ast", "knowledge-graph", "static-analysis", "skills", "capabilities", "documentation", "cli"]
 
 dependencies = [
@@ -20,11 +20,11 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://arastuthakur.com.np/"
+Homepage = "https://github.com/arastuthakur/skilly#readme"
 PyPI = "https://pypi.org/project/skilly-ai/"
 Repository = "https://github.com/arastuthakur/skilly"
 Documentation = "https://github.com/arastuthakur/skilly#readme"
-LinkedIn = "https://www.linkedin.com/in/arastuthakur/"
+Issues = "https://github.com/arastuthakur/skilly/issues"
 
 [project.optional-dependencies]
 treesitter = [

@@ -4,7 +4,7 @@
 
 FROM python:3.11-slim
 
-LABEL maintainer="Arastu Thakur <arustuthakur@gmail.com>"
+LABEL maintainer="Skilly Contributors"
 LABEL description="Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer."
 
 WORKDIR /app

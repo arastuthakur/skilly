@@ -12,10 +12,8 @@
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/v/skilly-ai?style=flat-square&color=0284c7&label=PyPI%20skilly-ai" alt="PyPI Package"/></a>
   <a href="https://www.npmjs.com/package/skilly-ai"><img src="https://img.shields.io/npm/v/skilly-ai?style=flat-square&color=cb3837&label=npm%20skilly-ai" alt="npm Package"/></a>
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/pypi/pyversions/skilly-ai?style=flat-square&color=10b981" alt="Python Versions"/></a>
-  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.4-blue?style=flat-square" alt="Release v1.0.4"/></a>
-  <a href="https://arastuthakur.com.np/"><img src="https://img.shields.io/badge/Author-Arastu%20Thakur-38bdf8?style=flat-square" alt="Author Arastu Thakur"/></a>
-  <a href="https://github.com/arastuthakur"><img src="https://img.shields.io/badge/GitHub-arastuthakur-181717?style=flat-square" alt="GitHub arastuthakur"/></a>
-  <a href="https://www.linkedin.com/in/arastuthakur/"><img src="https://img.shields.io/badge/LinkedIn-Arastu%20Thakur-0A66C2?style=flat-square" alt="LinkedIn arastuthakur"/></a>
+  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.5-blue?style=flat-square" alt="Release v1.0.5"/></a>
+  <a href="https://github.com/arastuthakur/skilly/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"/></a>
 </p>
 
 <p align="center">
@@ -85,7 +83,7 @@ skilly . --graph-only      # Generates only knowledge_graph.*
 
 The following metrics were recorded by executing all three tools directly on the same multi-language codebase:
 
-| Dimension / Metric | **Skilly** (by Arastu Thakur) | **Infigraph** (by Intuit) | **Graphifyy** |
+| Dimension / Metric | **Skilly** | **Infigraph** (by Intuit) | **Graphifyy** |
 | :--- | :--- | :--- | :--- |
 | **Measured Runtime** | **`0.14s`** (Fastest) | `1.20s` | `8.80s` (Slowest) |
 | **Underlying Architecture** | **In-Memory NetworkX DiGraph** (Pure RAM) | Embedded Kùzu Graph DB + SCIP (Rust) | AST Parser + Semantic LLM Extraction (Python) |
@@ -386,27 +384,21 @@ python scripts/stress_test.py
 
 ---
 
-## Author
+## Contributing & Community
 
-**Skilly** was conceptualized, designed, and engineered from the ground up by **Arastu Thakur**.
+Contributions to **Skilly** are welcome from developers across the community. Whether proposing performance optimizations, new polyglot language extractors, or enhanced AI assistant integrations:
 
-<table border="0">
-  <tr>
-    <td width="100" align="center" valign="middle">
-      <img src="https://github.com/arastuthakur.png" width="90" style="border-radius: 50%;" alt="Arastu Thakur"/>
-    </td>
-    <td>
-      <strong>Arastu Thakur</strong><br/>
-      <em>Data Scientist</em><br/><br/>
-      <strong>Website</strong>: <a href="https://arastuthakur.com.np/">arastuthakur.com.np</a><br/>
-      <strong>GitHub</strong>: <a href="https://github.com/arastuthakur">@arastuthakur</a><br/>
-      <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/arastuthakur/">in/arastuthakur</a><br/>
-      <strong>PyPI Package</strong>: <a href="https://pypi.org/project/skilly-ai/">skilly-ai</a><br/>
-      <strong>npm Package</strong>: <a href="https://www.npmjs.com/package/skilly-ai">skilly-ai</a><br/>
-      <strong>Email</strong>: <a href="mailto:arustuthakur@gmail.com">arustuthakur@gmail.com</a>
-    </td>
-  </tr>
-</table>
+1. Fork the repository on [GitHub](https://github.com/arastuthakur/skilly).
+2. Create a feature branch (`git checkout -b feature/my-enhancement`).
+3. Commit your changes with clear, descriptive commit messages.
+4. Run the automated test suite (`python -m pytest tests/ -v`).
+5. Open a Pull Request on GitHub.
+
+### Ecosystem Links
+- **PyPI Package**: [https://pypi.org/project/skilly-ai/](https://pypi.org/project/skilly-ai/)
+- **npm Package**: [https://www.npmjs.com/package/skilly-ai](https://www.npmjs.com/package/skilly-ai)
+- **GitHub Repository**: [https://github.com/arastuthakur/skilly](https://github.com/arastuthakur/skilly)
+- **Issue Tracker**: [https://github.com/arastuthakur/skilly/issues](https://github.com/arastuthakur/skilly/issues)
 
 ---
 

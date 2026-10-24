@@ -230,7 +230,7 @@ class PythonASTExtractor(BaseExtractor):
                     description=desc,
                     location=f"{rel_path}:{node.lineno}",
                     signature=f"class {cls_name}({', '.join(bases)}):",
-                    example_usage=f"from {rel_path.replace('/', '.').removesuffix('.py')} import {cls_name}\ninstance = {cls_name}()",
+                    example_usage=f"from {rel_path.replace('/', '.')[:-3] if rel_path.endswith('.py') else rel_path.replace('/', '.')} import {cls_name}\ninstance = {cls_name}()",
                     tags=["python", "class", "model" if is_data_model else "service"],
                     metadata={"bases": bases, "docstring": docstring},
                 )
@@ -339,7 +339,9 @@ class PythonASTExtractor(BaseExtractor):
             # Public Core Function Skill (prioritize functions with docstrings or meaningful names)
             if docstring or len(node.body) > 3 or parent_class is None:
                 category = SkillCategory.DOMAIN_SERVICE if parent_class else SkillCategory.CORE_FUNCTION
-                module_import = rel_path.replace("/", ".").removesuffix(".py")
+                module_import = rel_path.replace("/", ".")
+                if module_import.endswith(".py"):
+                    module_import = module_import[:-3]
                 skills.append(
                     Skill(
                         id=f"skill:{fn_node_id}",
@@ -401,7 +403,7 @@ class PythonASTExtractor(BaseExtractor):
                     method = "GET"  # default Flask
                     for kw in dec.keywords:
                         if kw.arg == "methods" and isinstance(kw.value, (ast.List, ast.Tuple)):
-                            methods_list = [ast.literal_eval(elt) for elt in kw.value.elts if isinstance(elt, ast.Constant)]
+                            methods_list = [str(elt.value).upper() for elt in kw.value.elts if isinstance(elt, ast.Constant) and isinstance(elt.value, str)]
                             if methods_list:
                                 method = "/".join(methods_list)
 
@@ -409,6 +411,11 @@ class PythonASTExtractor(BaseExtractor):
                     route_path = "/"
                     if dec.args and isinstance(dec.args[0], ast.Constant) and isinstance(dec.args[0].value, str):
                         route_path = dec.args[0].value
+                    else:
+                        for kw in dec.keywords:
+                            if kw.arg in ("path", "rule") and isinstance(kw.value, ast.Constant) and isinstance(kw.value.value, str):
+                                route_path = kw.value.value
+                                break
                     return {"method": method, "path": route_path, "summary": f"{method} {route_path}"}
         return None
 

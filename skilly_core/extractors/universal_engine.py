@@ -174,14 +174,15 @@ class UniversalPolyglotExtractor(BaseExtractor):
         def get_text(node: Any) -> str:
             return content_bytes[node.start_byte:node.end_byte].decode("utf-8", errors="ignore").strip()
 
+        all_lines = content.splitlines()
+
         # Find comments preceding line
         def get_preceding_comment(line_idx: int) -> str:
-            lines = content.splitlines()
             comments = []
             for idx in range(line_idx - 2, -1, -1):
-                if idx >= len(lines):
+                if idx >= len(all_lines):
                     continue
-                l = lines[idx].strip()
+                l = all_lines[idx].strip()
                 if l.startswith("//") or l.startswith("#") or l.startswith("*") or l.startswith("/*"):
                     cleaned = re.sub(r"^[/\\*#]+\s*", "", l).rstrip("*/").strip()
                     if cleaned and not cleaned.startswith("@"):

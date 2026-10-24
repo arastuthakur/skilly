@@ -23,7 +23,7 @@ class SkillyConfig:
     # File discovery
     ignore_patterns: List[str] = field(default_factory=lambda: [
         ".git", ".svn", ".hg", "node_modules", "venv", ".venv", "env",
-        "__pycache__", ".pytest_cache", "dist", "build", "target", "bin",
+        "__pycache__", ".pytest_cache", "dist", "build", "target",
         ".next", ".nuxt", "coverage", ".turbo", ".cache", "vendor", "fixtures"
     ])
     max_file_size_kb: int = 1500  # Skip files larger than 1.5MB to avoid memory spikes

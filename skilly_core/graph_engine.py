@@ -60,7 +60,12 @@ class KnowledgeGraphEngine:
 
             if edge.target not in self.nodes_by_id:
                 target_type = NodeType.DEPENDENCY if edge.target.startswith("dep:") else NodeType.MODULE
-                target_label = edge.target.removeprefix("dep:").removeprefix("class:").split("/")[-1]
+                target_label = edge.target
+                if target_label.startswith("dep:"):
+                    target_label = target_label[4:]
+                if target_label.startswith("class:"):
+                    target_label = target_label[6:]
+                target_label = target_label.replace("\\", "/").split("/")[-1]
                 placeholder = GraphNode(id=edge.target, label=target_label, type=target_type)
                 self.nodes_by_id[edge.target] = placeholder
                 self.graph.add_node(edge.target, label=placeholder.label, type=str(placeholder.type))
@@ -120,7 +125,8 @@ class KnowledgeGraphEngine:
                 if paths:
                     dir_counts = defaultdict(int)
                     for p in paths:
-                        first_dir = p.split("/")[0] if "/" in p else "root"
+                        norm_p = p.replace("\\", "/")
+                        first_dir = norm_p.split("/")[0] if "/" in norm_p else "root"
                         dir_counts[first_dir] += 1
                     top_dir = max(dir_counts.items(), key=lambda x: x[1])[0]
                     comm_name = f"{top_dir.capitalize()} Domain"
@@ -133,7 +139,8 @@ class KnowledgeGraphEngine:
         # Fallback: cluster by top-level directory or node category
         for nid, node in self.nodes_by_id.items():
             if node.file_path:
-                first_dir = node.file_path.split("/")[0] if "/" in node.file_path else "core"
+                norm_fp = node.file_path.replace("\\", "/")
+                first_dir = norm_fp.split("/")[0] if "/" in norm_fp else "core"
                 clusters[f"{first_dir.capitalize()} Module"].append(nid)
             elif node.type == NodeType.DEPENDENCY:
                 clusters["External Dependencies"].append(nid)

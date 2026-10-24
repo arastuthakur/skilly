@@ -54,7 +54,7 @@ class ManifestExtractor(BaseExtractor):
             elif name == "setup.py" or name == "setup.cfg":
                 s, n, e = self._parse_setup_py(path)
                 skills.extend(s); nodes.extend(n); edges.extend(e)
-            elif name in ("requirements.txt", "requirements-dev.txt"):
+            elif name.startswith("requirements") and (name.endswith(".txt") or name.endswith(".in")):
                 s, n, e = self._parse_requirements_txt(path)
                 skills.extend(s); nodes.extend(n); edges.extend(e)
             elif name in ("makefile", "gnumakefile"):
@@ -599,13 +599,36 @@ class ManifestExtractor(BaseExtractor):
         return skills, nodes, edges
 
     def _simple_toml_parse(self, content: str) -> Dict[str, Any]:
-        """Fallback naive parser when tomllib is unavailable."""
+        """Fallback parser when tomllib and tomli are unavailable."""
         result: Dict[str, Any] = {}
         current_section = result
+        in_multiline_list = False
+        multiline_list_key = ""
+        multiline_list_acc: List[str] = []
+
         for line in content.splitlines():
             line = line.strip()
             if not line or line.startswith("#"):
                 continue
+
+            if in_multiline_list:
+                if "]" in line:
+                    before_bracket = line.split("]")[0]
+                    for item in before_bracket.split(","):
+                        clean_item = item.strip().strip('"').strip("'")
+                        if clean_item:
+                            multiline_list_acc.append(clean_item)
+                    current_section[multiline_list_key] = multiline_list_acc
+                    in_multiline_list = False
+                    multiline_list_key = ""
+                    multiline_list_acc = []
+                else:
+                    for item in line.split(","):
+                        clean_item = item.strip().strip('"').strip("'")
+                        if clean_item:
+                            multiline_list_acc.append(clean_item)
+                continue
+
             if line.startswith("[") and line.endswith("]"):
                 sec_name = line[1:-1].strip()
                 parts = sec_name.split(".")
@@ -615,7 +638,23 @@ class ManifestExtractor(BaseExtractor):
                 current_section = curr
             elif "=" in line:
                 k, _, v = line.partition("=")
-                current_section[k.strip()] = v.strip().strip('"').strip("'")
+                key = k.strip()
+                val_str = v.strip()
+                if val_str.startswith("[") and val_str.endswith("]"):
+                    items = [it.strip().strip('"').strip("'") for it in val_str[1:-1].split(",") if it.strip().strip('"').strip("'")]
+                    current_section[key] = items
+                elif val_str.startswith("["):
+                    in_multiline_list = True
+                    multiline_list_key = key
+                    multiline_list_acc = []
+                    inside = val_str[1:].strip()
+                    if inside:
+                        for item in inside.split(","):
+                            clean_item = item.strip().strip('"').strip("'")
+                            if clean_item:
+                                multiline_list_acc.append(clean_item)
+                else:
+                    current_section[key] = val_str.strip('"').strip("'")
         return result
 
     def _parse_pom_xml(self, path: Path) -> Tuple[List[Skill], List[GraphNode], List[GraphEdge]]:

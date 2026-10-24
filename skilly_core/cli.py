@@ -43,15 +43,15 @@ except ImportError:
 def print_banner():
     if HAVE_RICH:
         banner = (
-            "[bold cyan]>> Skilly[/bold cyan] [dim]v" + __version__ + "[/dim] [dim]by [bold white]Arastu Thakur[/bold white] (https://arastuthakur.com.np/)[/dim]\n"
+            "[bold cyan]>> Skilly[/bold cyan] [dim]v" + __version__ + "[/dim]\n"
             "[italic white]Autonomous LLM-free Codebase to Skills.md & Knowledge Graph Synthesizer[/italic white]"
         )
         try:
             console.print(Panel(banner, border_style="cyan", padding=(0, 2)))
         except Exception:
-            print(f">> Skilly v{__version__} by Arastu Thakur (https://arastuthakur.com.np/)")
+            print(f">> Skilly v{__version__}")
     else:
-        print(f"=== Skilly v{__version__} by Arastu Thakur (https://arastuthakur.com.np/) ===")
+        print(f"=== Skilly v{__version__} ===")
         print("Autonomous LLM-free Codebase to Skills.md & Knowledge Graph Synthesizer\n")
 
 
@@ -257,7 +257,7 @@ def main(args: Optional[list] = None):
                 for tool_name, path in ai_artifacts.items():
                     console.print(f"  * [bold white]{tool_name}[/bold white] -> [dim]{path}[/dim]")
 
-            console.print("\n[dim]Synthesized by Skilly • [bold white]Arastu Thakur[/bold white] (https://arastuthakur.com.np/)[/dim]")
+            console.print("\n[dim]Synthesized by Skilly[/dim]")
         else:
             print("\nAnalysis Summary:")
             print(f"- Files Scanned: {summary.total_files}")
@@ -270,7 +270,7 @@ def main(args: Optional[list] = None):
                 print("\nInjected AI Assistant Instructions:")
                 for tool_name, path in ai_artifacts.items():
                     print(f"  * {tool_name} -> {path}")
-            print("\nSynthesized by Skilly • Arastu Thakur (https://arastuthakur.com.np/)")
+            print("\nSynthesized by Skilly")
 
     # Output JSON summary if requested (e.g. for CI pipelines or scripts)
     if parsed_args.json_summary:

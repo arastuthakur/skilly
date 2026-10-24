@@ -1,6 +1,6 @@
 {
   "name": "skilly-ai",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer.",
   "main": "bin/skilly-node.js",
   "bin": {
@@ -9,7 +9,8 @@
   },
   "files": [
     "bin/",
-    "skilly_core/",
+    "skilly_core/**/*.py",
+    "skilly_core/py.typed",
     "skilly.py",
     "README.md",
     "LICENSE"
@@ -27,11 +28,7 @@
     "capabilities",
     "polyglot"
   ],
-  "author": {
-    "name": "Arastu Thakur",
-    "url": "https://arastuthakur.com.np/",
-    "email": "arustuthakur@gmail.com"
-  },
+  "author": "Skilly Contributors",
   "repository": {
     "type": "git",
     "url": "https://github.com/arastuthakur/skilly.git"
@@ -39,6 +36,6 @@
   "bugs": {
     "url": "https://github.com/arastuthakur/skilly/issues"
   },
-  "homepage": "https://arastuthakur.com.np/",
+  "homepage": "https://github.com/arastuthakur/skilly#readme",
   "license": "MIT"
 }

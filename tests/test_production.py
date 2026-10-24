@@ -157,3 +157,51 @@ jobs:
         assert "workflow:build_and_test" in skill_ids
         assert "script:release_sh" in skill_ids
 
+def test_gitignore_no_false_positive_substring_match():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        gi = tmp_path / ".gitignore"
+        gi.write_text("out\nbin/\n*.log\n", encoding="utf-8")
+
+        # Files that should NOT be ignored (they contain substrings 'out' or 'bin')
+        (tmp_path / "router.py").write_text("x = 1\n", encoding="utf-8")
+        (tmp_path / "combine.py").write_text("y = 2\n", encoding="utf-8")
+
+        # Files that SHOULD be ignored
+        out_dir = tmp_path / "out"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "bundle.js").write_text("console.log(1);\n", encoding="utf-8")
+        (tmp_path / "debug.log").write_text("error\n", encoding="utf-8")
+
+        analyzer = ProjectAnalyzer(tmp_path)
+        scanned = analyzer.scan_files()
+        scanned_names = [f.name for f in scanned]
+
+        assert "router.py" in scanned_names
+        assert "combine.py" in scanned_names
+        assert "bundle.js" not in scanned_names
+        assert "debug.log" not in scanned_names
+
+def test_simple_toml_parse_multiline_lists():
+    from skilly_core.extractors.manifest_extractor import ManifestExtractor
+    extractor = ManifestExtractor(Path("."))
+    content = """
+    [project]
+    name = "test-pkg"
+    dependencies = [
+        "fastapi>=0.100.0",
+        "uvicorn>=0.20.0",
+    ]
+
+    [project.scripts]
+    my-cli = "pkg.cli:main"
+    """
+    parsed = extractor._simple_toml_parse(content)
+    assert parsed.get("project", {}).get("name") == "test-pkg"
+    deps = parsed.get("project", {}).get("dependencies")
+    assert isinstance(deps, list)
+    assert "fastapi>=0.100.0" in deps
+    assert "uvicorn>=0.20.0" in deps
+    assert parsed.get("project", {}).get("scripts", {}).get("my-cli") == "pkg.cli:main"
+
+

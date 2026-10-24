@@ -1,7 +1,7 @@
 ---
 project: "skilly-ai"
-total_skills: 55
-languages: ['PowerShell', 'Shell', 'HTML', 'Python']
+total_skills: 57
+languages: ['PowerShell', 'Shell', 'HTML', 'Python', 'JavaScript']
 frameworks: ['Docker']
 generator: "skilly (deterministic LLM-free AST analyzer)"
 ---
@@ -15,11 +15,11 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | Metric | Count / Detail |
 | :--- | :--- |
 | **Architecture Health Grade** | `A+` (100/100 - Grade A+ (100/100): Acyclic architecture with high integrity.) |
-| **Primary Languages** | PowerShell (1 files), Shell (1 files), HTML (1 files), Python (31 files) |
+| **Primary Languages** | PowerShell (2 files), Shell (1 files), HTML (1 files), Python (31 files), JavaScript (1 files) |
 | **Frameworks / Tooling** | Docker |
-| **Total Skills Cataloged** | `55` |
-| **Knowledge Graph Entities** | `432 nodes, 1293 edges` |
-| **Runnable Commands & Workflows** | `9` |
+| **Total Skills Cataloged** | `57` |
+| **Knowledge Graph Entities** | `439 nodes, 1319 edges` |
+| **Runnable Commands & Workflows** | `11` |
 | **API Endpoints** | `0` |
 | **Domain Services & Models** | `43` |
 
@@ -40,6 +40,8 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | **cli: skilly** | `CLI Command` | Executable binary 'skilly' -> ./bin/skilly-node.js | `package.json:bin.skilly` | `npx skilly` |
 | **cli: skilly-ai** | `CLI Command` | Executable binary 'skilly-ai' -> ./bin/skilly-node.js | `package.json:bin.skilly-ai` | `npx skilly-ai` |
 | **CLI: skilly** | `CLI Command` | Console script entry point: skilly_core.cli:main | `pyproject.toml:scripts.skilly` | `skilly --help` |
+| **Script: skilly-node.js** | `CLI Command` | Executable project script at bin/skilly-node.js | `bin/skilly-node.js` | `node bin/skilly-node.js` |
+| **Script: skilly.ps1** | `CLI Command` | Executable project script at bin/skilly.ps1 | `bin/skilly.ps1` | `./bin/skilly.ps1` |
 | **Script: stress_test.py** | `CLI Command` | Executable project script at scripts/stress_test.py | `scripts/stress_test.py` | `python scripts/stress_test.py` |
 | **docker compose up** | `Workflow` | Start containerized services defined in docker-compose | `docker-compose.yml` | `docker compose up -d` |
 | **docker build** | `Workflow` | Build Docker container image from Dockerfile | `Dockerfile` | `docker build -t app .` |
@@ -59,6 +61,12 @@ npx skilly-ai
 
 # Console script entry point: skilly_core.cli:main
 skilly --help
+
+# Executable project script at bin/skilly-node.js
+node bin/skilly-node.js
+
+# Executable project script at bin/skilly.ps1
+./bin/skilly.ps1
 
 # Executable project script at scripts/stress_test.py
 python scripts/stress_test.py
@@ -85,7 +93,7 @@ _No REST, GraphQL, or HTTP endpoint handlers detected._
 
 ### `ProjectAnalyzer`
 - **Role**: Orchestrates whole-project capability extraction and knowledge graph synthesis.
-- **Location**: [`skilly_core/analyzer.py:119`](skilly_core/analyzer.py:119)
+- **Location**: [`skilly_core/analyzer.py:120`](skilly_core/analyzer.py:120)
 - **Signature**: `class ProjectAnalyzer():`
 ```python
 from skilly_core.analyzer import ProjectAnalyzer
@@ -94,7 +102,7 @@ instance = ProjectAnalyzer()
 
 ### `ProjectAnalyzer.scan_files`
 - **Role**: Walks the directory and collects all relevant source and manifest files.
-- **Location**: [`skilly_core/analyzer.py:129`](skilly_core/analyzer.py:129)
+- **Location**: [`skilly_core/analyzer.py:130`](skilly_core/analyzer.py:130)
 - **Signature**: `def scan_files() -> List[Path]`
 ```python
 from skilly_core.analyzer import scan_files
@@ -103,7 +111,7 @@ result = scan_files(...)
 
 ### `ProjectAnalyzer.analyze`
 - **Role**: Runs all extractors and graph algorithms to produce ProjectAnalysisResult.
-- **Location**: [`skilly_core/analyzer.py:163`](skilly_core/analyzer.py:163)
+- **Location**: [`skilly_core/analyzer.py:164`](skilly_core/analyzer.py:164)
 - **Signature**: `def analyze() -> ProjectAnalysisResult`
 ```python
 from skilly_core.analyzer import analyze
@@ -112,7 +120,7 @@ result = analyze(...)
 
 ### `ProjectAnalyzer.write_artifacts`
 - **Role**: Generates and writes artifacts selectively to the output directory.
-- **Location**: [`skilly_core/analyzer.py:280`](skilly_core/analyzer.py:280)
+- **Location**: [`skilly_core/analyzer.py:290`](skilly_core/analyzer.py:290)
 - **Signature**: `def write_artifacts(result: ProjectAnalysisResult, output_dir: Optional[Path | str], skills_file: str, graph_html_file: str, graph_json_file: str, graph_md_file: str, include_skills: bool, include_graph: bool, inject_ai: Optional[bool]) -> Dict[str, Path]`
 ```python
 from skilly_core.analyzer import write_artifacts
@@ -184,7 +192,7 @@ result = build_graph(...)
 
 ### `KnowledgeGraphEngine.compute_health_report`
 - **Role**: Computes architectural health, acyclic integrity, and documentation quality.
-- **Location**: [`skilly_core/graph_engine.py:173`](skilly_core/graph_engine.py:173)
+- **Location**: [`skilly_core/graph_engine.py:180`](skilly_core/graph_engine.py:180)
 - **Signature**: `def compute_health_report(skills: list, clusters: dict, cycles: list)`
 ```python
 from skilly_core.graph_engine import compute_health_report
@@ -463,21 +471,21 @@ The following components exhibit the highest architectural centrality (PageRank 
 
 | Rank | Component / Symbol | Type | Centrality Score | Inbound Deps | Outbound Calls | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| #1 | **`append`** | `module` | `0.011058450682381288` | `45` | `0` | Core system component |
-| #2 | **`str`** | `module` | `0.009165362040271543` | `17` | `0` | Core system component |
-| #3 | **`GraphNode`** | `module` | `0.008932726557061836` | `37` | `0` | Core system component |
-| #4 | **`Path`** | `module` | `0.008293873756697162` | `24` | `0` | Core system component |
-| #5 | **`isinstance`** | `module` | `0.008073833828348585` | `13` | `0` | Core system component |
-| #6 | **`Skill`** | `module` | `0.007959506441723269` | `31` | `0` | Core system component |
-| #7 | **`_rel`** | `module` | `0.007504067881836769` | `27` | `0` | Core system component |
-| #8 | **`len`** | `module` | `0.0073725324611232474` | `27` | `0` | Core system component |
-| #9 | **`replace`** | `module` | `0.007029417877267969` | `12` | `0` | Core system component |
-| #10 | **`models.py`** | `file` | `0.006654514801840083` | `19` | `18` | Python source file models.py |
-| #11 | **`lower`** | `module` | `0.006273492941243077` | `24` | `0` | Core system component |
-| #12 | **`write_text`** | `module` | `0.005902366657838352` | `17` | `0` | Core system component |
-| #13 | **`read_text`** | `module` | `0.0058302846869310344` | `23` | `0` | Core system component |
-| #14 | **`round`** | `module` | `0.005739694329807803` | `2` | `0` | Core system component |
-| #15 | **`ProjectAnalyzer`** | `module` | `0.005617045881117735` | `15` | `0` | Core system component |
+| #1 | **`append`** | `module` | `0.011054333819702859` | `46` | `0` | Core system component |
+| #2 | **`str`** | `module` | `0.009019411590118903` | `18` | `0` | Core system component |
+| #3 | **`GraphNode`** | `module` | `0.008795390917371162` | `37` | `0` | Core system component |
+| #4 | **`Path`** | `module` | `0.008675873488370843` | `26` | `0` | Core system component |
+| #5 | **`isinstance`** | `module` | `0.008235111122571071` | `14` | `0` | Core system component |
+| #6 | **`Skill`** | `module` | `0.007837115262139357` | `31` | `0` | Core system component |
+| #7 | **`_rel`** | `module` | `0.007388871485420471` | `27` | `0` | Core system component |
+| #8 | **`len`** | `module` | `0.007254692511459103` | `27` | `0` | Core system component |
+| #9 | **`replace`** | `module` | `0.006843492599189309` | `14` | `0` | Core system component |
+| #10 | **`models.py`** | `file` | `0.006536455090654138` | `19` | `18` | Python source file models.py |
+| #11 | **`lower`** | `module` | `0.0061730858416393945` | `24` | `0` | Core system component |
+| #12 | **`write_text`** | `module` | `0.0060427782211728955` | `18` | `0` | Core system component |
+| #13 | **`ProjectAnalyzer`** | `module` | `0.005764351535772927` | `16` | `0` | Core system component |
+| #14 | **`read_text`** | `module` | `0.005736535214882521` | `23` | `0` | Core system component |
+| #15 | **`round`** | `module` | `0.005650162391174477` | `2` | `0` | Core system component |
 
 ---
-*Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • Created by [Arastu Thakur](https://arastuthakur.com.np/) • [PyPI](https://pypi.org/project/skilly-ai/) • [GitHub](https://github.com/arastuthakur/skilly) • [LinkedIn](https://www.linkedin.com/in/arastuthakur/)*
+*Generated autonomously by **Skilly** (Zero-LLM Architecture Synthesizer) • [PyPI](https://pypi.org/project/skilly-ai/) • [GitHub](https://github.com/arastuthakur/skilly)*

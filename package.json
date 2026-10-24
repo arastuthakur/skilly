@@ -4,8 +4,8 @@
   "description": "Autonomous LLM-free project capability analyzer and interactive knowledge graph synthesizer.",
   "main": "bin/skilly-node.js",
   "bin": {
-    "skilly": "./bin/skilly-node.js",
-    "skilly-ai": "./bin/skilly-node.js"
+    "skilly": "bin/skilly-node.js",
+    "skilly-ai": "bin/skilly-node.js"
   },
   "files": [
     "bin/",
@@ -31,7 +31,7 @@
   "author": "Skilly Contributors",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arastuthakur/skilly.git"
+    "url": "git+https://github.com/arastuthakur/skilly.git"
   },
   "bugs": {
     "url": "https://github.com/arastuthakur/skilly/issues"

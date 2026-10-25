@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/badge/PyPI-v1.0.5-0284c7?style=flat-square&logo=pypi&logoColor=white" alt="PyPI Package"/></a>
-  <a href="https://www.npmjs.com/package/skilly-ai"><img src="https://img.shields.io/badge/npm-v1.0.5-cb3837?style=flat-square&logo=npm&logoColor=white" alt="npm Package"/></a>
+  <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/badge/PyPI-v1.0.6-0284c7?style=flat-square&logo=pypi&logoColor=white" alt="PyPI Package"/></a>
+  <a href="https://www.npmjs.com/package/skilly-ai"><img src="https://img.shields.io/badge/npm-v1.0.6-cb3837?style=flat-square&logo=npm&logoColor=white" alt="npm Package"/></a>
   <a href="https://pypi.org/project/skilly-ai/"><img src="https://img.shields.io/badge/Python-≥3.9-10b981?style=flat-square&logo=python&logoColor=white" alt="Python Versions"/></a>
-  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.5-blue?style=flat-square" alt="Release v1.0.5"/></a>
+  <a href="https://github.com/arastuthakur/skilly"><img src="https://img.shields.io/badge/Release-v1.0.6-blue?style=flat-square" alt="Release v1.0.6"/></a>
   <a href="https://github.com/arastuthakur/skilly/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"/></a>
 </p>
 

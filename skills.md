@@ -37,8 +37,8 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 | Command / Skill | Type | Description | Location | Usage Example |
 | :--- | :--- | :--- | :--- | :--- |
 | **npm run start** | `CLI Command` | Run npm script 'start': `node ./bin/skilly-node.js` | `package.json:scripts.start` | `npm start` |
-| **cli: skilly** | `CLI Command` | Executable binary 'skilly' -> ./bin/skilly-node.js | `package.json:bin.skilly` | `npx skilly` |
-| **cli: skilly-ai** | `CLI Command` | Executable binary 'skilly-ai' -> ./bin/skilly-node.js | `package.json:bin.skilly-ai` | `npx skilly-ai` |
+| **cli: skilly** | `CLI Command` | Executable binary 'skilly' -> bin/skilly-node.js | `package.json:bin.skilly` | `npx skilly` |
+| **cli: skilly-ai** | `CLI Command` | Executable binary 'skilly-ai' -> bin/skilly-node.js | `package.json:bin.skilly-ai` | `npx skilly-ai` |
 | **CLI: skilly** | `CLI Command` | Console script entry point: skilly_core.cli:main | `pyproject.toml:scripts.skilly` | `skilly --help` |
 | **Script: skilly-node.js** | `CLI Command` | Executable project script at bin/skilly-node.js | `bin/skilly-node.js` | `node bin/skilly-node.js` |
 | **Script: skilly.ps1** | `CLI Command` | Executable project script at bin/skilly.ps1 | `bin/skilly.ps1` | `./bin/skilly.ps1` |
@@ -53,10 +53,10 @@ generator: "skilly (deterministic LLM-free AST analyzer)"
 # Run npm script 'start': `node ./bin/skilly-node.js`
 npm start
 
-# Executable binary 'skilly' -> ./bin/skilly-node.js
+# Executable binary 'skilly' -> bin/skilly-node.js
 npx skilly
 
-# Executable binary 'skilly-ai' -> ./bin/skilly-node.js
+# Executable binary 'skilly-ai' -> bin/skilly-node.js
 npx skilly-ai
 
 # Console script entry point: skilly_core.cli:main

@@ -13,18 +13,18 @@
 ## Architectural Clusters & Subdomains
 
 ### Skilly_core Domain (`347` components)
-- **Key Components**: `start`, `submit`, `ProjectAnalyzer.analyze`, `ManifestExtractor._parse_pubspec`, `_rel`, `PythonASTExtractor.extract`, `ManifestExtractor._parse_requirements_txt`, `sub`, `ManifestExtractor._parse_docker`, `ManifestExtractor._parse_go_mod`
+- **Key Components**: `ManifestExtractor._parse_build_gradle`, `PolyglotExtractor._analyze_java_kotlin`, `get_preceding_comment`, `ProjectAnalyzer._load_gitignore`, `_detect_cli_command`, `append`, `ManifestExtractor._parse_cargo_toml`, `compile`, `_detect_route_in_surroundings`, `PythonASTExtractor.extract`
 - _...and 337 more components_
 
 ### Tests Domain (`78` components)
-- **Key Components**: `ProjectAnalyzer.write_artifacts`, `get_cached`, `dumps`, `test_simple_toml_parse_multiline_lists`, `test_analyzer_write_artifacts_respects_no_inject`, `test_python_relative_and_package_imports`, `run_stress_test`, `test_framework_detection_no_false_positives`, `GraphMarkdownGenerator`, `test_ai_injector_preserves_existing_user_content`
+- **Key Components**: `get_traced_memory`, `inject_all`, `ProjectAnalyzer._is_ignored`, `escape`, `AIInjector._inject_file`, `write_text`, `dumps`, `test_python_ast_extractor`, `exists`, `write_artifacts`
 - _...and 68 more components_
 
 ### Bin Domain (`6` components)
-- **Key Components**: `fs`, `bin/skilly-node.js`, `path`, `child_process`, `skilly-node_js`, `skilly_ps1`
+- **Key Components**: `fs`, `path`, `bin/skilly-node.js`, `child_process`, `skilly-node_js`, `skilly_ps1`
 
 ### Root Domain (`6` components)
-- **Key Components**: `setup.py`, `setuptools`, `start`, `test`, `skilly`, `install.sh`
+- **Key Components**: `setuptools`, `setup.py`, `start`, `test`, `skilly`, `install.sh`
 
 ### .github Domain (`1` components)
 - **Key Components**: `generate_project_skills___knowledge_graph`
@@ -51,11 +51,11 @@ graph TD
     file_skilly_core_extractors_manifest_extractor_py["manifest_extractor.py (file)"]
     file_skilly_core_extractors_polyglot_extractor_py["polyglot_extractor.py (file)"]
     file_skilly_core_extractors_python_extractor_py["python_extractor.py (file)"]
-    Path["Path (module)"]
     len["len (module)"]
+    Path["Path (module)"]
     append["append (module)"]
-    str["str (module)"]
     replace["replace (module)"]
+    str["str (module)"]
     Skill["Skill (module)"]
     GraphNode["GraphNode (module)"]
     isinstance["isinstance (module)"]
